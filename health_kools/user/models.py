@@ -83,6 +83,25 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    def add_account_type_service(self, account_type_service):
+        return self.accounts_types_services.add(*[account_type_service.id])
+
+    def to_dict(self, get_accounts_types_services=False):
+        res = {
+            "email": self.email,
+            "email_is_valid": self.email_is_valid,
+            "first_name": self.first_name,
+            "id": self.id,
+            "is_active": self.is_active,
+            "last_name": self.last_name,
+            "phone": self.phone,
+            "phone_is_valid": self.phone_is_valid,
+            "username": self.username,
+        }
+        if get_accounts_types_services:
+            res["accounts_types_services"] = [account_type_service.to_dict() for account_type_service in self.accounts_types_services.filter()]
+        return res
+
 
 class UserAccountTypeService(models.Model):
     """
@@ -97,18 +116,3 @@ class UserAccountTypeService(models.Model):
 
     def __str__(self):
         return self.user.__str__() + "_" + self.account_type_service.__str__()
-
-    def to_dict(self):
-        res = {
-            "email": self.email,
-            "email_is_valid": self.email_is_valid,
-            "first_name": self.first_name,
-            "id": self.id,
-            "is_active": self.is_active,
-            "is_staff": self.is_staff,
-            "last_name": self.last_name,
-            "phone": self.phone,
-            "phone_is_valid": self.phone_is_valid,
-            "username": self.username,
-        }
-        return res
