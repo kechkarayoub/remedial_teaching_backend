@@ -18,9 +18,15 @@ class LoginTokenView(APIView):
         try:
             user = User.objects.get(username=username)
         except:
-            raise AuthenticationFailed(_('User not found!'))
+            return JsonResponse({
+                'success': False,
+                'message': _('User not found!'),
+            })
         if not user.check_password(password):
-            raise AuthenticationFailed(_('Password incorrect!'))
+            return JsonResponse({
+                'success': False,
+                'message': _('Password incorrect!'),
+            })
         token, created = Token.objects.get_or_create(user=user)
         response = JsonResponse({
             'success': True,
