@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-15 21:50+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: admin.py:41
+msgid "Added fields"
+msgstr "الحقول المضافة"
+
+#: models.py:15
+msgid "Account type service"
+msgstr ""
+
+#: models.py:16
+msgid "Accounts types services"
+msgstr ""
+
+#: models.py:19 models.py:27
+msgid "Assistant"
+msgstr ""
+
+#: models.py:20 models.py:28
+msgid "Doctor"
+msgstr ""
+
+#: models.py:21 models.py:29 tests.py:24 tests.py:35
+msgid "Director"
+msgstr ""
+
+#: models.py:22 models.py:30
+msgid "Patient"
+msgstr ""
+
+#: models.py:23 models.py:31
+msgid "Technician"
+msgstr ""
+
+#: models.py:24 models.py:32 models.py:37 models.py:42 tests.py:15 tests.py:23
+msgid "Other"
+msgstr ""
+
+#: models.py:35 models.py:40 tests.py:16 tests.py:33
+msgid "Hospital"
+msgstr ""
+
+#: models.py:36 models.py:41
+msgid "Laboratory"
+msgstr ""
+
+#: models.py:45
+msgid "Type"
+msgstr ""
+
+#: models.py:46
+msgid "Service"
+msgstr ""
+
+#: models.py:77
+msgid "User"
+msgstr "المستخدم"
+
+#: models.py:78
+msgid "Users"
+msgstr "المستخدمين"
+
+#: models.py:81 models.py:86 tests.py:70
+msgid "Arabic"
+msgstr ""
+
+#: models.py:82 models.py:87
+msgid "English"
+msgstr ""
+
+#: models.py:83 models.py:88 tests.py:69 tests.py:105
+msgid "French"
+msgstr ""
+
+#: models.py:92
+msgid "Email is valid"
+msgstr ""
+
+#: models.py:93
+msgid "Language"
+msgstr ""
+
+#: models.py:94
+msgid "Phone number"
+msgstr ""
+
+#: models.py:95
+msgid "Phone address"
+msgstr ""
+
+#: models.py:138
+msgid "User account type service"
+msgstr ""
+
+#: models.py:139
+msgid "Users accounts types services"
+msgstr ""
+
+#: tests.py:139 views.py:24
+msgid "User not found!"
+msgstr ""
+
+#: tests.py:142 views.py:29
+msgid "Password incorrect!"
+msgstr "كلمة المرور خاطئة"
