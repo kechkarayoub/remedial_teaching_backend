@@ -92,7 +92,7 @@ class User(AbstractUser):
     email_is_valid = models.BooleanField(_('Email is valid'), default=False)
     language = models.CharField(_('Language'), choices=LANGUAGES, default="fr", max_length=255)
     phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
-    phone_is_valid = models.BooleanField(_('Phone address'), default=False)
+    phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
 
     REQUIRED_FIELDS = []
 

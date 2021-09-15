@@ -20,104 +20,100 @@ msgstr ""
 
 #: admin.py:41
 msgid "Added fields"
-msgstr ""
+msgstr "Added fields"
 
 #: models.py:15
 msgid "Account type service"
-msgstr ""
+msgstr "Account type service"
 
 #: models.py:16
 msgid "Accounts types services"
-msgstr ""
+msgstr "Accounts types services"
 
 #: models.py:19 models.py:27
 msgid "Assistant"
-msgstr ""
+msgstr "Assistant"
 
 #: models.py:20 models.py:28
 msgid "Doctor"
-msgstr ""
+msgstr "Doctor"
 
 #: models.py:21 models.py:29 tests.py:24 tests.py:35
 msgid "Director"
-msgstr ""
+msgstr "Director"
 
 #: models.py:22 models.py:30
 msgid "Patient"
-msgstr ""
+msgstr "Patient"
 
 #: models.py:23 models.py:31
 msgid "Technician"
-msgstr ""
+msgstr "Technician"
 
 #: models.py:24 models.py:32 models.py:37 models.py:42 tests.py:15 tests.py:23
 msgid "Other"
-msgstr ""
+msgstr "Other"
 
 #: models.py:35 models.py:40 tests.py:16 tests.py:33
 msgid "Hospital"
-msgstr ""
+msgstr "Hospital"
 
 #: models.py:36 models.py:41
 msgid "Laboratory"
-msgstr ""
+msgstr "Laboratory"
 
 #: models.py:45
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: models.py:46
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: models.py:77
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: models.py:78
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: models.py:81 models.py:86 tests.py:70
 msgid "Arabic"
-msgstr ""
+msgstr "Arabic"
 
 #: models.py:82 models.py:87
 msgid "English"
-msgstr ""
-
-#: models.py:83 models.py:88 tests.py:69 tests.py:105
-msgid "French"
-msgstr ""
+msgstr "English"
 
 #: models.py:92
 msgid "Email is valid"
-msgstr ""
+msgstr "Email is valid"
 
 #: models.py:93
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: models.py:94
 msgid "Phone number"
-msgstr ""
+msgstr "Phone number"
 
 #: models.py:95
 msgid "Phone address"
-msgstr ""
+msgstr "Phone address"
 
 #: models.py:138
 msgid "User account type service"
-msgstr ""
+msgstr "User account type service"
 
 #: models.py:139
 msgid "Users accounts types services"
-msgstr ""
+msgstr "Users accounts types services"
 
 #: tests.py:139 views.py:24
 msgid "User not found!"
-msgstr ""
+msgstr "User not found!"
 
 #: tests.py:142 views.py:29
 msgid "Password incorrect!"
-msgstr ""
+msgstr "Password incorrect!"

@@ -24,51 +24,51 @@ msgstr "Champs ajoutés"
 
 #: models.py:15
 msgid "Account type service"
-msgstr ""
+msgstr "Service type de compte"
 
 #: models.py:16
 msgid "Accounts types services"
-msgstr ""
+msgstr "Services types de comptes"
 
 #: models.py:19 models.py:27
 msgid "Assistant"
-msgstr ""
+msgstr "Assistant"
 
 #: models.py:20 models.py:28
 msgid "Doctor"
-msgstr ""
+msgstr "Médecin"
 
 #: models.py:21 models.py:29 tests.py:24 tests.py:35
 msgid "Director"
-msgstr ""
+msgstr "Directeur"
 
 #: models.py:22 models.py:30
 msgid "Patient"
-msgstr ""
+msgstr "Patient"
 
 #: models.py:23 models.py:31
 msgid "Technician"
-msgstr ""
+msgstr "Technicien"
 
 #: models.py:24 models.py:32 models.py:37 models.py:42 tests.py:15 tests.py:23
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: models.py:35 models.py:40 tests.py:16 tests.py:33
 msgid "Hospital"
-msgstr ""
+msgstr "Hôpital"
 
 #: models.py:36 models.py:41
 msgid "Laboratory"
-msgstr ""
+msgstr "Laboratoire"
 
 #: models.py:45
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: models.py:46
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: models.py:77
 msgid "User"
@@ -80,43 +80,43 @@ msgstr "Utilisateurs"
 
 #: models.py:81 models.py:86 tests.py:70
 msgid "Arabic"
-msgstr ""
+msgstr "Arabe"
 
 #: models.py:82 models.py:87
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: models.py:83 models.py:88 tests.py:69 tests.py:105
 msgid "French"
-msgstr ""
+msgstr "rançais"
 
 #: models.py:92
 msgid "Email is valid"
-msgstr ""
+msgstr "L'e-mail est validé"
 
 #: models.py:93
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: models.py:94
 msgid "Phone number"
-msgstr ""
+msgstr "Numéro de téléphone"
 
 #: models.py:95
-msgid "Phone address"
-msgstr ""
+msgid "Phone is valid"
+msgstr "Le téléphone est valide"
 
 #: models.py:138
 msgid "User account type service"
-msgstr ""
+msgstr "Service type de compte utilisateur"
 
 #: models.py:139
 msgid "Users accounts types services"
-msgstr ""
+msgstr "Services types de comptes utilisateurs"
 
 #: tests.py:139 views.py:24
 msgid "User not found!"
-msgstr ""
+msgstr "Utilisateur non trouvé!"
 
 #: tests.py:142 views.py:29
 msgid "Password incorrect!"
