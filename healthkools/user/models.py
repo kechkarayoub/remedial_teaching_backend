@@ -12,6 +12,8 @@ class AccountTypeService(models.Model):
     class Meta(object):
         db_table = "healthkools_account_type_service"
         ordering = ["type", "service"]
+        verbose_name = _("Account type service")
+        verbose_name_plural = _("Accounts types services")
 
     TYPES = (
         ("assistant", _("Assistant")),
@@ -72,6 +74,8 @@ class User(AbstractUser):
     class Meta(object):
         db_table = "healthkools_h_user"
         ordering = ["username"]
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
 
     LANGUAGES = (
         ("ar", _("Arabic")),
@@ -131,6 +135,8 @@ class UserAccountTypeService(models.Model):
     class Meta(object):
         db_table = "healthkools_user_account_type_service"
         ordering = ["user__username", "account_type_service__type", "account_type_service__service"]
+        verbose_name = _("User account type service")
+        verbose_name_plural = _("Users accounts types services")
 
     account_type_service = models.ForeignKey(AccountTypeService, related_name='my_users_relationship', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='my_accounts_types_services_relationship', on_delete=models.CASCADE)

@@ -36,14 +36,14 @@ class UserAccountTypeServiceInline(admin.TabularInline):
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {
-            'fields': ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password')
+            'fields': ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password')
         }),
         (_('Added fields'), {
-            'fields': ('email_is_valid', 'phone', 'phone_is_valid'),
+            'fields': ('email_is_valid', 'phone', 'phone_is_valid', 'language'),
         }),
     )
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'email_is_valid', 'phone', 'phone_is_valid')
-    list_filter = ('email_is_valid', 'is_active', 'is_staff', 'phone_is_valid')
+    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'email_is_valid', 'phone', 'phone_is_valid')
+    list_filter = ('email_is_valid', 'is_active', 'is_staff', 'phone_is_valid', 'language')
     search_fields = ('email', 'first_name', 'last_name', 'phone', 'username')
     inlines = [
         UserAccountTypeServiceInline,

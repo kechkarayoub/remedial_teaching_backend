@@ -2,7 +2,7 @@
 
 from .models import *
 from django.http import JsonResponse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import activate, ugettext_lazy as _
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.exceptions import AuthenticationFailed
@@ -17,6 +17,8 @@ class LoginTokenView(APIView):
         password = request.data.get('password')
         try:
             user = User.objects.get(username=username)
+            request.session['language_id'] = user.language
+            activate(user.language)
         except:
             return JsonResponse({
                 'success': False,

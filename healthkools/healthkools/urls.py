@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('user/', include('user.urls')),
-    path('admin/', admin.site.urls),
 ]
+urlpatterns += i18n_patterns(
+    url(r'^admin/', admin.site.urls),
+    prefix_default_language=True
+)
