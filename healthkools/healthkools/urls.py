@@ -20,7 +20,7 @@ from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
-    path('general_information', views.general_information, name='general_information'),
+    path('general_information_api', views.general_information_api, name='general_information_api'),
     path('user/', include('user.urls')),
 ]
 urlpatterns += i18n_patterns(

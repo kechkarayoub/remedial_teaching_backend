@@ -11,8 +11,8 @@ class HealthKoolsViewsTest(TestCase):
     def setUp(self):
         pass
 
-    def test_general_information(self):
-        response = self.client.get('/general_information', {}, follow=True)
+    def test_general_information_api(self):
+        response = self.client.get('/general_information_api', {}, follow=True)
         json_response = json.loads(response.content)
         self.assertTrue(json_response.get("success"))
         self.assertEqual(json_response.get("general_information").get("site_name"), settings.SITE_NAME)

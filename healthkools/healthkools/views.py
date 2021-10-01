@@ -12,7 +12,7 @@ import json
 
 
 @api_view(['GET'])
-def general_information(request):
+def general_information_api(request):
     response = JsonResponse({
         "general_information": {
             "site_name": settings.SITE_NAME,
