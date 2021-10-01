@@ -182,3 +182,6 @@ LOGGING = {
         },
     },
 }
+
+SITE_NAME = "Healthkools"
+CONTACT_EMAIL = "contact@example.com"

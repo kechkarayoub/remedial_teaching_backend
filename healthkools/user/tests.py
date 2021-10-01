@@ -129,6 +129,8 @@ class LogInTest(TestCase):
         self.assertTrue(json_response.get("success"))
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
+        self.assertEqual(len(json_response.keys()), 3)
+        self.assertEqual(len(json_response.get("user").keys()), 11)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'username': 'testusers', 'password': 'secret'}, follow=True)
@@ -136,8 +138,8 @@ class LogInTest(TestCase):
         response2 = self.client.post('/user/login_with_token/', {'username': 'testuser', 'password': 'secrets'}, follow=True)
         json_response2 = json.loads(response2.content)
         self.assertFalse(json_response1.get("success"))
-        self.assertEqual(json_response1.get("message"), _('User not found!'))
+        self.assertEqual(_(json_response1.get("message")), _('User not found!'))
         self.assertIs(json_response1.get("access_token") is None, True)
         self.assertFalse(json_response2.get("success"))
-        self.assertEqual(json_response2.get("message"), _('Password incorrect!'))
+        self.assertEqual(_(json_response2.get("message")), _('Password incorrect!'))
         self.assertIs(json_response2.get("access_token") is None, True)

@@ -1,2 +1,8 @@
+Set correct values for:
+    SITE_NAME in healthkools/settings.py
+    CONTACT_EMAIL in healthkools/settings.py
+
+
+
 Next step:
     add user.models.* to admin and test
