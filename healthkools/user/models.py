@@ -3,6 +3,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 
 class AccountTypeService(models.Model):
@@ -77,20 +78,9 @@ class User(AbstractUser):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
-    LANGUAGES = (
-        ("ar", _("Arabic")),
-        ("en", _("English")),
-        ("fr", _("French"))
-    )
-    LANGUAGES_DICT = {
-        "ar": _("Arabic"),
-        "en": _("English"),
-        "fr": _("French")
-    }
-
     accounts_types_services = models.ManyToManyField(AccountTypeService, related_name='users', through="UserAccountTypeService")
     email_is_valid = models.BooleanField(_('Email is valid'), default=False)
-    language = models.CharField(_('Language'), choices=LANGUAGES, default="fr", max_length=255)
+    language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
     phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
     phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
 
@@ -101,7 +91,7 @@ class User(AbstractUser):
 
     @property
     def language_name(self):
-        return self.LANGUAGES_DICT.get(self.language, "---")
+        return settings.LANGUAGES_DICT.get(self.language, "---")
 
     def add_account_type_service(self, accounts_types_services=[], ids=[]):
         return self.accounts_types_services.add(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))

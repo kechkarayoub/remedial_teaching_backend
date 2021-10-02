@@ -14,6 +14,7 @@ from pathlib import Path
 import os, sys
 from django.utils.translation import ugettext_lazy as _
 
+from os.path import abspath, dirname, join
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'user',
     'i18n_switcher',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -185,3 +187,7 @@ LOGGING = {
 
 SITE_NAME = "Healthkools"
 CONTACT_EMAIL = "contact@example.com"
+
+# See if the developer has any local settings.
+if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
+    from .private import *  # pylint: disable=import-error,wildcard-import
