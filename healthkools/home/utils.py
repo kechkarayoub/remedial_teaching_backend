@@ -31,20 +31,25 @@ feeds_urls = {
 }
 
 
-def set_feeds(language):
-    urls = feeds_urls.get(language) or []
+def set_feeds(language, items_test_str=None):
     feeds = []
-    for url in urls:
-        try:
-            response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
-            items = json.loads(response.content).get("items")
-            feeds = [*feeds, *items]
-        except:
-            pass
+    if items_test_str:
+        items = json.loads(items_test_str)
+        feeds = [*feeds, *items]
+    else:
+        urls = feeds_urls.get(language) or []
+        for url in urls:
+            try:
+                response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
+                items = json.loads(response.content).get("items")
+                feeds = [*feeds, *items]
+            except:
+                pass
     if feeds:
         feeds_str = json.dumps(feeds)
         if FeedsLanguage.objects.filter(language=language).exists():
             FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str)
         else:
             FeedsLanguage.objects.create(language=language, feeds=feeds_str)
+    return len(feeds)
 
