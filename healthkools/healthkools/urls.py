@@ -20,6 +20,7 @@ from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+    path('feeds_languages_api', views.feeds_languages_api, name='feeds_languages_api'),
     path('general_information_api', views.general_information_api, name='general_information_api'),
     path('user/', include('user.urls')),
 ]

@@ -88,7 +88,7 @@ msgstr "Anglais"
 
 #: models.py:83 models.py:88 tests.py:69 tests.py:105
 msgid "French"
-msgstr "rançais"
+msgstr "Français"
 
 #: models.py:92
 msgid "Email is valid"
