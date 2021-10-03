@@ -17,6 +17,7 @@ class FeedsLanguage(models.Model):
 
     feeds = models.TextField(_('Feeds'), default="")
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255, unique=True)
+    last_update = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.language + "_feeds"

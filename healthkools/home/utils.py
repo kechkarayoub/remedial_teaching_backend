@@ -1,3 +1,4 @@
+import datetime
 
 from django.conf import settings
 import json, requests
@@ -47,9 +48,10 @@ def set_feeds(language, items_test_str=None):
                 pass
     if feeds:
         feeds_str = json.dumps(feeds)
+        last_update = datetime.datetime.now()
         if FeedsLanguage.objects.filter(language=language).exists():
-            FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str)
+            FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str, last_update=last_update)
         else:
-            FeedsLanguage.objects.create(language=language, feeds=feeds_str)
+            FeedsLanguage.objects.create(language=language, feeds=feeds_str, last_update=last_update)
     return len(feeds)
 
