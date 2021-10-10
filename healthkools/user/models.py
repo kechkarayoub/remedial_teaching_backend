@@ -73,7 +73,7 @@ class User(AbstractUser):
         HUser represent the user model.
     """
     class Meta(object):
-        db_table = "healthkools_h_user"
+        db_table = "healthkools_user"
         ordering = ["username"]
         verbose_name = _("User")
         verbose_name_plural = _("Users")
