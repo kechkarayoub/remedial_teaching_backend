@@ -90,15 +90,17 @@ class UserModelTests(TestCase):
         self.assertIs(user.accounts_types_services.filter().exists(), False)
 
     def test_to_dict(self):
-        user = User(username="test_username", last_name="last_name")
+        user = User(username="test_username", last_name="last_name", gender="m")
         user.save()
         dict = user.to_dict()
         account_type_service = AccountTypeService(service="hospital", type="director")
         account_type_service.save()
         user.add_account_type_service([account_type_service])
         dict_2 = user.to_dict(get_accounts_types_services=True)
+        self.assertEqual(dict["country_code"], "")
         self.assertEqual(dict["email_is_valid"], False)
         self.assertEqual(dict["first_name"], "")
+        self.assertEqual(dict["gender"], "m")
         self.assertEqual(dict["id"], 1)
         self.assertEqual(dict["is_active"], True)
         self.assertEqual(dict["language"], "fr")
@@ -130,7 +132,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 11)
+        self.assertEqual(len(json_response.get("user").keys()), 14)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'username': 'testusers', 'password': 'secret'}, follow=True)

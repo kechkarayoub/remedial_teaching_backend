@@ -78,8 +78,16 @@ class User(AbstractUser):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
+    GENDERS = (
+        ("", _("Select")),
+        ("f", _("Female")),
+        ("m", _("Male")),
+    )
     accounts_types_services = models.ManyToManyField(AccountTypeService, related_name='users', through="UserAccountTypeService")
+    country_code = models.CharField(_('Country code'), default="", max_length=10)
+    country_name = models.CharField(_('Country name'), default="", max_length=255)
     email_is_valid = models.BooleanField(_('Email is valid'), default=False)
+    gender = models.CharField(_('Gender'), choices=GENDERS, default="", max_length=10)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
     phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
     phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
@@ -101,9 +109,12 @@ class User(AbstractUser):
 
     def to_dict(self, get_accounts_types_services=False):
         res = {
+            "country_code": self.country_code,
+            "country_name": self.country_name,
             "email": self.email,
             "email_is_valid": self.email_is_valid,
             "first_name": self.first_name,
+            "gender": self.gender,
             "id": self.id,
             "is_active": self.is_active,
             "language": self.language,

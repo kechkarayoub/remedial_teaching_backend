@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 14:15+0100\n"
+"POT-Creation-Date: 2021-10-10 22:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,52 +79,76 @@ msgid "Users"
 msgstr "Users"
 
 #: models.py:82
+msgid "Select"
+msgstr "Select"
+
+#: models.py:83
+msgid "Female"
+msgstr "Female"
+
+#: models.py:84
+msgid "Male"
+msgstr "Male"
+
+#: models.py:87
+msgid "Country code"
+msgstr "Country code"
+
+#: models.py:88
+msgid "Country name"
+msgstr "Country name"
+
+#: models.py:89
 msgid "Email is valid"
 msgstr "Email is valid"
 
-#: models.py:83
+#: models.py:90
+msgid "Gender"
+msgstr "Gender"
+
+#: models.py:91
 msgid "Language"
 msgstr "Language"
 
-#: models.py:84
+#: models.py:92
 msgid "Phone number"
 msgstr "Phone number"
 
-#: models.py:85
+#: models.py:93
 #, fuzzy
 #| msgid "Email is valid"
 msgid "Phone is valid"
 msgstr "Email is valid"
 
-#: models.py:128
+#: models.py:139
 msgid "User account type service"
 msgstr "User account type service"
 
-#: models.py:129
+#: models.py:140
 msgid "Users accounts types services"
 msgstr "Users accounts types services"
 
-#: tests.py:69 tests.py:105
+#: tests.py:69 tests.py:107
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #: tests.py:70
 msgid "Arabic"
 msgstr "Arabic"
 
-#: tests.py:141 views.py:25
+#: tests.py:143 views.py:25
 msgid "User not found!"
 msgstr "User not found!"
 
-#: tests.py:144 views.py:30
+#: tests.py:146 views.py:30
 msgid "Password incorrect!"
 msgstr "Password incorrect!"
 
-#: views.py:52
+#: tests.py:184 views.py:52
 msgid "The email: {} already exists!"
 msgstr "The email: {} already exists!"
 
-#: views.py:55
+#: tests.py:192 views.py:55
 msgid "The username: {} already exists!"
 msgstr "The username: {} already exists!"
 
