@@ -143,3 +143,48 @@ class LogInTest(TestCase):
         self.assertFalse(json_response2.get("success"))
         self.assertEqual(_(json_response2.get("message")), _('Password incorrect!'))
         self.assertIs(json_response2.get("access_token") is None, True)
+
+
+class ViewTest(TestCase):
+
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'email': 'testemail@example.com',
+            'password': 'secret'
+        }
+        User.objects.create_user(**self.credentials)
+
+    def test_check_if_email_or_username_exists(self):
+        email = 'testemail@example.com'
+        username = 'testuser'
+        data = {
+            "email_or_username": "no_exists@example.com",
+        }
+        response = self.client.get('/user/check_if_email_or_username_exists', data, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("user_exists"))
+        self.assertEqual(json_response.get("message"), '')
+        data = {
+            "email_or_username": "no_exists",
+        }
+        response = self.client.get('/user/check_if_email_or_username_exists', data, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("user_exists"))
+        self.assertEqual(json_response.get("message"), '')
+        data = {
+            "email_or_username": email,
+            "current_language": "en",
+        }
+        response = self.client.get('/user/check_if_email_or_username_exists', data, follow=True)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response.get("user_exists"))
+        self.assertEqual(json_response.get("message"), _("The email: {} already exists!").format(email))
+        data = {
+            "email_or_username": username,
+            "current_language": "en",
+        }
+        response = self.client.get('/user/check_if_email_or_username_exists', data, follow=True)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response.get("user_exists"))
+        self.assertEqual(json_response.get("message"), _("The username: {} already exists!").format(username))

@@ -39,6 +39,27 @@ class LoginTokenView(APIView):
         return response
 
 
+@api_view(['GET'])
+def check_if_email_or_username_exists(request):
+    data = request.GET
+    email_or_username = data.get("email_or_username")
+    current_language = data.get("current_language") or 'fr'
+    activate(current_language)
+    message = ""
+    user_exists = False
+    if "@" in email_or_username and User.objects.filter(email=email_or_username).exists():
+        user_exists = True
+        message = _("The email: {} already exists!").format(email_or_username)
+    elif User.objects.filter(username=email_or_username).exists():
+        user_exists = True
+        message = _("The username: {} already exists!").format(email_or_username)
+    response = JsonResponse({
+        "message": message,
+        "user_exists": user_exists,
+    })
+    return response
+
+
 @api_view(['POST', 'GET'])
 @permission_classes((IsAuthenticated,))
 def users_test_api(request):
