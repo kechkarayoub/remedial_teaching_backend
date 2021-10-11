@@ -47,7 +47,7 @@ def check_if_email_or_username_exists(request):
     activate(current_language)
     message = ""
     user_exists = False
-    if "@" in email_or_username and User.objects.filter(email=email_or_username).exists():
+    if "@" in email_or_username and User.objects.filter(email=email_or_username, email_is_valid=True).exists():
         user_exists = True
         message = _("The email: {} already exists!").format(email_or_username)
     elif User.objects.filter(username=email_or_username).exists():

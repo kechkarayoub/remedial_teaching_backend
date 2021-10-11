@@ -128,6 +128,9 @@ class User(AbstractUser):
             res["accounts_types_services"] = [account_type_service.to_dict() for account_type_service in self.accounts_types_services.filter()]
         return res
 
+    def get_security_questions(self):
+        return [sq.to_dict() for sq in self.my_security_questions.filter()]
+
 
 class UserAccountTypeService(models.Model):
     """
@@ -144,3 +147,63 @@ class UserAccountTypeService(models.Model):
 
     def __str__(self):
         return self.user.__str__() + "_" + self.account_type_service.__str__()
+
+
+class UserSecurityQuestion(models.Model):
+    """
+        UserSecurityQuestion represent the relationship between each user with security questions.
+    """
+    class Meta(object):
+        db_table = "healthkools_user_security_question"
+        ordering = ["security_question"]
+        verbose_name = _("User security question")
+        verbose_name_plural = _("Users security questions")
+
+    SECURITY_QUESTIONS = (
+        ("what_did_you_want_to_be_bigger_when_you_were_a_kid", _("What did you want to be bigger when you were a kid?")),
+        ("what_is_the_last_name_of_your_favorite_childhood_teacher", _("What is the last name of your favorite childhood teacher?")),
+        ("what_is_your_birthday", _("What is your birthday?")),
+        ("what_is_your_favorite_car", _("What is your favorite car?")),
+        ("what_is_your_favorite_color", _("What is your favorite color?")),
+        ("what_is_your_favorite_movie", _("What is your favorite movie?")),
+        ("what_is_your_place_of_birth", _("What is your place of birth?")),
+        ("z_other", _("Other"))
+    )
+    # SECURITY_QUESTIONS_DICT = {
+    #     "what_did_you_want_to_be_bigger_when_you_were_a_kid": _("What did you want to be bigger when you were a kid?"),
+    #     "what_is_the_last_name_of_your_favorite_childhood_teacher": _("What is the last name of your favorite childhood teacher?"),
+    #     "what_is_your_birthday": _("What is your birthday?"),
+    #     "what_is_your_favorite_car": _("What is your favorite car?"),
+    #     "what_is_your_favorite_color": _("What is your favorite color?"),
+    #     "what_is_your_favorite_movie": _("What is your favorite movie?"),
+    #     "what_is_your_place_of_birth": _("What is your place of birth?"),
+    #     "z_other": _("Other")
+    # }
+    SECURITY_QUESTIONS_LIST = [
+        ["what_did_you_want_to_be_bigger_when_you_were_a_kid", "What did you want to be bigger when you were a kid?"],
+        ["what_is_the_last_name_of_your_favorite_childhood_teacher", "What is the last name of your favorite childhood teacher?"],
+        ["what_is_your_birthday", "What is your birthday?"],
+        ["what_is_your_favorite_car", "What is your favorite car?"],
+        ["what_is_your_favorite_color", "What is your favorite color?"],
+        ["what_is_your_favorite_movie", "What is your favorite movie?"],
+        ["what_is_your_place_of_birth", "What is your place of birth?"],
+        ["z_other", "Other"]
+    ]
+
+    response = models.CharField(_('Response'), default="", max_length=255)
+    security_question = models.CharField(_('Security question'), choices=SECURITY_QUESTIONS, default="z_other", max_length=255)
+    user = models.ForeignKey(User, related_name='my_security_questions', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.__str__() + "_" + self.security_question
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "response": self.response,
+            "security_question": self.security_question,
+        }
+
+    @classmethod
+    def get_list_choices(cls):
+        return cls.SECURITY_QUESTIONS_LIST

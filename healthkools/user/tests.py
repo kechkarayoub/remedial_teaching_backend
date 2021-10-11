@@ -61,6 +61,18 @@ class UserModelTests(TestCase):
         user.add_account_type_service(ids=[account_type_service.id])
         self.assertIs(user.accounts_types_services.filter().exists(), True)
 
+    def test_get_security_questions(self):
+        user = User(username="test_username")
+        user.save()
+        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user, response="birthday")
+        user_security_question2 = UserSecurityQuestion(security_question="what_is_your_favorite_car", user=user, response="car")
+        user_security_question.save()
+        user_security_question2.save()
+        user_security_questions = user.get_security_questions()
+        self.assertEqual(len(user_security_questions), 2)
+        self.assertEqual(user_security_questions[0], user_security_question.to_dict())
+        self.assertEqual(user_security_questions[1], user_security_question2.to_dict())
+
     def test_language_name(self):
         user = User(username="test_username")
         user.save()
@@ -116,6 +128,26 @@ class UserModelTests(TestCase):
         self.assertEqual(dict_2.get("accounts_types_services")[0]['type'], "director")
 
 
+class UserSecurityQuestionModelTests(TestCase):
+
+    def test_to_dict(self):
+        credentials = {
+            'username': 'testuser',
+            'password': 'secret'
+        }
+        user = User.objects.create_user(**credentials)
+        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user)
+        user_security_question.save()
+        dict = user_security_question.to_dict()
+        self.assertEqual(dict["id"], 1)
+        self.assertEqual(dict["response"], "")
+        self.assertEqual(dict["security_question"], "what_is_your_birthday")
+
+    def test_get_list_choices(self):
+        list_choices = UserSecurityQuestion.get_list_choices()
+        self.assertEqual(list_choices, UserSecurityQuestion.SECURITY_QUESTIONS_LIST)
+
+
 class LogInTest(TestCase):
 
     def setUp(self):
@@ -153,7 +185,8 @@ class ViewTest(TestCase):
         self.credentials = {
             'username': 'testuser',
             'email': 'testemail@example.com',
-            'password': 'secret'
+            'password': 'secret',
+            'email_is_valid': True,
         }
         User.objects.create_user(**self.credentials)
 
