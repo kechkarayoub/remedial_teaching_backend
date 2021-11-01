@@ -99,7 +99,7 @@ msgid "Country name"
 msgstr "Nom du pays"
 
 #: models.py:89
-msgid "Email is valid"
+msgid "Email is validated"
 msgstr "L'e-mail est validé"
 
 #: models.py:90

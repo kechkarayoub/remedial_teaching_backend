@@ -99,8 +99,8 @@ msgid "Country name"
 msgstr "Country name"
 
 #: models.py:89
-msgid "Email is valid"
-msgstr "Email is valid"
+msgid "Email is validated"
+msgstr "Email is validated"
 
 #: models.py:90
 msgid "Gender"
@@ -116,9 +116,9 @@ msgstr "Phone number"
 
 #: models.py:93
 #, fuzzy
-#| msgid "Email is valid"
+#| msgid "Email is validated"
 msgid "Phone is valid"
-msgstr "Email is valid"
+msgstr "Phone is valid"
 
 #: models.py:139
 msgid "User account type service"

@@ -100,7 +100,7 @@ msgid "Country name"
 msgstr "اسم البلد"
 
 #: models.py:89
-msgid "Email is valid"
+msgid "Email is validated"
 msgstr "تم التحقق من صحة البريد الإلكتروني"
 
 #: models.py:90

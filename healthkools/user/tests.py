@@ -110,7 +110,7 @@ class UserModelTests(TestCase):
         user.add_account_type_service([account_type_service])
         dict_2 = user.to_dict(get_accounts_types_services=True)
         self.assertEqual(dict["country_code"], "")
-        self.assertEqual(dict["email_is_valid"], False)
+        self.assertEqual(dict["email_is_validated"], False)
         self.assertEqual(dict["first_name"], "")
         self.assertEqual(dict["gender"], "m")
         self.assertEqual(dict["id"], 1)
@@ -120,6 +120,7 @@ class UserModelTests(TestCase):
         self.assertEqual(dict["last_name"], "last_name")
         self.assertEqual(dict["phone"], None)
         self.assertEqual(dict["phone_is_valid"], False)
+        self.assertEqual(dict["phone_is_validated"], False)
         self.assertEqual(dict["username"], "test_username")
         self.assertEqual(dict.get("accounts_types_services"), None)
         self.assertEqual(len(dict_2.get("accounts_types_services")), 1)
@@ -164,7 +165,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 14)
+        self.assertEqual(len(json_response.get("user").keys()), 15)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'username': 'testusers', 'password': 'secret'}, follow=True)
@@ -186,7 +187,7 @@ class ViewTest(TestCase):
             'username': 'testuser',
             'email': 'testemail@example.com',
             'password': 'secret',
-            'email_is_valid': True,
+            'email_is_validated': True,
         }
         User.objects.create_user(**self.credentials)
 

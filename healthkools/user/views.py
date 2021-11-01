@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
+from utils.utils import date_from_string
 import json
 
 
@@ -47,7 +48,7 @@ def check_if_email_or_username_exists(request):
     activate(current_language)
     message = ""
     user_exists = False
-    if "@" in email_or_username and User.objects.filter(email=email_or_username, email_is_valid=True).exists():
+    if "@" in email_or_username and User.objects.filter(email=email_or_username, email_is_validated=True).exists():
         user_exists = True
         message = _("The email: {} already exists!").format(email_or_username)
     elif User.objects.filter(username=email_or_username).exists():

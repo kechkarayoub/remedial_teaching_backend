@@ -86,11 +86,12 @@ class User(AbstractUser):
     accounts_types_services = models.ManyToManyField(AccountTypeService, related_name='users', through="UserAccountTypeService")
     country_code = models.CharField(_('Country code'), default="", max_length=10)
     country_name = models.CharField(_('Country name'), default="", max_length=255)
-    email_is_valid = models.BooleanField(_('Email is valid'), default=False)
+    email_is_validated = models.BooleanField(_('Email is validated'), default=False)
     gender = models.CharField(_('Gender'), choices=GENDERS, default="", max_length=10)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
     phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
     phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
+    phone_is_validated = models.BooleanField(_('Phone is validated'), default=False)
 
     REQUIRED_FIELDS = []
 
@@ -112,7 +113,7 @@ class User(AbstractUser):
             "country_code": self.country_code,
             "country_name": self.country_name,
             "email": self.email,
-            "email_is_valid": self.email_is_valid,
+            "email_is_validated": self.email_is_validated,
             "first_name": self.first_name,
             "gender": self.gender,
             "id": self.id,
@@ -122,6 +123,7 @@ class User(AbstractUser):
             "last_name": self.last_name,
             "phone": self.phone,
             "phone_is_valid": self.phone_is_valid,
+            "phone_is_validated": self.phone_is_validated,
             "username": self.username,
         }
         if get_accounts_types_services:

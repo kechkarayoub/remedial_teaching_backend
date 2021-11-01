@@ -39,11 +39,11 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password')
         }),
         (_('Added fields'), {
-            'fields': ('country_code', 'country_name', 'email_is_valid', 'gender', 'phone', 'phone_is_valid', 'language'),
+            'fields': ('country_code', 'country_name', 'email_is_validated', 'gender', 'phone', 'phone_is_valid', 'phone_is_validated', 'language'),
         }),
     )
-    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'email_is_valid', 'phone', 'phone_is_valid')
-    list_filter = ('email_is_valid', 'gender', 'is_active', 'is_staff', 'phone_is_valid', 'language')
+    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'email_is_validated', 'phone', 'phone_is_validated')
+    list_filter = ('email_is_validated', 'gender', 'is_active', 'is_staff', 'phone_is_valid', 'phone_is_validated', 'language')
     search_fields = ('country_name', 'email', 'first_name', 'last_name', 'phone', 'username')
     inlines = [
         UserAccountTypeServiceInline,
