@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user',
     'i18n_switcher',
     'home',
+    'utils',
 ]
 
 MIDDLEWARE = [
