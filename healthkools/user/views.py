@@ -9,26 +9,31 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from utils.utils import date_from_string
+from .utils import get_user_by_email_or_username
 import json
 
 
 class LoginTokenView(APIView):
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
+        email_or_username = request.data.get('email_or_username')
         password = request.data.get('password')
-        try:
-            user = User.objects.get(username=username)
-            request.session['language_id'] = user.language
-            activate(user.language)
-        except:
+        user = get_user_by_email_or_username(email_or_username)
+        if user == "not_exists":
             return JsonResponse({
                 'success': False,
-                'message': _('User not found!'),
+                'message': _('Invalid credentials!'),
             })
+        elif user is None:
+            return JsonResponse({
+                'success': False,
+                'message': _('An error occurred when log in!'),
+            })
+        request.session['language_id'] = user.language
+        activate(user.language)
         if not user.check_password(password):
             return JsonResponse({
                 'success': False,
-                'message': _('Password incorrect!'),
+                'message': _('Invalid credentials!'),
             })
         token, created = Token.objects.get_or_create(user=user)
         response = JsonResponse({
