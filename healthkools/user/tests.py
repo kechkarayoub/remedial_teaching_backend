@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 from .models import *
 from django.test import TestCase
@@ -168,7 +169,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 15)
+        self.assertEqual(len(json_response.get("user").keys()), 17)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'email_or_username': 'testusers', 'password': 'secret'}, follow=True)
@@ -185,6 +186,124 @@ class LogInTest(TestCase):
         self.assertIs(json_response2.get("access_token") is None, True)
         self.assertEqual(_(json_response3.get("message")), _('An error occurred when log in!'))
         self.assertIs(json_response3.get("access_token") is None, True)
+
+
+class RegisterTest(TestCase):
+
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'password': 'secret',
+            'email': 'testuser@email.com',
+        }
+        User.objects.create_user(**self.credentials)
+
+    def test_register_with_all_attributes_success(self):
+        response = self.client.post('/user/register/', {
+            'address': 'address',
+            'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'country_code': "MA",
+            'email': "email@email.com",
+            'first_name': "first_name",
+            'gender': "m",
+            'current_language': "ar",
+            'last_name': "last_name",
+            'password': "password",
+            'phone_is_valid': False,
+            'phone': "+212645454545",
+            'username': "username",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response.get("success"))
+        self.assertEqual(json_response.get("user").get("address"), 'address')
+        self.assertEqual(datetime.datetime.strptime(json_response.get("user").get("birthday"), "%Y-%m-%dT%H:%M:%S").date(), datetime.datetime.today().date())
+        self.assertEqual(json_response.get("user").get("country_code"), "MA")
+        self.assertEqual(json_response.get("user").get("email"), "email@email.com")
+        self.assertEqual(json_response.get("user").get("first_name"), "first_name")
+        self.assertEqual(json_response.get("user").get("gender"), "m")
+        self.assertEqual(json_response.get("user").get("language"), "ar")
+        self.assertEqual(json_response.get("user").get("last_name"), "last_name")
+        self.assertEqual(json_response.get("user").get("phone_is_valid"), False)
+        self.assertEqual(json_response.get("user").get("username"), "username")
+        self.assertIs(json_response.get("access_token") is None, False)
+        self.assertEqual(len(json_response.keys()), 3)
+        self.assertEqual(len(json_response.get("user").keys()), 17)
+        user = User.objects.get(username='username')
+        self.assertIs(user.check_password("password") is True, True)
+
+    def test_register_with_required_attribites_success(self):
+        response = self.client.post('/user/register/', {
+            'email': "email@email.com",
+            'first_name': "first_name",
+            'last_name': "last_name",
+            'password': "password",
+            'username': "username",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response.get("success"))
+        self.assertEqual(json_response.get("user").get("username"), 'username')
+        self.assertIs(json_response.get("access_token") is None, False)
+        self.assertEqual(len(json_response.keys()), 3)
+        self.assertEqual(len(json_response.get("user").keys()), 17)
+        user = User.objects.get(username='username')
+        self.assertEqual(user.language, "fr")
+        self.assertIs(user.check_password("password") is True, True)
+
+    def test_register_failed(self):
+        response = self.client.post('/user/register/', {
+            'address': 'address',
+            'birthday': datetime.datetime.today(),
+            'country_code': "MA",
+            'email': "",
+            'first_name': "",
+            'gender': "m",
+            'language': "ar",
+            'last_name': "",
+            'password': "",
+            'phone_is_valid': False,
+            'phone': "+212645454545",
+            'username': "",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(len(json_response.keys()), 2)
+        self.assertEqual(len(json_response.get("errors").keys()), 5)
+        self.assertTrue(all(elem in json_response.get("errors").keys() for elem in ["email", "first_name", "last_name", "password", "username"]))
+        response = self.client.post('/user/register/', {
+            'address': 'address',
+            'birthday': datetime.datetime.today(),
+            'country_code': "MA",
+            'email': "",
+            'first_name': "",
+            'gender': "m",
+            'language': "ar",
+            'last_name': "",
+            'password': "",
+            'phone_is_valid': False,
+            'phone': "+212645454545",
+            'username': "username",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(len(json_response.keys()), 2)
+        self.assertEqual(len(json_response.get("errors").keys()), 4)
+        self.assertTrue(all(elem in json_response.get("errors").keys() for elem in ["email", "first_name", "last_name", "password"]))
+        response = self.client.post('/user/register/', {
+            'address': 'address',
+            'email': "",
+            'phone': "+212645454545",
+            'username': "testuser",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "This username: testuser is already exists!")
+        response = self.client.post('/user/register/', {
+            'email': "testuser@email.com",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "This email: testuser@email.com is already exists!")
+
 
 
 class ViewTest(TestCase):

@@ -45,6 +45,93 @@ class LoginTokenView(APIView):
         return response
 
 
+class RegisterView(APIView):
+    def post(self, request, *args, **kwargs):
+        address = request.data.get('address', '')
+        birthday = date_from_string(request.data.get('birthday'))
+        country_code = request.data.get('country_code', '')
+        email = request.data.get('email', '')
+        first_name = request.data.get('first_name', '')
+        gender = request.data.get('gender', '')
+        language = request.data.get('current_language', 'fr')
+        last_name = request.data.get('last_name', '')
+        password = request.data.get('password', '')
+        phone_is_valid = request.data.get('is_valid_phone_number', False)
+        phone = request.data.get('phone_number', '')
+        username = request.data.get('username', '')
+        try:
+            User.objects.get(username=username)
+            return JsonResponse({
+                'success': False,
+                'message': _('This username: {} is already exists!').format(username),
+            })
+        except User.DoesNotExist:
+            try:
+                User.objects.get(email=email)
+                return JsonResponse({
+                    'success': False,
+                    'message': _('This email: {} is already exists!').format(email),
+                })
+            except User.DoesNotExist:
+                pass
+            except:
+                return JsonResponse({
+                    'success': False,
+                    'message': _('An error occurred when checking email!'),
+                })
+        except:
+            return JsonResponse({
+                'success': False,
+                'message': _('An error occurred when checking username!'),
+            })
+        errors = {}
+        kwargs = {
+            "address": address,
+            "birthday": birthday,
+            "country_code": country_code,
+            "gender": gender,
+            "language": language,
+            "phone_is_valid": phone_is_valid,
+            "phone": phone,
+        }
+        if email:
+            kwargs["email"] = email
+        else:
+            errors["email"] = _('Email is required!')
+        if first_name:
+            kwargs["first_name"] = first_name
+        else:
+            errors["first_name"] = _('First name is required!')
+        if last_name:
+            kwargs["last_name"] = last_name
+        else:
+            errors["last_name"] = _('Last name is required!')
+        if not password:
+            errors["password"] = _('Password is required!')
+        if username:
+            kwargs["username"] = username
+        else:
+            errors["username"] = _('Username is required!')
+        if errors.keys():
+            return JsonResponse({
+                'success': False,
+                'errors': errors,
+            })
+        user = User.objects.create(**kwargs)
+        user.set_password(password)
+        user.save()
+        request.session['language_id'] = user.language
+        activate(user.language)
+        token, created = Token.objects.get_or_create(user=user)
+        response = JsonResponse({
+            'success': True,
+            'access_token': token.key,
+            'user': user.to_dict(),
+        })
+        response.set_cookie(key="jwt", value=token.key, httponly=True)
+        return response
+
+
 @api_view(['GET'])
 def check_if_email_or_username_exists(request):
     data = request.GET

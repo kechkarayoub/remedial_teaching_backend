@@ -84,6 +84,8 @@ class User(AbstractUser):
         ("m", _("Male")),
     )
     accounts_types_services = models.ManyToManyField(AccountTypeService, related_name='users', through="UserAccountTypeService")
+    address = models.CharField(_('Address'), default="", max_length=10)
+    birthday = models.DateField(_('Birthday'), null=True)
     country_code = models.CharField(_('Country code'), default="", max_length=10)
     country_name = models.CharField(_('Country name'), default="", max_length=255)
     email_is_validated = models.BooleanField(_('Email is validated'), default=False)
@@ -110,6 +112,8 @@ class User(AbstractUser):
 
     def to_dict(self, get_accounts_types_services=False):
         res = {
+            "address": self.address,
+            "birthday": self.birthday,
             "country_code": self.country_code,
             "country_name": self.country_name,
             "email": self.email,
