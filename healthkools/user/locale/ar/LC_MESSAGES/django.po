@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-06 09:53+0100\n"
+"POT-Creation-Date: 2021-11-06 20:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,11 +126,9 @@ msgstr "رقم الهاتف"
 
 #: models.py:95
 msgid "Phone is valid"
-msgstr "تم التحقق من صحة الهاتف"
+msgstr "رقم الهاتف صحيح"
 
 #: models.py:96
-#, fuzzy
-#| msgid "Phone is valid"
 msgid "Phone is validated"
 msgstr "تم التحقق من صحة الهاتف"
 
@@ -186,17 +184,36 @@ msgstr "الإجابة"
 msgid "Security question"
 msgstr "سؤال الأمان"
 
+#: templates/emails/confirmation_email.html:8
 #: templates/emails/confirmation_email.txt:2
 #, python-format
 msgid "Dear %(full_name)s,"
 msgstr "عزيزي %(full_name)s ،"
 
+#: templates/emails/confirmation_email.html:13
 #: templates/emails/confirmation_email.txt:5
-#, python-format
+msgid "Your account is created on "
+msgstr "تم إنشاء حسابك على "
+
+#: templates/emails/confirmation_email.html:13
 msgid ""
-"Your account is created on %(site_url)s. You still have to validate your "
-"email address. To do so, click on this link or copy it to your browser:"
-msgstr "تم إنشاء حسابك على %(site_url)s. لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك ، انقر فوق هذا الارتباط أو انسخه إلى متصفحك:"
+"You still have to validate your email address. To do so, click on this "
+"button or copy the link below to your browser:"
+msgstr ""
+"لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك ، انقر "
+"فوق هذا الزر أو انسخ الرابط أدناه إلى متصفحك:"
+
+#: templates/emails/confirmation_email.html:15
+msgid "Confirm my email"
+msgstr "تأكيد بريدي الإلكتروني"
+
+#: templates/emails/confirmation_email.txt:5
+msgid ""
+"You still have to validate your email address. To do so, click on this link "
+"or copy it to your browser:"
+msgstr ""
+"لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك ، انقر "
+"فوق هذا الارتباط أو انسخه إلى متصفحك:"
 
 #: tests.py:82 tests.py:120
 msgid "French"
@@ -206,70 +223,62 @@ msgstr "فرنسي"
 msgid "Arabic"
 msgstr "عربي"
 
-#: tests.py:182 tests.py:185 views.py:27 views.py:39
+#: tests.py:182 tests.py:185 views.py:25 views.py:37
 msgid "Invalid credentials!"
 msgstr "بيانات الاعتماد غير صالحة!"
 
-#: tests.py:187 views.py:32
+#: tests.py:187 views.py:30
 msgid "An error occurred when log in!"
 msgstr "حدث خطأ عند تسجيل الدخول!"
 
-#: tests.py:344 views.py:157
+#: tests.py:344 views.py:148
 msgid "The email: {} already exists!"
 msgstr "البريد الالكتروني {} موجود بالفعل!"
 
-#: tests.py:352 views.py:160
+#: tests.py:352 views.py:151
 msgid "The username: {} already exists!"
 msgstr "اسم المستخدم: {} موجود بالفعل!"
 
-#: views.py:70
-#, fuzzy
-#| msgid "The username: {} already exists!"
-msgid "This username: {} is already exists!"
-msgstr "اسم المستخدم: {} موجود بالفعل!"
-
-#: views.py:77
-#, fuzzy
-#| msgid "The email: {} already exists!"
-msgid "This email: {} is already exists!"
-msgstr "البريد الالكتروني {} موجود بالفعل!"
-
-#: views.py:84
-msgid "An error occurred when checking email!"
-msgstr "حدث خطأ أثناء فحص البريد الإلكتروني!"
-
-#: views.py:89
-msgid "An error occurred when checking username!"
-msgstr "حدث خطأ أثناء التحقق من اسم المستخدم!"
-
-#: views.py:104
-#, fuzzy
-#| msgid "Email is validated"
-msgid "Email is required!"
-msgstr "البريد الالكتروني ضروري!"
-
-#: views.py:108
-msgid "First name is required!"
-msgstr "الإسم ضروري!"
-
-#: views.py:112
-msgid "Last name is required!"
-msgstr "اللقب ضروري!"
-
-#: views.py:114
-#, fuzzy
-#| msgid "Password incorrect!"
-msgid "Password is required!"
-msgstr "كلمة المرور ضرورية"
-
-#: views.py:118
-msgid "Username is required!"
-msgstr "اسم المستخدم ضروري!"
-
-#: views.py:133
+#: utils.py:15
 #, python-brace-format
 msgid "Your account {site_name}"
 msgstr "حسابك {site_name}"
+
+#: views.py:67
+msgid "This username: {} is already exists!"
+msgstr "اسم المستخدم: {} موجود بالفعل!"
+
+#: views.py:74
+msgid "This email: {} is already exists!"
+msgstr "البريد الالكتروني {} موجود بالفعل!"
+
+#: views.py:81
+msgid "An error occurred when checking email!"
+msgstr "حدث خطأ أثناء فحص البريد الإلكتروني!"
+
+#: views.py:86
+msgid "An error occurred when checking username!"
+msgstr "حدث خطأ أثناء التحقق من اسم المستخدم!"
+
+#: views.py:101
+msgid "Email is required!"
+msgstr "البريد الالكتروني ضروري!"
+
+#: views.py:105
+msgid "First name is required!"
+msgstr "الإسم ضروري!"
+
+#: views.py:109
+msgid "Last name is required!"
+msgstr "اللقب ضروري!"
+
+#: views.py:111
+msgid "Password is required!"
+msgstr "كلمة المرور ضرورية"
+
+#: views.py:115
+msgid "Username is required!"
+msgstr "اسم المستخدم ضروري!"
 
 #~ msgid "User not found!"
 #~ msgstr "لم يتم العثور على المستخدم!"

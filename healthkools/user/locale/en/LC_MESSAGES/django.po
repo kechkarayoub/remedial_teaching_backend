@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-06 09:53+0100\n"
+"POT-Creation-Date: 2021-11-06 20:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,8 +92,6 @@ msgid "Male"
 msgstr "Male"
 
 #: models.py:87
-#, fuzzy
-#| msgid "Phone address"
 msgid "Address"
 msgstr "Address"
 
@@ -126,16 +124,12 @@ msgid "Phone number"
 msgstr "Phone number"
 
 #: models.py:95
-#, fuzzy
-#| msgid "Email is validated"
 msgid "Phone is valid"
 msgstr "Phone is valid"
 
 #: models.py:96
-#, fuzzy
-#| msgid "Email is validated"
 msgid "Phone is validated"
-msgstr "Phone is valid"
+msgstr "Phone is validated"
 
 #: models.py:148
 msgid "User account type service"
@@ -189,18 +183,36 @@ msgstr "Response"
 msgid "Security question"
 msgstr "Security question"
 
+#: templates/emails/confirmation_email.html:8
 #: templates/emails/confirmation_email.txt:2
 #, python-format
 msgid "Dear %(full_name)s,"
 msgstr "Dear %(full_name)s,"
 
+#: templates/emails/confirmation_email.html:13
 #: templates/emails/confirmation_email.txt:5
-#, python-format
+msgid "Your account is created on "
+msgstr "Your account {site_name}"
+
+#: templates/emails/confirmation_email.html:13
 msgid ""
-"Your account is created on %(site_url)s. You still have to validate your "
-"email address. To do so, click on this link or copy it to your browser:"
+"You still have to validate your email address. To do so, click on this "
+"button or copy the link below to your browser:"
 msgstr ""
-"Your account is created on %(site_url)s. You still have to validate your email address. To do so, click on this link or copy it to your browser:"
+"You still have to validate your email address. To do so, click on this "
+"button or copy the link below to your browser:"
+
+#: templates/emails/confirmation_email.html:15
+msgid "Confirm my email"
+msgstr "Confirm my email"
+
+#: templates/emails/confirmation_email.txt:5
+msgid ""
+"You still have to validate your email address. To do so, click on this link "
+"or copy it to your browser:"
+msgstr ""
+"You still have to validate your email address. To do so, click on this link "
+"or copy it to your browser:"
 
 #: tests.py:82 tests.py:120
 msgid "French"
@@ -210,70 +222,62 @@ msgstr "French"
 msgid "Arabic"
 msgstr "Arabic"
 
-#: tests.py:182 tests.py:185 views.py:27 views.py:39
+#: tests.py:182 tests.py:185 views.py:25 views.py:37
 msgid "Invalid credentials!"
 msgstr "Invalid credentials!"
 
-#: tests.py:187 views.py:32
+#: tests.py:187 views.py:30
 msgid "An error occurred when log in!"
 msgstr "An error occurred when log in!"
 
-#: tests.py:344 views.py:157
+#: tests.py:344 views.py:148
 msgid "The email: {} already exists!"
 msgstr "The email: {} already exists!"
 
-#: tests.py:352 views.py:160
+#: tests.py:352 views.py:151
 msgid "The username: {} already exists!"
 msgstr "The username: {} already exists!"
 
-#: views.py:70
-#, fuzzy
-#| msgid "The username: {} already exists!"
-msgid "This username: {} is already exists!"
-msgstr "The username: {} already exists!"
-
-#: views.py:77
-#, fuzzy
-#| msgid "The email: {} already exists!"
-msgid "This email: {} is already exists!"
-msgstr "The email: {} already exists!"
-
-#: views.py:84
-msgid "An error occurred when checking email!"
-msgstr "An error occurred when checking email!"
-
-#: views.py:89
-msgid "An error occurred when checking username!"
-msgstr "An error occurred when checking username!"
-
-#: views.py:104
-#, fuzzy
-#| msgid "Email is validated"
-msgid "Email is required!"
-msgstr "Email is validated"
-
-#: views.py:108
-msgid "First name is required!"
-msgstr "First name is required!"
-
-#: views.py:112
-msgid "Last name is required!"
-msgstr "Last name is required!"
-
-#: views.py:114
-#, fuzzy
-#| msgid "Password incorrect!"
-msgid "Password is required!"
-msgstr "Password incorrect!"
-
-#: views.py:118
-msgid "Username is required!"
-msgstr "Username is required!"
-
-#: views.py:133
+#: utils.py:15
 #, python-brace-format
 msgid "Your account {site_name}"
 msgstr "Your account {site_name}"
+
+#: views.py:67
+msgid "This username: {} is already exists!"
+msgstr "This username: {} is already exists!"
+
+#: views.py:74
+msgid "This email: {} is already exists!"
+msgstr "This email: {} is already exists!"
+
+#: views.py:81
+msgid "An error occurred when checking email!"
+msgstr "An error occurred when checking email!"
+
+#: views.py:86
+msgid "An error occurred when checking username!"
+msgstr "An error occurred when checking username!"
+
+#: views.py:101
+msgid "Email is required!"
+msgstr "Email is required!"
+
+#: views.py:105
+msgid "First name is required!"
+msgstr "First name is required!"
+
+#: views.py:109
+msgid "Last name is required!"
+msgstr "Last name is required!"
+
+#: views.py:111
+msgid "Password is required!"
+msgstr "Password is required!"
+
+#: views.py:115
+msgid "Username is required!"
+msgstr "Username is required!"
 
 #~ msgid "User not found!"
 #~ msgstr "User not found!"
