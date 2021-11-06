@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 22:48+0100\n"
+"POT-Creation-Date: 2021-11-06 09:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "Assistant"
 msgid "Doctor"
 msgstr "Médecin"
 
-#: models.py:22 models.py:30 tests.py:24 tests.py:35
+#: models.py:22 models.py:30 tests.py:25 tests.py:36
 msgid "Director"
 msgstr "Directeur"
 
@@ -50,11 +50,12 @@ msgstr "Patient"
 msgid "Technician"
 msgstr "Technicien"
 
-#: models.py:25 models.py:33 models.py:38 models.py:43 tests.py:15 tests.py:23
+#: models.py:25 models.py:33 models.py:38 models.py:43 models.py:176
+#: tests.py:16 tests.py:24
 msgid "Other"
 msgstr "Autre"
 
-#: models.py:36 models.py:41 tests.py:16 tests.py:33
+#: models.py:36 models.py:41 tests.py:17 tests.py:34
 msgid "Hospital"
 msgstr "Hôpital"
 
@@ -91,64 +92,189 @@ msgid "Male"
 msgstr "Homme"
 
 #: models.py:87
+msgid "Address"
+msgstr "Adresse"
+
+#: models.py:88
+msgid "Birthday"
+msgstr "Date de naissance"
+
+#: models.py:89
 msgid "Country code"
 msgstr "Code pays"
 
-#: models.py:88
+#: models.py:90
 msgid "Country name"
 msgstr "Nom du pays"
 
-#: models.py:89
+#: models.py:91
 msgid "Email is validated"
 msgstr "L'e-mail est validé"
 
-#: models.py:90
+#: models.py:92
 msgid "Gender"
 msgstr "Genre"
 
-#: models.py:91
+#: models.py:93
 msgid "Language"
 msgstr "Langue"
 
-#: models.py:92
+#: models.py:94
 msgid "Phone number"
 msgstr "Numéro de téléphone"
 
-#: models.py:93
+#: models.py:95
 msgid "Phone is valid"
 msgstr "Le téléphone est valide"
 
-#: models.py:139
+#: models.py:96
+#, fuzzy
+#| msgid "Phone is valid"
+msgid "Phone is validated"
+msgstr "Le téléphone est valide"
+
+#: models.py:148
 msgid "User account type service"
 msgstr "Service type de compte utilisateur"
 
-#: models.py:140
+#: models.py:149
 msgid "Users accounts types services"
 msgstr "Services types de comptes utilisateurs"
 
-#: tests.py:69 tests.py:107
+#: models.py:165
+msgid "User security question"
+msgstr "Question de sécurité de l'utilisateur"
+
+#: models.py:166
+msgid "Users security questions"
+msgstr "Questions de sécurité des utilisateurs"
+
+#: models.py:169
+msgid "What did you want to be bigger when you were a kid?"
+msgstr "Que vouliez-vous être plus grand quand vous étiez enfant ?"
+
+#: models.py:170
+msgid "What is the last name of your favorite childhood teacher?"
+msgstr "Quel est le nom de famille de votre professeur d'enfance préféré ?"
+
+#: models.py:171
+msgid "What is your birthday?"
+msgstr "Quel est ton anniversaire?"
+
+#: models.py:172
+msgid "What is your favorite car?"
+msgstr "Quelle est votre voiture préférée?"
+
+#: models.py:173
+msgid "What is your favorite color?"
+msgstr "Quelle est votre couleur préférée?"
+
+#: models.py:174
+msgid "What is your favorite movie?"
+msgstr "Quel est ton film préféré?"
+
+#: models.py:175
+msgid "What is your place of birth?"
+msgstr "Quel est votre lieu de naissance?"
+
+#: models.py:199
+msgid "Response"
+msgstr "Réponse"
+
+#: models.py:200
+msgid "Security question"
+msgstr "Question de sécurité"
+
+#: templates/emails/confirmation_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"Dear %(full_name)s,\n"
+msgstr ""
+
+#: templates/emails/confirmation_email.txt:5
+#, python-format
+msgid ""
+"\n"
+"Your account is created on %(site_url)s. You still have to validate your "
+"email address. To do so, click on this link or copy it to your browser:\n"
+msgstr ""
+
+#: tests.py:82 tests.py:120
 msgid "French"
 msgstr "Français"
 
-#: tests.py:70
+#: tests.py:83
 msgid "Arabic"
 msgstr "Arabe"
 
-#: tests.py:143 views.py:25
-msgid "User not found!"
-msgstr "Utilisateur non trouvé!"
+#: tests.py:182 tests.py:185 views.py:27 views.py:39
+msgid "Invalid credentials!"
+msgstr "Les informations d'identification invalides!"
 
-#: tests.py:146 views.py:30
-msgid "Password incorrect!"
-msgstr "Mot de passe incorrect"
+#: tests.py:187 views.py:32
+msgid "An error occurred when log in!"
+msgstr "Une erreur s'est produite lors de la connexion !"
 
-#: tests.py:184 views.py:52
+#: tests.py:344 views.py:157
 msgid "The email: {} already exists!"
 msgstr "L'email : {} existe déjà!"
 
-#: tests.py:192 views.py:55
+#: tests.py:352 views.py:160
 msgid "The username: {} already exists!"
 msgstr "Le nom d'utilisateur : {} existe déjà!"
+
+#: views.py:70
+#, fuzzy
+#| msgid "The username: {} already exists!"
+msgid "This username: {} is already exists!"
+msgstr "Le nom d'utilisateur : {} existe déjà!"
+
+#: views.py:77
+#, fuzzy
+#| msgid "The email: {} already exists!"
+msgid "This email: {} is already exists!"
+msgstr "L'email : {} existe déjà!"
+
+#: views.py:84
+msgid "An error occurred when checking email!"
+msgstr "Une erreur s'est produite lors de la vérification de l'e-mails !"
+
+#: views.py:89
+msgid "An error occurred when checking username!"
+msgstr "Une erreur s'est produite lors de la vérification du nom d'utilisateur !"
+
+#: views.py:104
+#, fuzzy
+#| msgid "Email is validated"
+msgid "Email is required!"
+msgstr "L'e-mail est requis !"
+
+#: views.py:108
+msgid "First name is required!"
+msgstr "Le prénom est requis!"
+
+#: views.py:112
+msgid "Last name is required!"
+msgstr "Le nom est requis !"
+
+#: views.py:114
+#, fuzzy
+#| msgid "Password incorrect!"
+msgid "Password is required!"
+msgstr "Le mot de passe est nécessaire!"
+
+#: views.py:118
+msgid "Username is required!"
+msgstr "Le nom d'utilisateur est nécessaire!"
+
+#: views.py:133
+#, python-brace-format
+msgid "Your account {site_name}"
+msgstr "Votre compte {site_name}"
+
+#~ msgid "User not found!"
+#~ msgstr "Utilisateur non trouvé!"
 
 #~ msgid "English"
 #~ msgstr "Anglais"
