@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-06 09:22+0100\n"
+"POT-Creation-Date: 2021-11-06 09:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,18 +188,15 @@ msgstr "سؤال الأمان"
 
 #: templates/emails/confirmation_email.txt:2
 #, python-format
-msgid ""
-"\n"
-"Dear %(full_name)s,\n"
-msgstr ""
+msgid "Dear %(full_name)s,"
+msgstr "عزيزي %(full_name)s ،"
 
 #: templates/emails/confirmation_email.txt:5
 #, python-format
 msgid ""
-"\n"
 "Your account is created on %(site_url)s. You still have to validate your "
-"email address. To do so, click on this link or copy it to your browser:\n"
-msgstr ""
+"email address. To do so, click on this link or copy it to your browser:"
+msgstr "تم إنشاء حسابك على %(site_url)s. لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك ، انقر فوق هذا الارتباط أو انسخه إلى متصفحك:"
 
 #: tests.py:82 tests.py:120
 msgid "French"
