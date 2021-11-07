@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
-
+from django.core import mail
+from django.conf import settings
 from .models import *
+from .utils import contact_new_user
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 import json
@@ -230,6 +232,9 @@ class RegisterTest(TestCase):
         self.assertEqual(len(json_response.get("user").keys()), 17)
         user = User.objects.get(username='username')
         self.assertIs(user.check_password("password") is True, True)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
 
     def test_register_with_required_attribites_success(self):
         response = self.client.post('/user/register/', {
@@ -296,13 +301,13 @@ class RegisterTest(TestCase):
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
-        self.assertEqual(json_response.get("message"), "This username: testuser is already exists!")
+        self.assertEqual(json_response.get("message"), "Ce nom d'utilisateur : testuser existe déjà!")
         response = self.client.post('/user/register/', {
             'email': "testuser@email.com",
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
-        self.assertEqual(json_response.get("message"), "This email: testuser@email.com is already exists!")
+        self.assertEqual(json_response.get("message"), "Cet email : testuser@email.com existe déjà!")
 
 
 
@@ -312,6 +317,8 @@ class ViewTest(TestCase):
         self.credentials = {
             'username': 'testuser',
             'email': 'testemail@example.com',
+            'first_name': 'first_name2',
+            'last_name': 'last_name',
             'password': 'secret',
             'email_is_validated': True,
         }
@@ -350,3 +357,10 @@ class ViewTest(TestCase):
         json_response = json.loads(response.content)
         self.assertTrue(json_response.get("user_exists"))
         self.assertEqual(json_response.get("message"), _("The username: {} already exists!").format(username))
+
+    def test_contact_new_user(self):
+        user = User.objects.get(username="testuser")
+        contact_new_user(user)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)

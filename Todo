@@ -3,6 +3,11 @@ Set correct values for:
     CONTACT_EMAIL in healthkools/settings.py
 
 
+Correct templates in user/templates.
+
+Change static/images/logo.jpg and utils.utils.get_static_logo_url
+
+
 
 Next step:
     add user.models.* to admin and test

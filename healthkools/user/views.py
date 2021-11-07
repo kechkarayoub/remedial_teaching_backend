@@ -9,7 +9,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from utils.utils import date_from_string
-from .utils import get_user_by_email_or_username
+from .utils import get_user_by_email_or_username, contact_new_user
+from django.conf import settings
 import json
 
 
@@ -122,7 +123,12 @@ class RegisterView(APIView):
         user.save()
         request.session['language_id'] = user.language
         activate(user.language)
+        if settings.TEST_SETTINGS:
+            contact_new_user(user)
+        else:
+            contact_new_user.after_response(user)
         token, created = Token.objects.get_or_create(user=user)
+        # User.objects.filter(pk=user.id).delete()
         response = JsonResponse({
             'success': True,
             'access_token': token.key,

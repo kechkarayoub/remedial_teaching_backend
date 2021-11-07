@@ -1,4 +1,43 @@
+# -*- coding: utf-8 -*-
+
 from .models import User
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.translation import activate, ugettext_lazy as _
+from utils.utils import send_email, get_img_as_base64, get_static_logo_url
+import after_response
+import html2text
+
+
+@after_response.enable
+def contact_new_user(user):
+    if settings.TEST_SETTINGS:
+        activate("fr")
+    else:
+        activate(user.language)
+    email_subject = _("Your account {site_name}").format(site_name=settings.SITE_NAME)
+    context = {
+        "direction": "rtl" if user.language == "ar" else "ltr",
+        "full_name": user.last_name + " " + user.first_name,
+        "logo_url": get_static_logo_url(),
+        "site_name": settings.SITE_NAME,
+        "site_url": settings.FRONT_URL,
+        "subject": email_subject,
+        "validation_url": settings.FRONT_URL + "/validation",
+    }
+    email_message_txt = render_to_string('emails/confirmation_email.txt', context)
+    email_message_html = render_to_string('emails/confirmation_email.html', context)
+    # email_message_txt_html = email_message_html.split('main>')[1][:-2].replace("<b>", "").replace("</b>", "")
+    # email_message_txt = html2text.html2text(email_message_txt_html)
+    """
+        For localhost; execute this code in navigator server to show images in email client:
+            var images = document.querySelectorAll("img");
+            for(var i=0; i<images.length; i++) {
+                console.log(images[i].src);
+                images[i].src=images[i].src.replace(/^https:\/\/[a-zA-Z0-9.\/\-=_]+#/,'');
+            }
+    """
+    send_email(email_subject, email_message_txt, [user.email], html_message=email_message_html)
 
 
 def get_user_by_email_or_username(email_or_username):

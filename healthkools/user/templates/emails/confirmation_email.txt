@@ -1,0 +1,7 @@
+{% load i18n %}
+{% if False %}@{% endif %}
+{% blocktrans trimmed with full_name as full_name %}
+Dear {{full_name}},
+{% endblocktrans %}
+{% translate "Your account is created on " %} {{site_url}}. {% translate "You still have to validate your email address. To do so, click on this link or copy it to your browser:" %}
+{{validation_url}}

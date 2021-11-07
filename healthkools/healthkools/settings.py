@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'i18n_switcher',
     'home',
     'utils',
+    'after_response',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'user/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -103,11 +105,6 @@ DATABASES = {
         },
     }
 }
-if 'test' in sys.argv or 'test_coverage' in sys.argv:  # Covers regular testing and django-coverage
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test_database',
-    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -189,6 +186,22 @@ LOGGING = {
 SITE_NAME = "Healthkools"
 CONTACT_EMAIL = "contact@example.com"
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_SMTP_PROVIDER = "sendgrid"
+
 # See if the developer has any local settings.
 if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
     from .private import *  # pylint: disable=import-error,wildcard-import
+
+TEST_SETTINGS = False
+
+if 'test' in sys.argv or 'test_coverage' in sys.argv:  # Covers regular testing and django-coverage
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test_database',
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'user/emails_test')
+    TEST_SETTINGS = True

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body style="padding: 100px;">
+        <div style="background: #1fa1cf0f; border: 2px solid #1fa1cf; border-radius: 10px; padding: 50px;">
+            {% include "emails/header.html" %}
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+            {% include "emails/footer.html" %}
+        </div>
+    </body>
+</html>

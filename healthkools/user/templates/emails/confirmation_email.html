@@ -1,0 +1,20 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block title %}{{subject}}{% endblock %}
+
+{% if False %}@{% endif %}
+{% block content %}
+    <p style="direction: {{direction}}">
+        {% blocktrans trimmed with full_name as full_name %}
+            Dear {{full_name}},
+        {% endblocktrans %}
+    </p>
+    <p style="direction: {{direction}}">
+        {% translate "Your account is created on " %}<b><a href="{{site_url}}" target="_blank" style="color: #1fa1cf; text-decoration: none;">{{site_name}}</a></b>. {% translate "You still have to validate your email address. To do so, click on this button or copy the link below to your browser:" %}
+            <button style="background-color: #1fa1cf; border: 0; border-radius: 5px; padding: 4px 5px;">
+                <a href="{{validation_url}}" target="_blank" style="color: white; font-weight: bold; text-decoration: none;">{% translate "Confirm my email" %}</a>
+            </button>
+        <span style="color: #1fa1cf; display: block; width: 100%;">{{validation_url}}</span>
+    </p>
+{% endblock %}
