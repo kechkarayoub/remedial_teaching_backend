@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 **/migrations/**.py
+**/emails_test/**
 !**/migrations/__init__.py
 # Distribution / packaging
 my.cnf
