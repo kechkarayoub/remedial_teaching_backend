@@ -183,6 +183,10 @@ LOGGING = {
     },
 }
 
+# FIXTURE_DIRS = [
+#     os.path.join(BASE_DIR, 'user/fixtures'),
+# ]
+
 SITE_NAME = "Healthkools"
 CONTACT_EMAIL = "contact@example.com"
 

@@ -1,0 +1,55 @@
+- model: user.AccountTypeService
+  pk: 1
+  fields:
+    service: 'hospital'
+    type: 'assistant'
+- model: user.AccountTypeService
+  pk: 2
+  fields:
+    service: 'hospital'
+    type: 'doctor'
+- model: user.AccountTypeService
+  pk: 3
+  fields:
+    service: 'hospital'
+    type: 'director'
+- model: user.AccountTypeService
+  pk: 4
+  fields:
+    service: 'hospital'
+    type: 'nurse'
+- model: user.AccountTypeService
+  pk: 5
+  fields:
+    service: 'hospital'
+    type: 'patient'
+- model: user.AccountTypeService
+  pk: 6
+  fields:
+    service: 'hospital'
+    type: 'technician'
+- model: user.AccountTypeService
+  pk: 31
+  fields:
+    service: 'laboratory'
+    type: 'assistant'
+- model: user.AccountTypeService
+  pk: 32
+  fields:
+    service: 'laboratory'
+    type: 'doctor'
+- model: user.AccountTypeService
+  pk: 33
+  fields:
+    service: 'laboratory'
+    type: 'director'
+- model: user.AccountTypeService
+  pk: 34
+  fields:
+    service: 'laboratory'
+    type: 'patient'
+- model: user.AccountTypeService
+  pk: 35
+  fields:
+    service: 'laboratory'
+    type: 'technician'

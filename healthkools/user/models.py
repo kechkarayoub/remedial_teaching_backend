@@ -17,11 +17,13 @@ class AccountTypeService(models.Model):
         ordering = ["type", "service"]
         verbose_name = _("Account type service")
         verbose_name_plural = _("Accounts types services")
+        unique_together = ('service', 'type')
 
     TYPES = (
         ("assistant", _("Assistant")),
         ("doctor", _("Doctor")),
         ("director", _("Director")),
+        ("nurse", _("Nurse")),
         ("patient", _("Patient")),
         ("technician", _("Technician")),
         ("other", _("Other"))
@@ -30,6 +32,7 @@ class AccountTypeService(models.Model):
         "assistant": _("Assistant"),
         "doctor": _("Doctor"),
         "director": _("Director"),
+        "nurse": _("Nurse"),
         "patient": _("Patient"),
         "technician": _("Technician"),
         "other": _("Other")
