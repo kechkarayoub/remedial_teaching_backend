@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 19:36+0100\n"
+"POT-Creation-Date: 2021-11-07 20:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,148 +42,148 @@ msgstr "Doctor"
 msgid "Director"
 msgstr "Director"
 
-#: models.py:26
+#: models.py:26 models.py:35
 msgid "Nurse"
 msgstr "Nurse"
 
-#: models.py:27 models.py:35
+#: models.py:27 models.py:36
 msgid "Patient"
 msgstr "Patient"
 
-#: models.py:28 models.py:36
+#: models.py:28 models.py:37
 msgid "Technician"
 msgstr "Technician"
 
-#: models.py:29 models.py:37 models.py:42 models.py:47 models.py:225
+#: models.py:29 models.py:38 models.py:43 models.py:48 models.py:226
 #: tests.py:18 tests.py:26
 msgid "Other"
 msgstr "Other"
 
-#: models.py:40 models.py:45 tests.py:19 tests.py:36
+#: models.py:41 models.py:46 tests.py:19 tests.py:36
 msgid "Hospital"
 msgstr "Hospital"
 
-#: models.py:41 models.py:46
+#: models.py:42 models.py:47
 msgid "Laboratory"
 msgstr "Laboratory"
 
-#: models.py:50
+#: models.py:51
 msgid "Type"
 msgstr "Type"
 
-#: models.py:51
+#: models.py:52
 msgid "Service"
 msgstr "Service"
 
-#: models.py:102
+#: models.py:103
 msgid "User"
 msgstr "User"
 
-#: models.py:103
+#: models.py:104
 msgid "Users"
 msgstr "Users"
 
-#: models.py:106
+#: models.py:107
 msgid "Select"
 msgstr "Select"
 
-#: models.py:107
+#: models.py:108
 msgid "Female"
 msgstr "Female"
 
-#: models.py:108
+#: models.py:109
 msgid "Male"
 msgstr "Male"
 
-#: models.py:111
+#: models.py:112
 msgid "Address"
 msgstr "Address"
 
-#: models.py:112
+#: models.py:113
 msgid "Birthday"
 msgstr "Birthday"
 
-#: models.py:113
+#: models.py:114
 msgid "Country code"
 msgstr "Country code"
 
-#: models.py:114
+#: models.py:115
 msgid "Country name"
 msgstr "Country name"
 
-#: models.py:115
+#: models.py:116
 msgid "Email is validated"
 msgstr "Email is validated"
 
-#: models.py:116
+#: models.py:117
 msgid "Gender"
 msgstr "Gender"
 
-#: models.py:117
+#: models.py:118
 msgid "Language"
 msgstr "Language"
 
-#: models.py:118
+#: models.py:119
 msgid "Phone number"
 msgstr "Phone number"
 
-#: models.py:119
+#: models.py:120
 msgid "Phone is valid"
 msgstr "Phone is valid"
 
-#: models.py:120
+#: models.py:121
 msgid "Phone is validated"
 msgstr "Phone is validated"
 
-#: models.py:194
+#: models.py:195
 msgid "User account type service"
 msgstr "User account type service"
 
-#: models.py:195
+#: models.py:196
 msgid "Users accounts types services"
 msgstr "Users accounts types services"
 
-#: models.py:214
+#: models.py:215
 msgid "User security question"
 msgstr "User security question"
 
-#: models.py:215
+#: models.py:216
 msgid "Users security questions"
 msgstr "Users security questions"
 
-#: models.py:218
+#: models.py:219
 msgid "What did you want to be bigger when you were a kid?"
 msgstr "What did you want to be bigger when you were a kid?"
 
-#: models.py:219
+#: models.py:220
 msgid "What is the last name of your favorite childhood teacher?"
 msgstr "What is the last name of your favorite childhood teacher?"
 
-#: models.py:220
+#: models.py:221
 msgid "What is your birthday?"
 msgstr "What is your birthday?"
 
-#: models.py:221
+#: models.py:222
 msgid "What is your favorite car?"
 msgstr "What is your favorite car?"
 
-#: models.py:222
+#: models.py:223
 msgid "What is your favorite color?"
 msgstr "What is your favorite color?"
 
-#: models.py:223
+#: models.py:224
 msgid "What is your favorite movie?"
 msgstr "What is your favorite movie?"
 
-#: models.py:224
+#: models.py:225
 msgid "What is your place of birth?"
 msgstr "What is your place of birth?"
 
-#: models.py:248
+#: models.py:249
 msgid "Response"
 msgstr "Response"
 
-#: models.py:249
+#: models.py:250
 msgid "Security question"
 msgstr "Security question"
 
