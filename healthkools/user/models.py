@@ -9,6 +9,8 @@ from django.conf import settings
 class AccountTypeService(models.Model):
     """
         AccountTypeService represent the types-services of accounts of each user.
+        :attribute: type: CharField represent the account type of services
+        :attribute: service: CharField represent the service types
     """
     class Meta(object):
         db_table = "healthkools_account_type_service"
@@ -51,13 +53,22 @@ class AccountTypeService(models.Model):
 
     @property
     def service_name(self):
+        """
+            :return: return the name of the current service
+        """
         return self.SERVICES_DICT.get(self.service, "---")
 
     @property
     def type_name(self):
+        """
+            :return: return the name of the current type
+        """
         return self.TYPES_DICT.get(self.type, "---")
 
     def to_dict(self):
+        """
+            :return: return a representation of current instance as an object
+        """
         res = {
             "id": self.id,
             "service": self.service,
@@ -70,7 +81,18 @@ class AccountTypeService(models.Model):
 
 class User(AbstractUser):
     """
-        HUser represent the user model.
+        User represent the user model.
+        :attribute: accounts_types_services: ManyToManyField represent the relationship between users and the accounts services
+        :attribute: address: CharField represent the address of users
+        :attribute: birthday: DateField represent the birthday of users
+        :attribute: country_code: CharField represent the country code of users
+        :attribute: country_name: CharField represent the country name of users
+        :attribute: email_is_validated: BooleanField represent if the users email is validated or not
+        :attribute: gender: CharField represent the gender of users
+        :attribute: language: CharField represent the language of users
+        :attribute: phone: CharField represent the phone of users
+        :attribute: phone_is_valid: BooleanField represent users phone is valid or not
+        :attribute: phone_is_validated: BooleanField represent users phone is validated or not
     """
     class Meta(object):
         db_table = "healthkools_user"
@@ -102,15 +124,32 @@ class User(AbstractUser):
 
     @property
     def language_name(self):
+        """
+            :return: return the name of the current language
+        """
         return settings.LANGUAGES_DICT.get(self.language, "---")
 
     def add_account_type_service(self, accounts_types_services=[], ids=[]):
-        return self.accounts_types_services.add(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
+        """
+            :param accounts_types_services: accounts types services to link with the current user
+            :param ids: ids of the accounts types services to link with the current user
+            :return: None
+        """
+        self.accounts_types_services.add(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
 
     def remove_account_type_service(self, accounts_types_services=[], ids=[]):
-        return self.accounts_types_services.remove(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
+        """
+            :param accounts_types_services: accounts types services to unlink with the current user
+            :param ids: ids of the accounts types services to unlink with the current user
+            :return: None
+        """
+        self.accounts_types_services.remove(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
 
     def to_dict(self, get_accounts_types_services=False):
+        """
+            :param get_accounts_types_services: return accounts types services if get_accounts_types_services is True
+            :return: return a representation of current instance as an object
+        """
         res = {
             "address": self.address,
             "birthday": self.birthday,
@@ -135,12 +174,17 @@ class User(AbstractUser):
         return res
 
     def get_security_questions(self):
+        """
+            :return: return the security questions of the current user as a list of objects
+        """
         return [sq.to_dict() for sq in self.my_security_questions.filter()]
 
 
 class UserAccountTypeService(models.Model):
     """
         UserAccountType represent the relationship between each user with each account_type.
+        :attribute: account_type_service: ForeignKey represent the relationship between the account type service and users
+        :attribute: user: ForeignKey represent the the relationship between the user  and accounts types services
     """
     class Meta(object):
         db_table = "healthkools_user_account_type_service"
@@ -158,6 +202,9 @@ class UserAccountTypeService(models.Model):
 class UserSecurityQuestion(models.Model):
     """
         UserSecurityQuestion represent the relationship between each user with security questions.
+        :attribute: response: CharField represent a response of security question
+        :attribute: security_question: CharField represent a security question
+        :attribute: user: ForeignKey represent the the relationship between the user and question securities
     """
     class Meta(object):
         db_table = "healthkools_user_security_question"
@@ -212,4 +259,7 @@ class UserSecurityQuestion(models.Model):
 
     @classmethod
     def get_list_choices(cls):
+        """
+            :return: return a list of lists that contains security question label and name
+        """
         return cls.SECURITY_QUESTIONS_LIST

@@ -9,6 +9,9 @@ import json
 class FeedsLanguage(models.Model):
     """
         UserAccountType represent the FeedsLanguage model.
+        :attribute feeds: TextField represent feeds stored as json string.
+        :attribute language: CharField represent feeds storred's language.
+        :attribute last_update: DateTimeField represent last time the feeds are stored.
     """
     class Meta(object):
         db_table = "healthkools_feeds_language"
@@ -23,4 +26,7 @@ class FeedsLanguage(models.Model):
         return self.language + "_feeds"
 
     def to_items_list(self):
+        """
+            :return: return current storred feeds a list of objects
+        """
         return json.loads(self.feeds or '[]')

@@ -1,7 +1,9 @@
 import datetime
+import json
+import requests
 
 from django.conf import settings
-import json, requests
+
 from .models import FeedsLanguage
 
 feeds_urls = {
@@ -33,6 +35,11 @@ feeds_urls = {
 
 
 def set_feeds(language, items_test_str=None):
+    """
+        :param language: the language of feeds to be getted from remote servers and storred
+        :param items_test_str: for test we use our predefined items
+        :return: length of storred feeds
+    """
     feeds = []
     if items_test_str:
         items = json.loads(items_test_str)

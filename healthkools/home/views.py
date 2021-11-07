@@ -11,6 +11,10 @@ import json
 
 @api_view(['GET'])
 def feeds_languages_api(request):
+    """
+        :param request: user request
+        :return: all storred feeds as objects grouped by language
+    """
     feeds_languages = {}
     for feeds_language in FeedsLanguage.objects.filter():
         feeds_languages[feeds_language.language] = feeds_language.to_items_list()
@@ -23,6 +27,10 @@ def feeds_languages_api(request):
 
 @api_view(['GET'])
 def general_information_api(request):
+    """
+        :param request: user request
+        :return: general information of the website
+    """
     response = JsonResponse({
         "general_information": {
             "site_name": settings.SITE_NAME,

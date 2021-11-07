@@ -11,6 +11,10 @@ import html2text
 
 @after_response.enable
 def contact_new_user(user):
+    """
+        :param user: the new user which will receive an email of confirmation
+        :return: None
+    """
     if settings.TEST_SETTINGS:
         activate("fr")
     else:
@@ -41,6 +45,10 @@ def contact_new_user(user):
 
 
 def get_user_by_email_or_username(email_or_username):
+    """
+        :param email_or_username: a string contains the email or username
+        :return: return the user linked to the username or email if exists else "not_exists" if not exists else None
+    """
     try:
         if "@" in email_or_username:
             user = User.objects.get(email=email_or_username)

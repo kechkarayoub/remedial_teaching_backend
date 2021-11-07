@@ -16,8 +16,17 @@ import json
 
 class LoginTokenView(APIView):
     def post(self, request, *args, **kwargs):
+        """
+            :param request: the user request
+            :param args:
+            :param kwargs:
+            :return: return the user object representation and his token
+        """
         email_or_username = request.data.get('email_or_username')
         password = request.data.get('password')
+        selected_language = request.data.get('selected_language')
+        if selected_language:
+            activate(selected_language)
         user = get_user_by_email_or_username(email_or_username)
         if user == "not_exists":
             return JsonResponse({
@@ -48,6 +57,12 @@ class LoginTokenView(APIView):
 
 class RegisterView(APIView):
     def post(self, request, *args, **kwargs):
+        """
+            :param request: the user request
+            :param args:
+            :param kwargs:
+            :return: return the new user object representation and his token
+        """
         address = request.data.get('address', '')
         birthday = date_from_string(request.data.get('birthday'))
         country_code = request.data.get('country_code', '')
@@ -60,6 +75,8 @@ class RegisterView(APIView):
         phone_is_valid = request.data.get('is_valid_phone_number', False)
         phone = request.data.get('phone_number', '')
         username = request.data.get('username', '')
+        if language:
+            activate(language)
         try:
             User.objects.get(username=username)
             return JsonResponse({
@@ -122,7 +139,6 @@ class RegisterView(APIView):
         user.set_password(password)
         user.save()
         request.session['language_id'] = user.language
-        activate(user.language)
         if settings.TEST_SETTINGS:
             contact_new_user(user)
         else:
@@ -140,6 +156,10 @@ class RegisterView(APIView):
 
 @api_view(['GET'])
 def check_if_email_or_username_exists(request):
+    """
+        :param request: the request user
+        :return: return a message indicated if the email or username exists or not
+    """
     data = request.GET
     email_or_username = data.get("email_or_username")
     current_language = data.get("current_language") or 'fr'
