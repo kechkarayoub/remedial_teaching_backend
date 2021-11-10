@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 20:09+0100\n"
+"POT-Creation-Date: 2021-11-10 21:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,168 +23,184 @@ msgstr ""
 msgid "Added fields"
 msgstr "الحقول المضافة"
 
-#: models.py:18
+#: models.py:20
 msgid "Account type service"
 msgstr "خدمة نوع الحساب"
 
-#: models.py:19
+#: models.py:21
 msgid "Accounts types services"
 msgstr "خدمات أنواع الحسابات"
 
-#: models.py:23 models.py:32
+#: models.py:25 models.py:34
 msgid "Assistant"
 msgstr "مساعد"
 
-#: models.py:24 models.py:33
+#: models.py:26 models.py:35
 msgid "Doctor"
 msgstr "طبيب"
 
-#: models.py:25 models.py:34 tests.py:27 tests.py:38
+#: models.py:27 models.py:36 tests.py:27 tests.py:38
 msgid "Director"
 msgstr "مدير"
 
-#: models.py:26 models.py:35
+#: models.py:28 models.py:37
 msgid "Nurse"
 msgstr "ممرض"
 
-#: models.py:27 models.py:36
+#: models.py:29 models.py:38
 msgid "Patient"
 msgstr "مريض"
 
-#: models.py:28 models.py:37
+#: models.py:30 models.py:39
 msgid "Technician"
 msgstr "فني"
 
-#: models.py:29 models.py:38 models.py:43 models.py:48 models.py:226
+#: models.py:31 models.py:40 models.py:45 models.py:50 models.py:266
 #: tests.py:18 tests.py:26
 msgid "Other"
 msgstr "آخر"
 
-#: models.py:41 models.py:46 tests.py:19 tests.py:36
+#: models.py:43 models.py:48 tests.py:19 tests.py:36
 msgid "Hospital"
 msgstr "مستشفى"
 
-#: models.py:42 models.py:47
+#: models.py:44 models.py:49
 msgid "Laboratory"
 msgstr "مختبر"
 
-#: models.py:51
+#: models.py:53
 msgid "Type"
 msgstr "نوع"
 
-#: models.py:52
+#: models.py:54
 msgid "Service"
 msgstr "خدمة"
 
-#: models.py:103
+#: models.py:105
 msgid "User"
 msgstr "المستخدم"
 
-#: models.py:104
+#: models.py:106
 msgid "Users"
 msgstr "المستخدمين"
 
-#: models.py:107
+#: models.py:109
 msgid "Select"
 msgstr "اختر"
 
-#: models.py:108
+#: models.py:110
 msgid "Female"
 msgstr "أنثى"
 
-#: models.py:109
+#: models.py:111
 msgid "Male"
 msgstr "ذكر"
 
-#: models.py:112
+#: models.py:114
 msgid "Address"
 msgstr "العنوان"
 
-#: models.py:113
+#: models.py:115
 msgid "Birthday"
 msgstr "تاريخ الميلاد"
 
-#: models.py:114
+#: models.py:116
 msgid "Country code"
 msgstr "رمز البلد"
 
-#: models.py:115
+#: models.py:117
 msgid "Country name"
 msgstr "اسم البلد"
 
-#: models.py:116
+#: models.py:118
 msgid "Email is validated"
 msgstr "تم التحقق من صحة البريد الإلكتروني"
 
-#: models.py:117
+#: models.py:119
 msgid "Gender"
 msgstr "الجنس"
 
-#: models.py:118
+#: models.py:120
 msgid "Language"
 msgstr "اللغة"
 
-#: models.py:119
+#: models.py:121
 msgid "Phone number"
 msgstr "رقم الهاتف"
 
-#: models.py:120
+#: models.py:122
 msgid "Phone is valid"
 msgstr "رقم الهاتف صحيح"
 
-#: models.py:121
+#: models.py:123
 msgid "Phone is validated"
 msgstr "تم التحقق من صحة الهاتف"
 
-#: models.py:195
+#: models.py:197
 msgid "User account type service"
 msgstr "خدمة نوع حساب المستخدم"
 
-#: models.py:196
+#: models.py:198
 msgid "Users accounts types services"
 msgstr "حسابات المستخدمين أنواع الخدمات"
 
-#: models.py:215
+#: models.py:217
+msgid "User email confirmation key"
+msgstr "مفتاح تأكيد البريد الإلكتروني للمستخدم"
+
+#: models.py:218
+msgid "Users emails confirmation keys"
+msgstr "مفاتيح تأكيد رسائل البريد الإلكتروني للمستخدمين"
+
+#: models.py:220
+msgid "Creation time"
+msgstr "وقت الانشاء"
+
+#: models.py:221
+msgid "Key"
+msgstr "مفتاح"
+
+#: models.py:255
 msgid "User security question"
 msgstr "سؤال أمان المستخدم"
 
-#: models.py:216
+#: models.py:256
 msgid "Users security questions"
 msgstr "أسئلة أمان المستخدمين"
 
-#: models.py:219
+#: models.py:259
 msgid "What did you want to be bigger when you were a kid?"
 msgstr "ماذا كنت تريد أن تكون أكبر عندما كنت طفلاً؟"
 
-#: models.py:220
+#: models.py:260
 msgid "What is the last name of your favorite childhood teacher?"
 msgstr "ما هو الاسم الأخير لمعلم الطفولة المفضل لديك؟"
 
-#: models.py:221
+#: models.py:261
 msgid "What is your birthday?"
 msgstr "ما هو عيد ميلادك؟"
 
-#: models.py:222
+#: models.py:262
 msgid "What is your favorite car?"
 msgstr "ماهي سيارتك المفضلة؟"
 
-#: models.py:223
+#: models.py:263
 msgid "What is your favorite color?"
 msgstr "ما هو لونك المفضل؟"
 
-#: models.py:224
+#: models.py:264
 msgid "What is your favorite movie?"
 msgstr "ما هو فيلمك المفضل؟"
 
-#: models.py:225
+#: models.py:265
 msgid "What is your place of birth?"
 msgstr "ما هو مكان ميلادك؟"
 
-#: models.py:249
+#: models.py:289
 msgid "Response"
 msgstr "الإجابة"
 
-#: models.py:250
+#: models.py:290
 msgid "Security question"
 msgstr "سؤال الأمان"
 
@@ -227,23 +243,23 @@ msgstr "فرنسي"
 msgid "Arabic"
 msgstr "عربي"
 
-#: tests.py:184 tests.py:187 views.py:34 views.py:46
+#: tests.py:217 tests.py:220 views.py:34 views.py:46
 msgid "Invalid credentials!"
 msgstr "بيانات الاعتماد غير صالحة!"
 
-#: tests.py:189 views.py:39
+#: tests.py:222 views.py:39
 msgid "An error occurred when log in!"
 msgstr "حدث خطأ عند تسجيل الدخول!"
 
-#: tests.py:351 views.py:171
+#: tests.py:449 views.py:223
 msgid "The email: {} already exists!"
 msgstr "البريد الالكتروني {} موجود بالفعل!"
 
-#: tests.py:359 views.py:174
+#: tests.py:457 views.py:226
 msgid "The username: {} already exists!"
 msgstr "اسم المستخدم: {} موجود بالفعل!"
 
-#: utils.py:22
+#: utils.py:23
 #, python-brace-format
 msgid "Your account {site_name}"
 msgstr "حسابك {site_name}"
@@ -260,7 +276,7 @@ msgstr "البريد الالكتروني {} موجود بالفعل!"
 msgid "An error occurred when checking email!"
 msgstr "حدث خطأ أثناء فحص البريد الإلكتروني!"
 
-#: views.py:103
+#: views.py:103 views.py:188
 msgid "An error occurred when checking username!"
 msgstr "حدث خطأ أثناء التحقق من اسم المستخدم!"
 
@@ -283,6 +299,40 @@ msgstr "كلمة المرور ضرورية"
 #: views.py:132
 msgid "Username is required!"
 msgstr "اسم المستخدم ضروري!"
+
+#: views.py:151
+msgid "Your account is created."
+msgstr "تم إنشاء حسابك."
+
+#: views.py:152
+msgid ""
+"An activation email is sent to the address {} for you to activate your email "
+"so that you can log in."
+msgstr ""
+"تم إرسال بريد إلى العنوان {} لتفعيل بريدك الإلكتروني حتى تتمكن من تسجيل "
+"الدخول."
+
+#: views.py:153
+msgid "If you haven't received the email, click here to resend it."
+msgstr "إذا لم تتلق البريد الإلكتروني ، فانقر هنا لإعادة إرساله."
+
+#: views.py:177
+msgid "Your email address is already validated!"
+msgstr "تم التحقق من صحة عنوان بريدك الإلكتروني بالفعل!"
+
+#: views.py:178
+msgid "You can now log in with your username/email and password."
+msgstr ""
+"يمكنك الآن تسجيل الدخول باستخدام اسم المستخدم / البريد الإلكتروني وكلمة "
+"المرور."
+
+#: views.py:183
+msgid "We couldn't find an account with that username: {}!"
+msgstr "لم نتمكن من العثور على حساب باسم المستخدم هذا: {}!"
+
+#: views.py:204
+msgid "A new activation email is sent to the address {}."
+msgstr "تم إرسال بريد إلكتروني جديد للتفعيل إلى العنوان {}."
 
 #~ msgid "User not found!"
 #~ msgstr "لم يتم العثور على المستخدم!"
