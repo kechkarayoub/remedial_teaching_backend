@@ -194,11 +194,13 @@ class ResendActivationEmailView(APIView):
                 break
         if user_email_confirmation_key is None:
             user_email_confirmation_key = UserEmailConfirmationKey.create(user)
-        request.session['language_id'] = user.language
+        request.session['language_id'] = language
         if settings.TEST_SETTINGS:
             contact_new_user(user, user_email_confirmation_key.key)
         else:
             contact_new_user.after_response(user, user_email_confirmation_key.key)
+        if language:
+            activate(language)
         response = JsonResponse({
             'success': True,
             'message': _("A new activation email is sent to the address {}.").format(user.email),

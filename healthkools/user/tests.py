@@ -358,7 +358,7 @@ class ResendActivationEmailViewTest(TestCase):
             'username': "username",
         }, follow=True)
         response = self.client.post('/user/resend_activation_email/', {
-            'language': 'en',
+            'current_language': 'en',
             'username': "username",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -388,7 +388,7 @@ class ResendActivationEmailViewTest(TestCase):
         user.email_is_validated = True
         user.save()
         response = self.client.post('/user/resend_activation_email/', {
-            'language': 'en',
+            'current_language': 'en',
             'username': "username2",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -397,7 +397,7 @@ class ResendActivationEmailViewTest(TestCase):
         self.assertEqual(json_response.get("message"), "We couldn't find an account with that username: username2!")
         self.assertEqual(len(mail.outbox), 1)
         response2 = self.client.post('/user/resend_activation_email/', {
-            'language': 'en',
+            'current_language': 'en',
             'username': "username",
         }, follow=True)
         json_response2 = json.loads(response2.content)
