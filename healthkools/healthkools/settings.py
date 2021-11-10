@@ -187,9 +187,10 @@ LOGGING = {
 #     os.path.join(BASE_DIR, 'user/fixtures'),
 # ]
 
+
 SITE_NAME = "Healthkools"
 CONTACT_EMAIL = "contact@example.com"
-
+EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES = 60
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

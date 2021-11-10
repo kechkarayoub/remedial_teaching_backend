@@ -61,7 +61,7 @@ class RegisterView(APIView):
             :param request: the user request
             :param args:
             :param kwargs:
-            :return: return the new user object representation and his token
+            :return: return a message confirmed that the account is created
         """
         address = request.data.get('address', '')
         birthday = date_from_string(request.data.get('birthday'))
@@ -138,19 +138,71 @@ class RegisterView(APIView):
         user = User.objects.create(**kwargs)
         user.set_password(password)
         user.save()
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
         request.session['language_id'] = user.language
         if settings.TEST_SETTINGS:
-            contact_new_user(user)
+            contact_new_user(user, user_email_confirmation_key.key)
         else:
-            contact_new_user.after_response(user)
-        token, created = Token.objects.get_or_create(user=user)
+            contact_new_user.after_response(user, user_email_confirmation_key.key)
         # User.objects.filter(pk=user.id).delete()
         response = JsonResponse({
             'success': True,
-            'access_token': token.key,
-            'user': user.to_dict(),
+            'messages': {
+                "title": _("Your account is created."),
+                "p1": _("An activation email is sent to the address {} for you to activate your email so that you can log in.").format(email),
+                "p2": _("If you haven't received the email, click here to resend it."),
+                "username": username,
+            },
         })
-        response.set_cookie(key="jwt", value=token.key, httponly=True)
+        return response
+
+
+class ResendActivationEmailView(APIView):
+    def post(self, request, *args, **kwargs):
+        """
+            :param request: the user request
+            :param args:
+            :param kwargs:
+            :return: return a message confirmed that the email activation is ressent
+        """
+        language = request.data.get('current_language', 'fr')
+        username = request.data.get('username', '')
+        if language:
+            activate(language)
+        try:
+            user = User.objects.get(username=username)
+            if user.email_is_validated:
+                return JsonResponse({
+                    'success': False,
+                    'message1': _('Your email address is already validated!'),
+                    'message2': _('You can now log in with your username/email and password.'),
+                })
+        except User.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'message': _("We couldn't find an account with that username: {}!").format(username),
+            })
+        except:
+            return JsonResponse({
+                'success': False,
+                'message': _('An error occurred when checking username!'),
+            })
+        user_email_confirmation_key = None
+        for ueck in user.my_email_confirmation_keys.filter():
+            if not ueck.is_expired:
+                user_email_confirmation_key = ueck
+                break
+        if user_email_confirmation_key is None:
+            user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        request.session['language_id'] = user.language
+        if settings.TEST_SETTINGS:
+            contact_new_user(user, user_email_confirmation_key.key)
+        else:
+            contact_new_user.after_response(user, user_email_confirmation_key.key)
+        response = JsonResponse({
+            'success': True,
+            'message': _("A new activation email is sent to the address {}.").format(user.email),
+        })
         return response
 
 

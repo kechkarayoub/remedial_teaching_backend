@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -200,6 +202,44 @@ class UserAccountTypeService(models.Model):
 
     def __str__(self):
         return self.user.__str__() + "_" + self.account_type_service.__str__()
+
+
+class UserEmailConfirmationKey(models.Model):
+    """
+        UserEmailConfirmationKey represent the relationship between each user with his email confirmation key.
+        :attribute: creation_time: DateTimeField represent the time when the key is created.
+        :attribute: key: CharField represent a random key for confirm email.
+        :attribute: user: ForeignKey represent the the relationship between the user and the keys.
+    """
+    class Meta(object):
+        db_table = "healthkools_user_email_confirmation_key"
+        ordering = ["creation_time"]
+        verbose_name = _("User email confirmation key")
+        verbose_name_plural = _("Users emails confirmation keys")
+
+    creation_time = models.DateTimeField(_('Creation time'), auto_now_add=True)
+    key = models.CharField(_('Key'), default="", max_length=255)
+    user = models.ForeignKey(User, related_name='my_email_confirmation_keys', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.__str__() + "_" + self.key
+
+    @property
+    def is_expired(self):
+        """
+            :return: return True if timedelta between creation time and now is greater than settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES
+        """
+        diff = datetime.datetime.now().astimezone() - self.creation_time
+        return diff.seconds / 60 > settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES
+
+    @classmethod
+    def create(cls, user):
+        """
+            :param user: The user that will be linked to the email confirmation key
+            :return: return an instance of UserEmailConfirmationKey with a generation confirmation key
+        """
+        key = user.email + uuid.uuid4().hex
+        return cls.objects.create(key=key, user=user)
 
 
 class UserSecurityQuestion(models.Model):

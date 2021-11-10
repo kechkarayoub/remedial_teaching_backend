@@ -55,9 +55,33 @@ class UserAdmin(BaseUserAdmin):
         return queryset
 
 
+class UserEmailConfirmationKeyAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('key', 'user')
+        }),
+    )
+    list_display = ('__str__', 'key', 'user')
+    list_filter = ('user', )
+    search_fields = ('key', 'user__username')
+
+
+class UserSecurityQuestionAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('response', 'security_question', 'user')
+        }),
+    )
+    list_display = ('__str__', 'security_question', 'user')
+    list_filter = ('user', )
+    search_fields = ('response', 'security_question', 'user__username')
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(AccountTypeService, AccountTypeServiceAdmin)
 admin.site.register(UserAccountTypeService, UserAccountTypeServiceAdmin)
+admin.site.register(UserEmailConfirmationKey, UserEmailConfirmationKeyAdmin)
+admin.site.register(UserSecurityQuestion, UserSecurityQuestionAdmin)
 
 
 

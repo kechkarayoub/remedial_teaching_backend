@@ -10,8 +10,9 @@ import html2text
 
 
 @after_response.enable
-def contact_new_user(user):
+def contact_new_user(user, user_email_confirmation_key):
     """
+        :param user_email_confirmation_key: the user email confirmation key
         :param user: the new user which will receive an email of confirmation
         :return: None
     """
@@ -27,7 +28,7 @@ def contact_new_user(user):
         "site_name": settings.SITE_NAME,
         "site_url": settings.FRONT_URL,
         "subject": email_subject,
-        "validation_url": settings.FRONT_URL + "/validation",
+        "validation_url": settings.FRONT_URL + "/validation_email/" + user_email_confirmation_key,
     }
     email_message_txt = render_to_string('emails/confirmation_email.txt', context)
     email_message_html = render_to_string('emails/confirmation_email.html', context)

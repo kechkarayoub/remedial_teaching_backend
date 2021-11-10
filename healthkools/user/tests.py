@@ -126,6 +126,8 @@ class UserModelTests(TestCase):
         self.assertEqual(dict["phone_is_validated"], False)
         self.assertEqual(dict["username"], "test_username")
         self.assertEqual(dict.get("accounts_types_services"), None)
+        self.assertEqual(len(dict.keys()), 17)
+        self.assertEqual(len(dict_2.keys()), 18)
         self.assertEqual(len(dict_2.get("accounts_types_services")), 1)
         self.assertEqual(dict_2.get("accounts_types_services")[0]['id'], 1)
         self.assertEqual(dict_2.get("accounts_types_services")[0]['service'], "hospital")
@@ -150,6 +152,37 @@ class UserSecurityQuestionModelTests(TestCase):
     def test_get_list_choices(self):
         list_choices = UserSecurityQuestion.get_list_choices()
         self.assertEqual(list_choices, UserSecurityQuestion.SECURITY_QUESTIONS_LIST)
+
+
+class UserEmailConfirmationKeyModelTests(TestCase):
+
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'email': 'testemail@example.com',
+            'first_name': 'first_name2',
+            'last_name': 'last_name',
+            'password': 'secret',
+        }
+        User.objects.create_user(**self.credentials)
+
+    def test_create(self):
+        user = User.objects.get(email="testemail@example.com")
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        self.assertEqual(UserEmailConfirmationKey.objects.get(key=user_email_confirmation_key.key, user=user).id, user_email_confirmation_key.id)
+
+    def test_is_expired_false(self):
+        user = User.objects.get(email="testemail@example.com")
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        self.assertFalse(user_email_confirmation_key.is_expired)
+
+    def test_is_expired_true(self):
+        user = User.objects.get(email="testemail@example.com")
+        creation_time = datetime.datetime.now() - datetime.timedelta(minutes=settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES + 1)
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        user_email_confirmation_key.creation_time = creation_time.astimezone()
+        user_email_confirmation_key.save()
+        self.assertTrue(user_email_confirmation_key.is_expired)
 
 
 class LogInTest(TestCase):
@@ -217,20 +250,20 @@ class RegisterTest(TestCase):
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertTrue(json_response.get("success"))
-        self.assertEqual(json_response.get("user").get("address"), 'address')
-        self.assertEqual(datetime.datetime.strptime(json_response.get("user").get("birthday"), "%Y-%m-%dT%H:%M:%S").date(), datetime.datetime.today().date())
-        self.assertEqual(json_response.get("user").get("country_code"), "MA")
-        self.assertEqual(json_response.get("user").get("email"), "email@email.com")
-        self.assertEqual(json_response.get("user").get("first_name"), "first_name")
-        self.assertEqual(json_response.get("user").get("gender"), "m")
-        self.assertEqual(json_response.get("user").get("language"), "ar")
-        self.assertEqual(json_response.get("user").get("last_name"), "last_name")
-        self.assertEqual(json_response.get("user").get("phone_is_valid"), False)
-        self.assertEqual(json_response.get("user").get("username"), "username")
-        self.assertIs(json_response.get("access_token") is None, False)
-        self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 17)
+        self.assertEqual(len(json_response.keys()), 2)
+        self.assertIs(json_response.get("messages") is None, False)
+        self.assertEqual(len(json_response.get("messages").keys()), 4)
+        self.assertEqual(json_response.get("messages").get('username'), "username")
         user = User.objects.get(username='username')
+        self.assertEqual(user.address, 'address')
+        self.assertEqual(user.birthday, datetime.datetime.today().date())
+        self.assertEqual(user.country_code, "MA")
+        self.assertEqual(user.email, "email@email.com")
+        self.assertEqual(user.first_name, "first_name")
+        self.assertEqual(user.gender, "m")
+        self.assertEqual(user.language, "ar")
+        self.assertEqual(user.last_name, "last_name")
+        self.assertEqual(user.phone_is_valid, False)
         self.assertIs(user.check_password("password") is True, True)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
@@ -246,10 +279,7 @@ class RegisterTest(TestCase):
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertTrue(json_response.get("success"))
-        self.assertEqual(json_response.get("user").get("username"), 'username')
-        self.assertIs(json_response.get("access_token") is None, False)
-        self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 17)
+        self.assertEqual(len(json_response.keys()), 2)
         user = User.objects.get(username='username')
         self.assertEqual(user.language, "fr")
         self.assertIs(user.check_password("password") is True, True)
@@ -310,6 +340,74 @@ class RegisterTest(TestCase):
         self.assertEqual(json_response.get("message"), "Cet email : testuser@email.com existe déjà!")
 
 
+class ResendActivationEmailViewTest(TestCase):
+
+    def test_resend_activation_email_success(self):
+        self.client.post('/user/register/', {
+            'address': 'address',
+            'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'country_code': "MA",
+            'email': "email@email.com",
+            'first_name': "first_name",
+            'gender': "m",
+            'current_language': "ar",
+            'last_name': "last_name",
+            'password': "password",
+            'phone_is_valid': False,
+            'phone': "+212645454545",
+            'username': "username",
+        }, follow=True)
+        response = self.client.post('/user/resend_activation_email/', {
+            'language': 'en',
+            'username': "username",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertTrue(json_response.get("success"))
+        self.assertEqual(len(json_response.keys()), 2)
+        self.assertEqual(json_response.get("message"), "A new activation email is sent to the address email@email.com.")
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertEqual(mail.outbox[1].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertIn("last_name first_name", mail.outbox[1].body)
+
+    def test_resend_activation_email_failed(self):
+        self.client.post('/user/register/', {
+            'address': 'address',
+            'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'country_code': "MA",
+            'email': "email@email.com",
+            'first_name': "first_name",
+            'gender': "m",
+            'current_language': "ar",
+            'last_name': "last_name",
+            'password': "password",
+            'phone_is_valid': False,
+            'phone': "+212645454545",
+            'username': "username",
+        }, follow=True)
+        user = User.objects.get(username="username")
+        user.email_is_validated = True
+        user.save()
+        response = self.client.post('/user/resend_activation_email/', {
+            'language': 'en',
+            'username': "username2",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(len(json_response.keys()), 2)
+        self.assertEqual(json_response.get("message"), "We couldn't find an account with that username: username2!")
+        self.assertEqual(len(mail.outbox), 1)
+        response2 = self.client.post('/user/resend_activation_email/', {
+            'language': 'en',
+            'username': "username",
+        }, follow=True)
+        json_response2 = json.loads(response2.content)
+        self.assertFalse(json_response2.get("success"))
+        self.assertEqual(len(json_response2.keys()), 3)
+        self.assertEqual(json_response2.get("message1"), "Your email address is already validated!")
+        self.assertEqual(json_response2.get("message2"), "You can now log in with your username/email and password.")
+        self.assertEqual(len(mail.outbox), 1)
+
+
 
 class ViewTest(TestCase):
 
@@ -360,7 +458,8 @@ class ViewTest(TestCase):
 
     def test_contact_new_user(self):
         user = User.objects.get(username="testuser")
-        contact_new_user(user)
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        contact_new_user(user, user_email_confirmation_key.key)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
