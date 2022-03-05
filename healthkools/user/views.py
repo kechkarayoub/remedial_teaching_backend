@@ -2,7 +2,7 @@
 
 from .models import *
 from django.http import JsonResponse
-from django.utils.translation import activate, ugettext_lazy as _
+from django.utils.translation import activate, gettext_lazy as _
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.exceptions import AuthenticationFailed

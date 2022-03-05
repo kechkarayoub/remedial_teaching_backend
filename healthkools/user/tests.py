@@ -5,7 +5,7 @@ from django.conf import settings
 from .models import *
 from .utils import contact_new_user
 from django.test import TestCase
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 import json
 
 

@@ -3,7 +3,7 @@
 from .models import User
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.utils.translation import activate, ugettext_lazy as _
+from django.utils.translation import activate, gettext_lazy as _
 from utils.utils import send_email, get_img_as_base64, get_static_logo_url
 import after_response
 import html2text

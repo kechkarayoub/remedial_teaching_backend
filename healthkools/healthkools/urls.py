@@ -15,8 +15,8 @@ Including another URLconf
 """
 from home import views
 from django.contrib import admin
-from django.urls import include, path
-from django.conf.urls import url
+from django.urls import include, path, re_path
+#from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
@@ -25,6 +25,6 @@ urlpatterns = [
     path('user/', include('user.urls')),
 ]
 urlpatterns += i18n_patterns(
-    url(r'^admin/', admin.site.urls),
+    re_path(r'^admin/', admin.site.urls),
     prefix_default_language=True
 )
