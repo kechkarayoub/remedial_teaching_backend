@@ -23,7 +23,7 @@ class Command(BaseCommand):
     )
     def add_arguments(self, parser):
         parser.add_argument('--language', type=str)
-        parser.add_argument('--l', type=str)
+        parser.add_argument('-l', type=str)
 
     def handle(self, *args, **options):
         if options.get("language") or options.get("l"):
