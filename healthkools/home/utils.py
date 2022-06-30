@@ -42,11 +42,15 @@ def set_feeds(language, items_test_str=None):
     """
     feeds = []
     if items_test_str:
+        # function called by test
         items = json.loads(items_test_str)
         feeds = [*feeds, *items]
     else:
+        # real function
+        # get urls by language
         urls = feeds_urls.get(language) or []
         for url in urls:
+            # for each rss url we get items via rss2json api and append them to feeds array
             try:
                 response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
                 items = json.loads(response.content).get("items")
@@ -54,8 +58,10 @@ def set_feeds(language, items_test_str=None):
             except:
                 pass
     if feeds:
+        # stringify feeds for store them in databases
         feeds_str = json.dumps(feeds)
         last_update = datetime.datetime.now()
+        # save last date we get feeds
         if FeedsLanguage.objects.filter(language=language).exists():
             FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str, last_update=last_update)
         else:
