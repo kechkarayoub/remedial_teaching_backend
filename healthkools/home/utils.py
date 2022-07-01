@@ -1,7 +1,7 @@
 import datetime
 import json
 import requests
-
+from datetime import timezone
 from django.conf import settings
 
 from .models import FeedsLanguage
@@ -34,7 +34,7 @@ feeds_urls = {
 }
 
 
-def set_feeds(language, items_test_str=None):
+def set_feeds(language, items_test_str=None, raise_exception=False):
     """
         :param language: the language of feeds to be getted from remote servers and storred
         :param items_test_str: for test we use our predefined items
@@ -52,15 +52,18 @@ def set_feeds(language, items_test_str=None):
         for url in urls:
             # for each rss url we get items via rss2json api and append them to feeds array
             try:
+                if raise_exception:
+                    1 / 0
                 response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
                 items = json.loads(response.content).get("items")
                 feeds = [*feeds, *items]
             except:
-                pass
+                if raise_exception:
+                    raise Exception("Exception")
     if feeds:
         # stringify feeds for store them in databases
         feeds_str = json.dumps(feeds)
-        last_update = datetime.datetime.now()
+        last_update = datetime.datetime.now().replace(tzinfo=timezone.utc)
         # save last date we get feeds
         if FeedsLanguage.objects.filter(language=language).exists():
             FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str, last_update=last_update)

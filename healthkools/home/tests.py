@@ -6,7 +6,8 @@ from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from unittest.mock import patch
-import json
+import json, datetime
+from datetime import timezone
 
 
 class FeedsLanguageModelTests(TestCase):
@@ -55,6 +56,14 @@ class HomeViewsTest(TestCase):
         self.assertTrue(FeedsLanguage.objects.filter(language="en").exists())
         self.assertFalse(FeedsLanguage.objects.filter(language="fr").exists())
         feeds_language = FeedsLanguage.objects.get(language="en")
+        self.assertEqual(feeds_language.feeds, self.feeds_str)
         feeds_list = feeds_language.to_items_list()
         self.assertEqual(len(feeds_list), 3)
+        self.assertGreaterEqual(datetime.datetime.now().replace(tzinfo=timezone.utc), feeds_language.last_update.replace(tzinfo=timezone.utc))
         self.assertEqual(feeds_list[0]["title"], "How the Pandemic Inspired Mike to Lose 245 pounds")
+        self.assertEqual(FeedsLanguage.objects.filter(language="en").count(), 1)
+        feeds_added = set_feeds("en")
+        self.assertEqual(FeedsLanguage.objects.filter(language="en").count(), 1)
+        self.assertGreaterEqual(feeds_added, 1)
+        self.assertNotEqual(feeds_list[0]["title"], "How the Pandemic2 Inspired Mike to Lose 245 pounds")
+        self.assertRaises(Exception, set_feeds, "en", None, True)
