@@ -1,0 +1,10 @@
+[run]
+branch = True
+source = .
+omit =
+    manage.py
+    healthkools/settings.py
+    healthkools/asgi.py
+    healthkools/wsgi.py
+[report]
+show_missing = True
