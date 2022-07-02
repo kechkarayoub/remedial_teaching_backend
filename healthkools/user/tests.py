@@ -37,6 +37,26 @@ class AccountTypeServiceModelTests(TestCase):
         self.assertEqual(dict["type"], "director")
         self.assertEqual(dict["type_name"], _("Director"))
 
+    def test___str__(self):
+        account_type_service = AccountTypeService(service="hospital", type="director")
+        account_type_service.save()
+        str_ = account_type_service.__str__()
+        self.assertEqual(str_, "Directeur_Hôpital")
+
+
+class UserAccountTypeServiceModelTests(TestCase):
+
+    def test___str__(self):
+        account_type_service = AccountTypeService(service="hospital", type="director")
+        account_type_service.save()
+        user = User(username="test_username", last_name="last_name", gender="m")
+        user.save()
+        user_account_type_service = UserAccountTypeService(account_type_service=account_type_service, user=user)
+        user_account_type_service.save()
+        str_ = user_account_type_service.__str__()
+        self.assertEqual(str_, "test_username_Director_Hospital")
+
+
 
 class UserModelTests(TestCase):
 
@@ -133,6 +153,12 @@ class UserModelTests(TestCase):
         self.assertEqual(dict_2.get("accounts_types_services")[0]['service'], "hospital")
         self.assertEqual(dict_2.get("accounts_types_services")[0]['type'], "director")
 
+    def test___str__(self):
+        user = User(username="test_username", last_name="last_name", gender="m")
+        user.save()
+        str_ = user.__str__()
+        self.assertEqual(str_, "test_username")
+
 
 class UserSecurityQuestionModelTests(TestCase):
 
@@ -152,6 +178,17 @@ class UserSecurityQuestionModelTests(TestCase):
     def test_get_list_choices(self):
         list_choices = UserSecurityQuestion.get_list_choices()
         self.assertEqual(list_choices, UserSecurityQuestion.SECURITY_QUESTIONS_LIST)
+
+    def test___str__(self):
+        credentials = {
+            'username': 'testuser',
+            'password': 'secret'
+        }
+        user = User.objects.create_user(**credentials)
+        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user)
+        user_security_question.save()
+        str_ = user_security_question.__str__()
+        self.assertEqual(str_, user.__str__() + "_" + user_security_question.security_question)
 
 
 class UserEmailConfirmationKeyModelTests(TestCase):
@@ -183,6 +220,12 @@ class UserEmailConfirmationKeyModelTests(TestCase):
         user_email_confirmation_key.creation_time = creation_time.astimezone()
         user_email_confirmation_key.save()
         self.assertTrue(user_email_confirmation_key.is_expired)
+
+    def test___str__(self):
+        user = User.objects.get(email="testemail@example.com")
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        str_ = user_email_confirmation_key.__str__()
+        self.assertEqual(str_, user.__str__() + "_" + user_email_confirmation_key.key)
 
 
 class LogInTest(TestCase):

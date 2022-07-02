@@ -50,6 +50,7 @@ class UserAdmin(BaseUserAdmin):
     ]
 
     def get_queryset(self, request):
+        # prefetch accounts types services
         queryset = super().get_queryset(request)
         queryset = queryset.prefetch_related('accounts_types_services')
         return queryset
