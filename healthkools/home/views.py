@@ -17,7 +17,7 @@ def feeds_languages_api(request):
     """
     feeds_languages = {}
     for feeds_language in FeedsLanguage.objects.filter():
-        # for each stored language feeds, we get items and we add them to feeds_languages dictionary
+        # for each stored language feeds, we get items, and we add them to feeds_languages dictionary
         feeds_languages[feeds_language.language] = feeds_language.to_items_list()
     response = JsonResponse({
         "feeds_languages": feeds_languages,

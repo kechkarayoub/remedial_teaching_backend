@@ -27,6 +27,6 @@ class FeedsLanguage(models.Model):
 
     def to_items_list(self):
         """
-            :return: return current storred feeds a list of objects
+            :return: return current stored feeds a list of objects
         """
         return json.loads(self.feeds or '[]')

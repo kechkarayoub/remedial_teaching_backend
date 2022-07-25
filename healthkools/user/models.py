@@ -303,6 +303,6 @@ class UserSecurityQuestion(models.Model):
     @classmethod
     def get_list_choices(cls):
         """
-            :return: return a list of lists that contains security question label and name
+            :return: return a list of lists that contains security questions labels and names
         """
         return cls.SECURITY_QUESTIONS_LIST
