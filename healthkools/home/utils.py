@@ -36,9 +36,9 @@ feeds_urls = {
 
 def set_feeds(language, items_test_str=None, raise_exception=False):
     """
-        :param language: the language of feeds to be getted from remote servers and storred
+        :param language: the language of feeds to be got from remote servers and stored
         :param items_test_str: for test we use our predefined items
-        :return: length of storred feeds
+        :return: length of stored feeds
     """
     feeds = []
     if items_test_str:
