@@ -3,7 +3,7 @@ import json
 import requests
 from datetime import timezone
 from django.conf import settings
-
+from random import randrange
 from .models import FeedsLanguage
 
 feeds_urls = {
@@ -31,36 +31,33 @@ feeds_urls = {
         "https://www.santemagazine.fr/feeds/rss/sante",
         "https://www.santemagazine.fr/feeds/rss/traitement",
     ],
+    "test_en": [
+        "http://rssfeeds.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC",
+        "https://blog.myfitnesspal.com/feed/",
+    ],
+    "test_en_failed": [
+        "http://rssfeeds.webkk0md.com/rss/rss.aspx?RSSSource=RSS_PUBLIC",
+    ],
 }
+feeds_urls["test_en"] = [feeds_urls["en"][randrange(len(feeds_urls["en"]))]]
 
 
-def set_feeds(language, items_test_str=None, raise_exception=False):
+def set_feeds(language):
     """
         :param language: the language of feeds to be got from remote servers and stored
-        :param items_test_str: for test we use our predefined items
         :return: length of stored feeds
     """
     feeds = []
-    if items_test_str:
-        # function called by test
-        items = json.loads(items_test_str)
-        feeds = [*feeds, *items]
-    else:
-        # real function
-        # get urls by language
-        urls = feeds_urls.get(language) or []
-        for url in urls:
-            # for each rss url we get items via rss2json api and append them to feeds array
-            try:
-                # test condition
-                if raise_exception:
-                    1 / 0
-                response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
-                items = json.loads(response.content).get("items")
-                feeds = [*feeds, *items]
-            except:
-                if raise_exception:
-                    raise Exception("Exception")
+    # get urls by language
+    urls = feeds_urls.get(language) or []
+    for url in urls:
+        # for each rss url we get items via rss2json api and append them to feeds array
+        try:
+            response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
+            items = json.loads(response.content).get("items")
+            feeds = [*feeds, *items]
+        except:
+            pass
     if feeds:
         # stringify feeds for store them in databases
         feeds_str = json.dumps(feeds)
