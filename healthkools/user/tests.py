@@ -3,7 +3,7 @@ import datetime
 from django.core import mail
 from django.conf import settings
 from .models import *
-from .utils import contact_new_user
+from .utils import contact_new_user, get_user_by_email_or_username
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 import json
@@ -233,7 +233,7 @@ class LogInTest(TestCase):
     def setUp(self):
         self.credentials = {
             'username': 'testuser',
-            'password': 'secret'
+            'password': 'secret',
         }
         User.objects.create_user(**self.credentials)
 
@@ -309,7 +309,7 @@ class RegisterTest(TestCase):
         self.assertEqual(user.phone_is_valid, False)
         self.assertIs(user.check_password("password") is True, True)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertEqual(mail.outbox[0].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
 
     def test_register_with_required_attribites_success(self):
@@ -409,7 +409,7 @@ class ResendActivationEmailViewTest(TestCase):
         self.assertEqual(len(json_response.keys()), 2)
         self.assertEqual(json_response.get("message"), "A new activation email is sent to the address email@email.com.")
         self.assertEqual(len(mail.outbox), 2)
-        self.assertEqual(mail.outbox[1].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertEqual(mail.outbox[1].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn("last_name first_name", mail.outbox[1].body)
 
     def test_resend_activation_email_failed(self):
@@ -456,7 +456,7 @@ class ViewTest(TestCase):
 
     def setUp(self):
         self.credentials = {
-            'username': 'testuser',
+            'username': 'testuser2',
             'email': 'testemail@example.com',
             'first_name': 'first_name2',
             'last_name': 'last_name',
@@ -467,7 +467,7 @@ class ViewTest(TestCase):
 
     def test_check_if_email_or_username_exists(self):
         email = 'testemail@example.com'
-        username = 'testuser'
+        username = 'testuser2'
         data = {
             "email_or_username": "no_exists@example.com",
         }
@@ -500,9 +500,19 @@ class ViewTest(TestCase):
         self.assertEqual(json_response.get("message"), _("The username: {} already exists!").format(username))
 
     def test_contact_new_user(self):
-        user = User.objects.get(username="testuser")
+        user = User.objects.get(username="testuser2")
+        user.language = "ar"
+        user.save()
         user_email_confirmation_key = UserEmailConfirmationKey.create(user)
         contact_new_user(user, user_email_confirmation_key.key)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, "Votre compte {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertEqual(mail.outbox[0].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
+
+    def test_get_user_by_email_or_username(self):
+        user1 = get_user_by_email_or_username("testuser2")
+        user2 = get_user_by_email_or_username("testemail@example.com")
+        user3 = get_user_by_email_or_username("testema005il@example.com")
+        self.assertEqual(user1.email, "testemail@example.com")
+        self.assertEqual(user2.username, "testuser2")
+        self.assertEqual(user3, "not_exists")

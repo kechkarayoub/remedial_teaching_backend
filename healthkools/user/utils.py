@@ -16,10 +16,8 @@ def contact_new_user(user, user_email_confirmation_key):
         :param user: the new user which will receive an email of confirmation
         :return: None
     """
-    if settings.TEST_SETTINGS:
-        activate("fr")
-    else:
-        activate(user.language)
+    # if user.username=="testuser2": import pdb;pdb.set_trace()
+    activate(user.language)
     email_subject = _("Your account {site_name}").format(site_name=settings.SITE_NAME)
     context = {
         "direction": "rtl" if user.language == "ar" else "ltr",
