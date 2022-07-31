@@ -168,10 +168,12 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'log/main_log.log',
             'formatter': 'main_formatter',
             'level': 'WARNING',
+            'backupCount': 10,  # keep at most 10 log files
+            'maxBytes': 5242880,  # 5*1024*1024 bytes (5MB)
         },
         'console': {
             'class': 'logging.StreamHandler',
