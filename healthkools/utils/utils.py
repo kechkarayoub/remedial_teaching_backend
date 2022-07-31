@@ -29,7 +29,9 @@ def send_email(subject, message_txt, list_emails, html_message=None):
         :return: None
     """
     if settings.EMAIL_SMTP_PROVIDER == "sendgrid":
-        send_mail(subject, message_txt, settings.EMAIL_FROM_ADDRESS, list_emails, html_message=html_message)
+        return send_mail(subject, message_txt, settings.EMAIL_FROM_ADDRESS, list_emails, html_message=html_message)
+    else:
+        return "no_smtp_email_provider"
 
 
 def get_static_logo_url():

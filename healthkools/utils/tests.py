@@ -23,15 +23,19 @@ class UtilsTest(TestCase):
         self.assertEqual(date_obj, None)
 
     def test_send_email(self):
-        send_email("subject", "message_txt", ['edxkls2019@gmail.com'], html_message=None)
+        response = send_email("subject", "message_txt", ['edxkls2019@gmail.com'], html_message=None)
+        self.assertEqual(response, 1)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "subject")
         self.assertIn("message_txt", mail.outbox[0].body)
+        with self.settings(EMAIL_SMTP_PROVIDER=''):
+            response_failed = send_email("subject", "message_txt", ['edxkls2019@gmail.com'], html_message=None)
+            self.assertEqual(response_failed, "no_smtp_email_provider")
 
     def test_get_static_logo_url(self):
         self.assertEqual(settings.BACKEND_URL + "/static/images/logo.jpg", get_static_logo_url())
 
-    # def test_get_img_as_base64(self):
-    #     base64_to_compare = base64.b64encode(requests.get(get_static_logo_url()).content).decode('ascii')
-    #     # self.assertEqual(base64_to_compare, get_img_as_base64(get_static_logo_url()))
+    def test_get_img_as_base64(self):
+        base64_to_compare = base64.b64encode(requests.get(get_static_logo_url()).content).decode('ascii')
+        self.assertEqual(base64_to_compare, get_img_as_base64(get_static_logo_url()))
 
