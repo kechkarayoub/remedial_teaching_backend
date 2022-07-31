@@ -164,7 +164,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'log/log.log',
+            'filename': 'log/global_log.log',
         },
 
         'console': {
@@ -195,7 +195,6 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_SMTP_PROVIDER = "sendgrid"
-EMAIL_FROM_ADDRESS = 'edxkls2019@gmail.com'
 # See if the developer has any local settings.
 if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
     from .private import *  # pylint: disable=import-error,wildcard-import

@@ -212,7 +212,7 @@ msgstr "Dear %(full_name)s,"
 #: templates/emails/confirmation_email.html:14
 #: templates/emails/confirmation_email.txt:6
 msgid "Your account is created on "
-msgstr "Your account {site_name}"
+msgstr "Your account is created on "
 
 #: templates/emails/confirmation_email.html:14
 msgid ""

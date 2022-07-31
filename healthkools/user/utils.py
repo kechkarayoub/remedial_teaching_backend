@@ -7,6 +7,9 @@ from django.utils.translation import activate, gettext_lazy as _
 from utils.utils import send_email, get_img_as_base64, get_static_logo_url
 import after_response
 import html2text
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @after_response.enable
@@ -40,7 +43,9 @@ def contact_new_user(user, user_email_confirmation_key):
                 images[i].src=images[i].src.replace(/^https:\/\/[a-zA-Z0-9.\/\-=_]+#/,'');
             }
     """
-    send_email(email_subject, email_message_txt, [user.email], html_message=email_message_html)
+    response = send_email(email_subject, email_message_txt, [user.email], html_message=email_message_html)
+    if response == "no_smtp_email_provider":
+        logger.warning('You should configure a smtp email provider')
 
 
 def get_user_by_email_or_username(email_or_username):
