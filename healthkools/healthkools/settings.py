@@ -216,3 +216,11 @@ if 'test' in sys.argv or 'test_coverage' in sys.argv:  # Covers regular testing 
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'user/emails_test')
     TEST_SETTINGS = True
+    # Remove console from  LOGGING loggers handlers
+    LOGGING['loggers']['django']['handlers'] = ['file']
+    LOGGING['handlers']['file']['filename'] = 'log/main_log_test.log'
+    try:
+        url_file_to_remove = os.path.join(BASE_DIR, 'log/main_log_test.log')
+        os.remove(url_file_to_remove)
+    except:
+        pass

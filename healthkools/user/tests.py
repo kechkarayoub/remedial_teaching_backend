@@ -7,6 +7,7 @@ from .utils import contact_new_user, get_user_by_email_or_username
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 import json
+import os
 
 
 class AccountTypeServiceModelTests(TestCase):
@@ -508,6 +509,16 @@ class ViewTest(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
+        with self.settings(EMAIL_SMTP_PROVIDER=''):
+            contact_new_user(user, user_email_confirmation_key.key)
+            lines = open(os.path.join(settings.BASE_DIR, 'log/main_log_test.log'))
+            lines_target = [(line + "") for line in lines if line and ']: You should configure a smtp email provider' in line]
+            line_target = lines_target[0] if lines_target else ""
+            self.assertNotEqual(line_target, "")
+            self.assertIn("]: You should configure a smtp email provider", line_target)
+            datetime_test = datetime.datetime.now().strftime("%Y-%m-%d %H:")
+            self.assertIn(datetime_test, line_target)
+            self.assertIn("- WARNING - utils - utils.py -", line_target)
 
     def test_get_user_by_email_or_username(self):
         user1 = get_user_by_email_or_username("testuser2")
