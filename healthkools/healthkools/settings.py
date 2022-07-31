@@ -156,28 +156,33 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGGING_CONFIG = None
+# LOGGING_CONFIG = None
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'log/global_log.log',
-        },
-
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
+    'formatters': {
+        'main_formatter': {
+            'format': '[{asctime} - {levelname} - {module} - {filename} - {lineno}]: {message}',
+            'style': '{',
         },
     },
-
-   # Define the loggers
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'log/main_log.log',
+            'formatter': 'main_formatter',
+            'level': 'WARNING',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_formatter',
+            'level': 'WARNING',
+        },
+    },
     'loggers': {
         'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
+            'handlers': ['file', 'console'],
+            'level': 'WARNING',
             'propagate': True,
         },
     },

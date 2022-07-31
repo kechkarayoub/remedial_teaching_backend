@@ -9,7 +9,7 @@ import after_response
 import html2text
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("django")
 
 
 @after_response.enable
