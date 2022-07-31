@@ -382,6 +382,18 @@ class RegisterTest(TestCase):
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
         self.assertEqual(json_response.get("message"), "Cet email : testuser@email.com existe déjà!")
+        response = self.client.post('/user/register/', {
+            'username': 'raise_exception',
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification du nom d'utilisateur !")
+        response = self.client.post('/user/register/', {
+            'email': 'raise_exception',
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification de l'e-mails !")
 
 
 class ResendActivationEmailViewTest(TestCase):
@@ -401,6 +413,10 @@ class ResendActivationEmailViewTest(TestCase):
             'phone': "+212645454545",
             'username': "username",
         }, follow=True)
+        user = User.objects.get(username="username")
+        ueck2 = UserEmailConfirmationKey.create(user=user)
+        ueck2.creation_time = ueck2.creation_time.replace(year=ueck2.creation_time.year - 2)
+        ueck2.save()
         response = self.client.post('/user/resend_activation_email/', {
             'current_language': 'en',
             'username': "username",
@@ -412,6 +428,24 @@ class ResendActivationEmailViewTest(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(mail.outbox[1].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn("last_name first_name", mail.outbox[1].body)
+        user.my_email_confirmation_keys.filter().delete()
+        user.email_is_validated = False
+        user.save()
+        response2 = self.client.post('/user/resend_activation_email/', {
+            'current_language': 'en',
+            'username': "username",
+        }, follow=True)
+        json_response2 = json.loads(response2.content)
+        self.assertTrue(json_response2.get("success"))
+        self.assertEqual(len(json_response2.keys()), 2)
+        self.assertEqual(json_response2.get("message"), "A new activation email is sent to the address email@email.com.")
+        self.assertEqual(len(mail.outbox), 3)
+        self.assertEqual(mail.outbox[2].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
+        self.assertIn("last_name first_name", mail.outbox[2].body)
+        response3 = self.client.post('/user/resend_activation_email/', {
+            'current_language': 'en',
+            'username': "username",
+        }, follow=True)
 
     def test_resend_activation_email_failed(self):
         self.client.post('/user/register/', {
@@ -450,6 +484,13 @@ class ResendActivationEmailViewTest(TestCase):
         self.assertEqual(json_response2.get("message1"), "Your email address is already validated!")
         self.assertEqual(json_response2.get("message2"), "You can now log in with your username/email and password.")
         self.assertEqual(len(mail.outbox), 1)
+        response3 = self.client.post('/user/resend_activation_email/', {
+            'current_language': 'en',
+            'username': "raise_exception",
+        }, follow=True)
+        json_response3 = json.loads(response3.content)
+        self.assertFalse(json_response3.get("success"))
+        self.assertEqual(json_response3.get("message"), "An error occurred when checking username!")
 
 
 

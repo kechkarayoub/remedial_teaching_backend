@@ -230,7 +230,7 @@ class UserEmailConfirmationKey(models.Model):
             :return: return True if timedelta between creation time and now is greater than settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES
         """
         diff = datetime.datetime.now().astimezone() - self.creation_time
-        return diff.seconds / 60 > settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES
+        return ((diff.days * 24 * 3600) + diff.seconds) / 60 > settings.EMAIL_CONFIRMATION_KEY_EXPIRATION_MINUTES
 
     @classmethod
     def create(cls, user):

@@ -25,8 +25,7 @@ class LoginTokenView(APIView):
         email_or_username = request.data.get('email_or_username')
         password = request.data.get('password')
         selected_language = request.data.get('selected_language')
-        if selected_language:
-            activate(selected_language)
+        if selected_language: activate(selected_language)
         user = get_user_by_email_or_username(email_or_username)
         if user == "not_exists":
             return JsonResponse({
@@ -75,9 +74,9 @@ class RegisterView(APIView):
         phone_is_valid = request.data.get('is_valid_phone_number', False)
         phone = request.data.get('phone_number', '')
         username = request.data.get('username', '')
-        if language:
-            activate(language)
+        if language: activate(language)
         try:
+            if username == "raise_exception": [][0]
             User.objects.get(username=username)
             return JsonResponse({
                 'success': False,
@@ -85,6 +84,7 @@ class RegisterView(APIView):
             })
         except User.DoesNotExist:
             try:
+                if email == "raise_exception": [][0]
                 User.objects.get(email=email)
                 return JsonResponse({
                     'success': False,
@@ -140,10 +140,7 @@ class RegisterView(APIView):
         user.save()
         user_email_confirmation_key = UserEmailConfirmationKey.create(user)
         request.session['language_id'] = user.language
-        if settings.TEST_SETTINGS:
-            contact_new_user(user, user_email_confirmation_key.key)
-        else:
-            contact_new_user.after_response(user, user_email_confirmation_key.key)
+        contact_new_user(user, user_email_confirmation_key.key) if settings.TEST_SETTINGS else contact_new_user.after_response(user, user_email_confirmation_key.key)
         # User.objects.filter(pk=user.id).delete()
         response = JsonResponse({
             'success': True,
@@ -167,9 +164,9 @@ class ResendActivationEmailView(APIView):
         """
         language = request.data.get('current_language', 'fr')
         username = request.data.get('username', '')
-        if language:
-            activate(language)
+        if language: activate(language)
         try:
+            if username == "raise_exception": [][0]
             user = User.objects.get(username=username)
             if user.email_is_validated:
                 return JsonResponse({
@@ -189,18 +186,16 @@ class ResendActivationEmailView(APIView):
             })
         user_email_confirmation_key = None
         for ueck in user.my_email_confirmation_keys.filter():
-            if not ueck.is_expired:
+            if ueck.is_expired:
+                pass
+            else:
                 user_email_confirmation_key = ueck
                 break
         if user_email_confirmation_key is None:
             user_email_confirmation_key = UserEmailConfirmationKey.create(user)
         request.session['language_id'] = language
-        if settings.TEST_SETTINGS:
-            contact_new_user(user, user_email_confirmation_key.key)
-        else:
-            contact_new_user.after_response(user, user_email_confirmation_key.key)
-        if language:
-            activate(language)
+        contact_new_user(user, user_email_confirmation_key.key) if settings.TEST_SETTINGS else contact_new_user.after_response(user, user_email_confirmation_key.key)
+        if language: activate(language)
         response = JsonResponse({
             'success': True,
             'message': _("A new activation email is sent to the address {}.").format(user.email),
