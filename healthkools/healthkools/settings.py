@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'user',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -203,8 +205,16 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_SMTP_PROVIDER = "sendgrid"
 # See if the developer has any local settings.
+
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = []
+
+
 if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
     from .private import *  # pylint: disable=import-error,wildcard-import
+if os.path.isfile(join(dirname(abspath(__file__)), 'devstack.py')):
+    from .devstack import *  # pylint: disable=import-error,wildcard-import
 
 TEST_SETTINGS = False
 
