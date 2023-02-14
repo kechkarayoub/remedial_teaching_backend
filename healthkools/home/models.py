@@ -11,7 +11,7 @@ class FeedsLanguage(models.Model):
         UserAccountType represent the FeedsLanguage model.
         :attribute feeds: TextField represent feeds stored as json string.
         :attribute language: CharField represent feeds storred's language.
-        :attribute last_update: DateTimeField represent last time the feeds are stored.
+        :attribute last_update_at: DateTimeField represent last time the feeds are stored.
     """
     class Meta(object):
         db_table = "healthkools_feeds_language"
@@ -20,7 +20,7 @@ class FeedsLanguage(models.Model):
 
     feeds = models.TextField(_('Feeds'), default="")
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255, unique=True)
-    last_update = models.DateTimeField(auto_now_add=True, blank=True)
+    last_update_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.language + "_feeds"

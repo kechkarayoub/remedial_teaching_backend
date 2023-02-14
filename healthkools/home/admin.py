@@ -11,7 +11,7 @@ class FeedsLanguageAdmin(admin.ModelAdmin):
             'fields': ('language', 'feeds')
         }),
     )
-    list_display = ('language', 'last_update')
+    list_display = ('language', 'last_update_at')
     list_filter = ('language',)
 
 

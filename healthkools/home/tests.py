@@ -57,7 +57,7 @@ class HomeViewsTest(TestCase):
         feeds_language = FeedsLanguage.objects.get(language="test_en")
         feeds_list = feeds_language.to_items_list()
         self.assertGreaterEqual(len(feeds_list), 1)
-        self.assertGreaterEqual(datetime.datetime.now().replace(tzinfo=timezone.utc), feeds_language.last_update.replace(tzinfo=timezone.utc))
+        self.assertGreaterEqual(datetime.datetime.now().replace(tzinfo=timezone.utc), feeds_language.last_update_at.replace(tzinfo=timezone.utc))
         self.assertEqual(FeedsLanguage.objects.filter(language="test_en").count(), 1)
         feeds_added = set_feeds("test_en_failed")
         self.assertGreaterEqual(feeds_added, 0)

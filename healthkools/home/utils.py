@@ -61,11 +61,11 @@ def set_feeds(language):
     if feeds:
         # stringify feeds for store them in databases
         feeds_str = json.dumps(feeds)
-        last_update = datetime.datetime.now().replace(tzinfo=timezone.utc)
+        last_update_at = datetime.datetime.now().replace(tzinfo=timezone.utc)
         # save last date we get feeds
         if FeedsLanguage.objects.filter(language=language).exists():
-            FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str, last_update=last_update)
+            FeedsLanguage.objects.filter(language=language).update(feeds=feeds_str, last_update_at=last_update_at)
         else:
-            FeedsLanguage.objects.create(language=language, feeds=feeds_str, last_update=last_update)
+            FeedsLanguage.objects.create(language=language, feeds=feeds_str, last_update_at=last_update_at)
     return len(feeds)
 
