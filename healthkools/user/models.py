@@ -92,9 +92,11 @@ class User(AbstractUser):
         :attribute: birthday: DateField represent the birthday of users
         :attribute: country_code: CharField represent the country code of users
         :attribute: country_name: CharField represent the country name of users
+        :attribute: created_at: DatetimeField represent the time of object creation
         :attribute: email_is_validated: BooleanField represent if the users email is validated or not
         :attribute: gender: CharField represent the gender of users
         :attribute: language: CharField represent the language of users
+        :attribute: last_update_at: DatetimeField represent the last time the object updated
         :attribute: phone: CharField represent the phone of users
         :attribute: phone_is_valid: BooleanField represent users phone is valid or not
         :attribute: phone_is_validated: BooleanField represent users phone is validated or not
@@ -115,9 +117,11 @@ class User(AbstractUser):
     birthday = models.DateField(_('Birthday'), null=True)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
     email_is_validated = models.BooleanField(_('Email is validated'), default=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
+    last_update_at = models.DateTimeField(auto_now_add=True, blank=True)
     phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
     phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
     phone_is_validated = models.BooleanField(_('Phone is validated'), default=False)
@@ -160,6 +164,7 @@ class User(AbstractUser):
             "birthday": self.birthday,
             "country_code": self.country_code,
             "country_name": self.country_name,
+            "created_at": self.created_at,
             "email": self.email,
             "email_is_validated": self.email_is_validated,
             "first_name": self.first_name,
@@ -169,6 +174,7 @@ class User(AbstractUser):
             "language": self.language,
             "language_name": self.language_name,
             "last_name": self.last_name,
+            "last_update_at": self.last_update_at,
             "phone": self.phone,
             "phone_is_valid": self.phone_is_valid,
             "phone_is_validated": self.phone_is_validated,
