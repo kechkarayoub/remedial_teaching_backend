@@ -55,7 +55,7 @@ def set_feeds(language):
         try:
             response = requests.get('https://api.rss2json.com/v1/api.json?api_key=' + settings.RSS2JSON_API_KEY + '&rss_url=' + url)
             items = json.loads(response.content).get("items")
-            feeds = [*feeds, *items]
+            feeds += items
         except:
             pass
     if feeds:
