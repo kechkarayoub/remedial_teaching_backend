@@ -10,92 +10,7 @@ import json
 import os
 
 
-class AccountTypeServiceModelTests(TestCase):
-
-    def test_service_name(self):
-        account_type_service_1 = AccountTypeService()
-        account_type_service_2 = AccountTypeService(service="hospital")
-        account_type_service_3 = AccountTypeService(service="ascdrf")
-        self.assertEqual(account_type_service_1.service_name, _("Other"))
-        self.assertEqual(account_type_service_2.service_name, _("Hospital"))
-        self.assertEqual(account_type_service_3.service_name, "---")
-
-    def test_type_name(self):
-        account_type_service_1 = AccountTypeService()
-        account_type_service_2 = AccountTypeService(type="director")
-        account_type_service_3 = AccountTypeService(type="gjyukj")
-        self.assertEqual(account_type_service_1.type_name, _("Other"))
-        self.assertEqual(account_type_service_2.type_name, _("Director"))
-        self.assertEqual(account_type_service_3.type_name, "---")
-
-    def test_to_dict(self):
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        dict = account_type_service.to_dict()
-        self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["service"], "hospital")
-        self.assertEqual(dict["service_name"], _("Hospital"))
-        self.assertEqual(dict["type"], "director")
-        self.assertEqual(dict["type_name"], _("Director"))
-
-    def test___str__(self):
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        str_ = account_type_service.__str__()
-        self.assertEqual(str_, "Directeur_Hôpital")
-
-
-class UserAccountTypeServiceModelTests(TestCase):
-
-    def test___str__(self):
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user = User(username="test_username", last_name="last_name", gender="m")
-        user.save()
-        user_account_type_service = UserAccountTypeService(account_type_service=account_type_service, user=user)
-        user_account_type_service.save()
-        str_ = user_account_type_service.__str__()
-        self.assertEqual(str_, "test_username_Director_Hospital")
-
-
-
 class UserModelTests(TestCase):
-
-    def test_accounts_types_services_relations_are_empty(self):
-        """
-        accounts_types_services are empty by default.
-        """
-        user = User(username="test_username")
-        user.save()
-        self.assertIs(user.accounts_types_services.filter().exists(), False)
-
-    def test_add_account_type_service(self):
-        user = User(username="test_username")
-        user.save()
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user.add_account_type_service([account_type_service])
-        self.assertIs(user.accounts_types_services.filter().exists(), True)
-
-    def test_add_account_type_service_with_ids(self):
-        user = User(username="test_username")
-        user.save()
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user.add_account_type_service(ids=[account_type_service.id])
-        self.assertIs(user.accounts_types_services.filter().exists(), True)
-
-    def test_get_security_questions(self):
-        user = User(username="test_username")
-        user.save()
-        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user, response="birthday")
-        user_security_question2 = UserSecurityQuestion(security_question="what_is_your_favorite_car", user=user, response="car")
-        user_security_question.save()
-        user_security_question2.save()
-        user_security_questions = user.get_security_questions()
-        self.assertEqual(len(user_security_questions), 2)
-        self.assertEqual(user_security_questions[0], user_security_question.to_dict())
-        self.assertEqual(user_security_questions[1], user_security_question2.to_dict())
 
     def test_language_name(self):
         user = User(username="test_username")
@@ -105,34 +20,11 @@ class UserModelTests(TestCase):
         self.assertEqual(user.language_name, _("French"))
         self.assertEqual(user2.language_name, _("Arabic"))
 
-    def test_remove_account_type_service(self):
-        user = User(username="test_username")
-        user.save()
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user.add_account_type_service([account_type_service])
-        self.assertIs(user.accounts_types_services.filter().exists(), True)
-        user.remove_account_type_service([account_type_service])
-        self.assertIs(user.accounts_types_services.filter().exists(), False)
-
-    def test_remove_account_type_service_with_ids(self):
-        user = User(username="test_username")
-        user.save()
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user.add_account_type_service([account_type_service])
-        self.assertIs(user.accounts_types_services.filter().exists(), True)
-        user.remove_account_type_service(ids=[account_type_service.id])
-        self.assertIs(user.accounts_types_services.filter().exists(), False)
-
     def test_to_dict(self):
         user = User(username="test_username", last_name="last_name", gender="m")
         user.save()
         dict = user.to_dict()
-        account_type_service = AccountTypeService(service="hospital", type="director")
-        account_type_service.save()
-        user.add_account_type_service([account_type_service])
-        dict_2 = user.to_dict(get_accounts_types_services=True)
+        dict_2 = user.to_dict()
         self.assertEqual(dict["country_code"], "")
         self.assertEqual(dict["email_is_validated"], False)
         self.assertEqual(dict["first_name"], "")
@@ -142,54 +34,18 @@ class UserModelTests(TestCase):
         self.assertEqual(dict["language"], "fr")
         self.assertEqual(dict["language_name"], _("French"))
         self.assertEqual(dict["last_name"], "last_name")
-        self.assertEqual(dict["phone"], None)
-        self.assertEqual(dict["phone_is_valid"], False)
-        self.assertEqual(dict["phone_is_validated"], False)
+        self.assertEqual(dict["mobile_phone"], None)
+        self.assertEqual(dict["mobile_phone_is_valid"], False)
+        self.assertEqual(dict["mobile_phone_is_validated"], False)
         self.assertEqual(dict["username"], "test_username")
-        self.assertEqual(dict.get("accounts_types_services"), None)
         self.assertEqual(len(dict.keys()), 19)
         self.assertEqual(len(dict_2.keys()), 20)
-        self.assertEqual(len(dict_2.get("accounts_types_services")), 1)
-        self.assertEqual(dict_2.get("accounts_types_services")[0]['id'], 1)
-        self.assertEqual(dict_2.get("accounts_types_services")[0]['service'], "hospital")
-        self.assertEqual(dict_2.get("accounts_types_services")[0]['type'], "director")
 
     def test___str__(self):
         user = User(username="test_username", last_name="last_name", gender="m")
         user.save()
         str_ = user.__str__()
         self.assertEqual(str_, "test_username")
-
-
-class UserSecurityQuestionModelTests(TestCase):
-
-    def test_to_dict(self):
-        credentials = {
-            'username': 'testuser',
-            'password': 'secret'
-        }
-        user = User.objects.create_user(**credentials)
-        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user)
-        user_security_question.save()
-        dict = user_security_question.to_dict()
-        self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["response"], "")
-        self.assertEqual(dict["security_question"], "what_is_your_birthday")
-
-    def test_get_list_choices(self):
-        list_choices = UserSecurityQuestion.get_list_choices()
-        self.assertEqual(list_choices, UserSecurityQuestion.SECURITY_QUESTIONS_LIST)
-
-    def test___str__(self):
-        credentials = {
-            'username': 'testuser',
-            'password': 'secret'
-        }
-        user = User.objects.create_user(**credentials)
-        user_security_question = UserSecurityQuestion(security_question="what_is_your_birthday", user=user)
-        user_security_question.save()
-        str_ = user_security_question.__str__()
-        self.assertEqual(str_, user.__str__() + "_" + user_security_question.security_question)
 
 
 class UserEmailConfirmationKeyModelTests(TestCase):
@@ -288,8 +144,8 @@ class RegisterTest(TestCase):
             'current_language': "ar",
             'last_name': "last_name",
             'password': "password",
-            'phone_is_valid': False,
-            'phone': "+212645454545",
+            'mobile_phone_is_valid': False,
+            'mobile_phone': "+212645454545",
             'username': "username",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -307,7 +163,7 @@ class RegisterTest(TestCase):
         self.assertEqual(user.gender, "m")
         self.assertEqual(user.language, "ar")
         self.assertEqual(user.last_name, "last_name")
-        self.assertEqual(user.phone_is_valid, False)
+        self.assertEqual(user.mobile_phone_is_valid, False)
         self.assertIs(user.check_password("password") is True, True)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
@@ -339,8 +195,8 @@ class RegisterTest(TestCase):
             'language': "ar",
             'last_name': "",
             'password': "",
-            'phone_is_valid': False,
-            'phone': "+212645454545",
+            'mobile_phone_is_valid': False,
+            'mobile_phone': "+212645454545",
             'username': "",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -358,8 +214,8 @@ class RegisterTest(TestCase):
             'language': "ar",
             'last_name': "",
             'password': "",
-            'phone_is_valid': False,
-            'phone': "+212645454545",
+            'mobile_phone_is_valid': False,
+            'mobile_phone': "+212645454545",
             'username': "username",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -370,7 +226,7 @@ class RegisterTest(TestCase):
         response = self.client.post('/user/register/', {
             'address': 'address',
             'email': "",
-            'phone': "+212645454545",
+            'mobile_phone': "+212645454545",
             'username': "testuser",
         }, follow=True)
         json_response = json.loads(response.content)
@@ -409,8 +265,8 @@ class ResendActivationEmailViewTest(TestCase):
             'current_language': "ar",
             'last_name': "last_name",
             'password': "password",
-            'phone_is_valid': False,
-            'phone': "+212645454545",
+            'mobile_phone_is_valid': False,
+            'mobile_phone': "+212645454545",
             'username': "username",
         }, follow=True)
         user = User.objects.get(username="username")
@@ -458,8 +314,8 @@ class ResendActivationEmailViewTest(TestCase):
             'current_language': "ar",
             'last_name': "last_name",
             'password': "password",
-            'phone_is_valid': False,
-            'phone': "+212645454545",
+            'mobile_phone_is_valid': False,
+            'mobile_phone': "+212645454545",
             'username': "username",
         }, follow=True)
         user = User.objects.get(username="username")

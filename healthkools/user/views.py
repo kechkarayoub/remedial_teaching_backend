@@ -71,8 +71,8 @@ class RegisterView(APIView):
         language = request.data.get('current_language', 'fr')
         last_name = request.data.get('last_name', '')
         password = request.data.get('password', '')
-        phone_is_valid = request.data.get('is_valid_phone_number', False)
-        phone = request.data.get('phone_number', '')
+        mobile_phone_is_valid = request.data.get('is_valid_mobile_phone_number', False)
+        mobile_phone = request.data.get('mobile_phone_number', '')
         username = request.data.get('username', '')
         if language: activate(language)
         try:
@@ -109,8 +109,8 @@ class RegisterView(APIView):
             "country_code": country_code,
             "gender": gender,
             "language": language,
-            "phone_is_valid": phone_is_valid,
-            "phone": phone,
+            "mobile_phone_is_valid": mobile_phone_is_valid,
+            "mobile_phone": mobile_phone,
         }
         if email:
             kwargs["email"] = email

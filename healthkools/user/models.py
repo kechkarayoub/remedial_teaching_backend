@@ -6,62 +6,82 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.contrib.auth.models import PermissionsMixin
 
 
-class AccountTypeService(models.Model):
+class Establishment(models.Model):
     """
-        AccountTypeService represent the types-services of accounts of each user.
-        :attribute: type: CharField represent the account type of services
-        :attribute: service: CharField represent the service types
+        Establishment represent the establishment to manage.
+        :attribute: address: CharField represent the address of the establishment
+        :attribute: address_ar: CharField represent the arabic address of the establishment
+        :attribute: city: CharField represent the city of the establishment
+        :attribute: created_at: DateTimeField represent the time when the establishment is created.
+        :attribute: email: CharField represent the email of the establishment
+        :attribute: fax: CharField represent the number of fax of the establishment
+        :attribute: fax_is_valid: BooleanField represent if the fax is valid or not
+        :attribute: fax_is_validated: BooleanField represent if the fax is validated or not
+        :attribute: is_active: BooleanField represent if the establishment is valid or not
+        :attribute: is_deleted: BooleanField represent if the establishment is deleted or not
+        :attribute: last_update_at: DateTimeField represent the time of last modification of establishment.
+        :attribute: logo_url: CharField represent the logo url of the establishment
+        :attribute: mobile_phone: CharField represent the number of mobile phone of the establishment
+        :attribute: mobile_phone_is_valid: BooleanField represent if the mobile phone is valid or not
+        :attribute: mobile_phone_is_validated: BooleanField represent if the mobile phone is validated or not
+        :attribute: name: CharField represent the name of the establishment
+        :attribute: name_ar: CharField represent the arabic name of the establishment
+        :attribute: phone: CharField represent the number of phone of establishment
+        :attribute: phone_is_valid: BooleanField represent if the phone is valid or not
+        :attribute: phone_is_validated: BooleanField represent if the phone is validated or not
+        :attribute: phone2: CharField represent the second of phone of establishment
+        :attribute: phone2_is_valid: BooleanField represent if the phone2 is valid or not
+        :attribute: phone2_is_validated: BooleanField represent if the phone2 is validated or not
+        :attribute: type: CharField represent the type of the establishment
+        :attribute: website_url: CharField represent the website url of the establishment
     """
     class Meta(object):
-        db_table = "healthkools_account_type_service"
-        ordering = ["type", "service"]
-        verbose_name = _("Account type service")
-        verbose_name_plural = _("Accounts types services")
-        unique_together = ('service', 'type')
+        db_table = "healthkools_establishment"
+        ordering = ["name"]
+        verbose_name = _("Establishment")
+        verbose_name_plural = _("Establishments")
+        unique_together = ('name', 'type',)
 
     TYPES = (
-        ("assistant", _("Assistant")),
-        ("doctor", _("Doctor")),
-        ("director", _("Director")),
-        ("nurse", _("Nurse")),
-        ("patient", _("Patient")),
-        ("technician", _("Technician")),
-        ("other", _("Other"))
-    )
-    TYPES_DICT = {
-        "assistant": _("Assistant"),
-        "doctor": _("Doctor"),
-        "director": _("Director"),
-        "nurse": _("Nurse"),
-        "patient": _("Patient"),
-        "technician": _("Technician"),
-        "other": _("Other")
-    }
-    SERVICES = (
         ("hospital", _("Hospital")),
         ("laboratory", _("Laboratory")),
-        ("other", _("Other"))
     )
-    SERVICES_DICT = {
+    TYPES_DICT = {
         "hospital": _("Hospital"),
         "laboratory": _("Laboratory"),
-        "other": _("Other")
     }
 
-    type = models.CharField(_('Type'), choices=TYPES, default="other", max_length=255)
-    service = models.CharField(_('Service'), choices=SERVICES, default="other", max_length=255)
+    address = models.TextField(_('Address'), blank=True, default="")
+    address_ar = models.TextField(_('Address (ar)'), blank=True, default="")
+    city = models.CharField(_('City'), blank=True, default="", max_length=255)
+    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
+    email = models.CharField(_('Email'), blank=True, db_index=True, max_length=255, null=True)
+    fax = models.CharField(_('Fax'), blank=True, max_length=255, null=True)
+    fax_is_valid = models.BooleanField(_('Fax is valid'), default=False)
+    fax_is_validated = models.BooleanField(_('Fax is validated'), db_index=True, default=False)
+    is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
+    is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
+    last_update_at = models.DateTimeField(auto_now_add=True)
+    logo_url = models.CharField(_('Logo url'), blank=True, max_length=512, null=True)
+    mobile_phone = models.CharField(_('Mobile phone'), blank=True, max_length=255, null=True)
+    mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
+    mobile_phone_is_validated = models.BooleanField(_('Mobile phone is validated'), db_index=True, default=False)
+    name = models.CharField(_('Name'), blank=False, default="", max_length=255, null=False)
+    name_ar = models.CharField(_('Name (ar)'), blank=True, default="", max_length=255, null=True)
+    phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
+    phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
+    phone_is_validated = models.BooleanField(_('Phone is validated'), db_index=True, default=False)
+    phone2 = models.CharField(_('Phone2 number'), blank=True, max_length=255, null=True)
+    phone2_is_valid = models.BooleanField(_('Phone2 is valid'), default=False)
+    phone2_is_validated = models.BooleanField(_('Phone2 is validated'), db_index=True, default=False)
+    type = models.CharField(_('Type'), choices=TYPES, db_index=True, default="other", max_length=255)
+    website_url = models.CharField(_('Website url'), blank=True, default="", max_length=255, null=True)
 
     def __str__(self):
-        return self.type_name + "_" + self.service_name
-
-    @property
-    def service_name(self):
-        """
-            :return: return the name of the current service
-        """
-        return self.SERVICES_DICT.get(self.service, "---")
+        return self.type_name + "_" + self.name
 
     @property
     def type_name(self):
@@ -74,20 +94,41 @@ class AccountTypeService(models.Model):
         """
             :return: return a representation of current instance as an object
         """
-        res = {
+        establishment = {
+            "address": self.address,
+            "address_ar": self.address_ar,
+            "city": self.city,
+            "created_at": self.created_at,
+            "email": self.email,
+            "fax": self.fax,
+            "fax_is_valid": self.fax_is_valid,
+            "fax_is_validated": self.fax_is_validated,
             "id": self.id,
-            "service": self.service,
-            "service_name": self.service_name,
+            "is_active": self.is_active,
+            "is_deleted": self.is_deleted,
+            "last_update_at": self.last_update_at,
+            "logo_url": self.logo_url,
+            "mobile_phone": self.mobile_phone,
+            "mobile_phone_is_valid": self.mobile_phone_is_valid,
+            "mobile_phone_is_validated": self.mobile_phone_is_validated,
+            "name": self.name,
+            "name_ar": self.name_ar,
+            "phone": self.phone,
+            "phone_is_valid": self.phone_is_valid,
+            "phone_is_validated": self.phone_is_validated,
+            "phone2": self.phone2,
+            "phone2_is_valid": self.phone2_is_valid,
+            "phone2_is_validated": self.phone2_is_validated,
             "type": self.type,
             "type_name": self.type_name,
+            "website_url": self.website_url,
         }
-        return res
+        return establishment
 
 
 class User(AbstractUser):
     """
         User represent the user model.
-        :attribute: accounts_types_services: ManyToManyField represent the relationship between users and the accounts services
         :attribute: address: CharField represent the address of users
         :attribute: birthday: DateField represent the birthday of users
         :attribute: country_code: CharField represent the country code of users
@@ -95,11 +136,13 @@ class User(AbstractUser):
         :attribute: created_at: DatetimeField represent the time of object creation
         :attribute: email_is_validated: BooleanField represent if the users email is validated or not
         :attribute: gender: CharField represent the gender of users
+        :attribute: image_url: CharField represent the image of user
+        :attribute: is_deleted: BooleanField represent if the item is deleted by user or not
         :attribute: language: CharField represent the language of users
         :attribute: last_update_at: DatetimeField represent the last time the object updated
-        :attribute: phone: CharField represent the phone of users
-        :attribute: phone_is_valid: BooleanField represent users phone is valid or not
-        :attribute: phone_is_validated: BooleanField represent users phone is validated or not
+        :attribute: mobile_phone: CharField represent the mobile_phone of user
+        :attribute: mobile_phone_is_valid: BooleanField represent user mobile_phone is valid or not
+        :attribute: mobile_phone_is_validated: BooleanField represent user mobile_phone is validated or not
     """
     class Meta(object):
         db_table = "healthkools_user"
@@ -112,19 +155,20 @@ class User(AbstractUser):
         ("f", _("Female")),
         ("m", _("Male")),
     )
-    accounts_types_services = models.ManyToManyField(AccountTypeService, related_name='users', through="UserAccountTypeService")
-    address = models.CharField(_('Address'), default="", max_length=10)
+    address = models.TextField(_('Address'), default="")
     birthday = models.DateField(_('Birthday'), null=True)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    email_is_validated = models.BooleanField(_('Email is validated'), default=False)
+    email_is_validated = models.BooleanField(_('Email is validated'), db_index=True, default=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
+    image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
+    is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
-    last_update_at = models.DateTimeField(auto_now_add=True, blank=True)
-    phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
-    phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
-    phone_is_validated = models.BooleanField(_('Phone is validated'), default=False)
+    last_update_at = models.DateTimeField(auto_now_add=True)
+    mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True)
+    mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
+    mobile_phone_is_validated = models.BooleanField(_('Mobile phone is validated'), db_index=True, default=False)
 
     REQUIRED_FIELDS = []
 
@@ -138,28 +182,12 @@ class User(AbstractUser):
         """
         return settings.LANGUAGES_DICT.get(self.language, "---")
 
-    def add_account_type_service(self, accounts_types_services=[], ids=[]):
-        """
-            :param accounts_types_services: accounts types services to link with the current user
-            :param ids: ids of the accounts types services to link with the current user
-            :return: None
-        """
-        self.accounts_types_services.add(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
 
-    def remove_account_type_service(self, accounts_types_services=[], ids=[]):
+    def to_dict(self):
         """
-            :param accounts_types_services: accounts types services to unlink with the current user
-            :param ids: ids of the accounts types services to unlink with the current user
-            :return: None
-        """
-        self.accounts_types_services.remove(*([account_type_service.id for account_type_service in accounts_types_services] if not ids else ids))
-
-    def to_dict(self, get_accounts_types_services=False):
-        """
-            :param get_accounts_types_services: return accounts types services if get_accounts_types_services is True
             :return: return a representation of current instance as an object
         """
-        res = {
+        user = {
             "address": self.address,
             "birthday": self.birthday,
             "country_code": self.country_code,
@@ -170,44 +198,136 @@ class User(AbstractUser):
             "first_name": self.first_name,
             "gender": self.gender,
             "id": self.id,
+            "image_url": self.image_url,
             "is_active": self.is_active,
+            "is_deleted": self.is_deleted,
             "language": self.language,
             "language_name": self.language_name,
             "last_name": self.last_name,
             "last_update_at": self.last_update_at,
-            "phone": self.phone,
-            "phone_is_valid": self.phone_is_valid,
-            "phone_is_validated": self.phone_is_validated,
+            "mobile_phone": self.mobile_phone,
+            "mobile_phone_is_valid": self.mobile_phone_is_valid,
+            "mobile_phone_is_validated": self.mobile_phone_is_validated,
             "username": self.username,
         }
-        if get_accounts_types_services:
-            res["accounts_types_services"] = [account_type_service.to_dict() for account_type_service in self.accounts_types_services.filter()]
-        return res
-
-    def get_security_questions(self):
-        """
-            :return: return the security questions of the current user as a list of objects
-        """
-        return [sq.to_dict() for sq in self.my_security_questions.filter()]
+        return user
 
 
-class UserAccountTypeService(models.Model):
+class EstablishmentUser(models.Model):
     """
-        UserAccountType represent the relationship between each user with each account_type.
-        :attribute: account_type_service: ForeignKey represent the relationship between the account type service and users
-        :attribute: user: ForeignKey represent the the relationship between the user  and accounts types services
+        User represent the estiblishment user relationship model.
+        :attribute: account_type: TextfieldField represent the type of relationship between the user and the establishment,
+            it can be one or more from ACCOUNT_TYPES joined by '_'
+        :attribute: address: CharField represent the address of user
+        :attribute: birthday: DateField represent the birthday of user
+        :attribute: country_code: CharField represent the country code of user
+        :attribute: country_name: CharField represent the country name of user
+        :attribute: created_at: DatetimeField represent the time of object creation
+        :attribute: email: CharField represent the email of the user
+        :attribute: email_is_accepted: BooleanField represent if the users email is accepted by user or not
+        :attribute: establishment: ForeignKey key represent the establishment in the relationship
+        :attribute: first_name: CharField represent the first name of user
+        :attribute: gender: CharField represent the gender of user
+        :attribute: image_url: CharField represent the image of user
+        :attribute: is_accepted: BooleanField represent if the relationship is accepted by the user or not
+        :attribute: is_active: BooleanField represent if the relationship is active or not
+        :attribute: is_deleted: BooleanField represent if the item is deleted by user or not
+        :attribute: last_name: CharField represent the last name of user
+        :attribute: last_update_at: DatetimeField represent the last time the object updated
+        :attribute: mobile_phone: CharField represent the mobile_phone of user
+        :attribute: mobile_phone_is_accepted: BooleanField represent user mobile_phone is accepted by user or not
+        :attribute: mobile_phone_is_valid: BooleanField represent user mobile_phone is valid or not
+        :attribute: user: ForeignKey key represent the user in the relationship
     """
     class Meta(object):
-        db_table = "healthkools_user_account_type_service"
-        ordering = ["user__username", "account_type_service__type", "account_type_service__service"]
-        verbose_name = _("User account type service")
-        verbose_name_plural = _("Users accounts types services")
+        db_table = "healthkools_establishment_user"
+        ordering = ["last_name", "first_name"]
+        verbose_name = _("Establishment user relationship")
+        verbose_name_plural = _("Establishment user relationships")
+        unique_together = ('establishment', 'user',)
 
-    account_type_service = models.ForeignKey(AccountTypeService, related_name='my_users_relationship', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='my_accounts_types_services_relationship', on_delete=models.CASCADE)
+    ACCOUNT_TYPES = (
+        ("assistant", _("Assistant")),
+        ("doctor", _("Doctor")),
+        ("director", _("Director")),
+        ("nurse", _("Nurse")),
+        ("patient", _("Patient")),
+        ("technician", _("Technician")),
+        ("other", _("Other"))
+    )
+    ACCOUNT_TYPES_DICT = {
+        "assistant": _("Assistant"),
+        "doctor": _("Doctor"),
+        "director": _("Director"),
+        "nurse": _("Nurse"),
+        "patient": _("Patient"),
+        "technician": _("Technician"),
+        "other": _("Other")
+    }
+    GENDERS = (
+        ("", _("Select")),
+        ("f", _("Female")),
+        ("m", _("Male")),
+    )
+    account_type = models.CharField(
+        _('Account type'), db_index=True, default="", max_length=512,
+        help_text="One or more from [assistant, doctor, director, nurse, patient, technician, other] joined by '_'"
+    )
+    address = models.TextField(_('Address'), blank=True, default="")
+    birthday = models.DateField(_('Birthday'), blank=True, null=True)
+    country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
+    country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    first_name = models.CharField(_('First name'), default="", max_length=255, null=False)
+    email_is_accepted = models.BooleanField(_('Email is accepted'), db_index=True, default=False)
+    establishment = models.ForeignKey(Establishment, related_name='my_users', on_delete=models.CASCADE)
+    gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
+    image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
+    is_accepted = models.BooleanField(_('Is accepted'), db_index=True, default=True)
+    is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
+    is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
+    last_name = models.CharField(_('Last name'), default="", max_length=255, null=False)
+    last_update_at = models.DateTimeField(auto_now_add=True)
+    mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True)
+    mobile_phone_is_accepted = models.BooleanField(_('Mobile phone is accepted'), db_index=True, default=False)
+    mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
+    user = models.ForeignKey(User, related_name='my_establishments', on_delete=models.CASCADE)
+
+    REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.user.__str__() + "_" + self.account_type_service.__str__()
+        return str(self.id)
+
+
+    def to_dict(self):
+        """
+            :return: return a representation of current instance as an object
+        """
+        establishment_user = {
+            "account_type": self.account_type,
+            "address": self.address,
+            "birthday": self.birthday,
+            "country_code": self.country_code,
+            "country_name": self.country_name,
+            "created_at": self.created_at,
+            "email": self.email,
+            "email_is_accepted": self.email_is_accepted,
+            "establishment_id": self.establishment_id,
+            "first_name": self.first_name,
+            "gender": self.gender,
+            "id": self.id,
+            "image_url": self.image_url,
+            "is_accepted": self.is_accepted,
+            "is_active": self.is_active,
+            "is_deleted": self.is_deleted,
+            "last_name": self.last_name,
+            "last_update_at": self.last_update_at,
+            "mobile_phone": self.mobile_phone,
+            "mobile_phone_is_valid": self.mobile_phone_is_valid,
+            "mobile_phone_is_accepted": self.mobile_phone_is_accepted,
+            "user_id": self.user_id,
+        }
+        return establishment_user
 
 
 class UserEmailConfirmationKey(models.Model):
@@ -223,8 +343,8 @@ class UserEmailConfirmationKey(models.Model):
         verbose_name = _("User email confirmation key")
         verbose_name_plural = _("Users emails confirmation keys")
 
-    creation_time = models.DateTimeField(_('Creation time'), auto_now_add=True)
-    key = models.CharField(_('Key'), default="", max_length=255)
+    creation_time = models.DateTimeField(_('Creation time'), db_index=True, auto_now_add=True)
+    key = models.CharField(_('Key'), db_index=True, default="", max_length=255)
     user = models.ForeignKey(User, related_name='my_email_confirmation_keys', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -247,68 +367,3 @@ class UserEmailConfirmationKey(models.Model):
         key = user.email + uuid.uuid4().hex
         return cls.objects.create(key=key, user=user)
 
-
-class UserSecurityQuestion(models.Model):
-    """
-        UserSecurityQuestion represent the relationship between each user with security questions.
-        :attribute: response: CharField represent a response of security question
-        :attribute: security_question: CharField represent a security question
-        :attribute: user: ForeignKey represent the the relationship between the user and question securities
-    """
-    class Meta(object):
-        db_table = "healthkools_user_security_question"
-        ordering = ["security_question"]
-        verbose_name = _("User security question")
-        verbose_name_plural = _("Users security questions")
-
-    SECURITY_QUESTIONS = (
-        ("what_did_you_want_to_be_bigger_when_you_were_a_kid", _("What did you want to be bigger when you were a kid?")),
-        ("what_is_the_last_name_of_your_favorite_childhood_teacher", _("What is the last name of your favorite childhood teacher?")),
-        ("what_is_your_birthday", _("What is your birthday?")),
-        ("what_is_your_favorite_car", _("What is your favorite car?")),
-        ("what_is_your_favorite_color", _("What is your favorite color?")),
-        ("what_is_your_favorite_movie", _("What is your favorite movie?")),
-        ("what_is_your_place_of_birth", _("What is your place of birth?")),
-        ("z_other", _("Other"))
-    )
-    # SECURITY_QUESTIONS_DICT = {
-    #     "what_did_you_want_to_be_bigger_when_you_were_a_kid": _("What did you want to be bigger when you were a kid?"),
-    #     "what_is_the_last_name_of_your_favorite_childhood_teacher": _("What is the last name of your favorite childhood teacher?"),
-    #     "what_is_your_birthday": _("What is your birthday?"),
-    #     "what_is_your_favorite_car": _("What is your favorite car?"),
-    #     "what_is_your_favorite_color": _("What is your favorite color?"),
-    #     "what_is_your_favorite_movie": _("What is your favorite movie?"),
-    #     "what_is_your_place_of_birth": _("What is your place of birth?"),
-    #     "z_other": _("Other")
-    # }
-    SECURITY_QUESTIONS_LIST = [
-        ["what_did_you_want_to_be_bigger_when_you_were_a_kid", "What did you want to be bigger when you were a kid?"],
-        ["what_is_the_last_name_of_your_favorite_childhood_teacher", "What is the last name of your favorite childhood teacher?"],
-        ["what_is_your_birthday", "What is your birthday?"],
-        ["what_is_your_favorite_car", "What is your favorite car?"],
-        ["what_is_your_favorite_color", "What is your favorite color?"],
-        ["what_is_your_favorite_movie", "What is your favorite movie?"],
-        ["what_is_your_place_of_birth", "What is your place of birth?"],
-        ["z_other", "Other"]
-    ]
-
-    response = models.CharField(_('Response'), default="", max_length=255)
-    security_question = models.CharField(_('Security question'), choices=SECURITY_QUESTIONS, default="z_other", max_length=255)
-    user = models.ForeignKey(User, related_name='my_security_questions', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.__str__() + "_" + self.security_question
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "response": self.response,
-            "security_question": self.security_question,
-        }
-
-    @classmethod
-    def get_list_choices(cls):
-        """
-            :return: return a list of lists that contains security questions labels and names
-        """
-        return cls.SECURITY_QUESTIONS_LIST
