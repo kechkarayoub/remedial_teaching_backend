@@ -6,6 +6,14 @@ from django.conf import settings
 import after_response
 import base64
 import requests
+import random
+
+
+BG_COLORS_CHOICES = ["#f36422", "#ffee02", "#f070a9", "#00adef", "#7cc142", "#d02b49"]
+
+
+def get_random_bg_color():
+    return random.choice(BG_COLORS_CHOICES)
 
 
 def date_from_string(date_string):

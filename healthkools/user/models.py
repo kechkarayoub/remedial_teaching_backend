@@ -6,7 +6,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from django.contrib.auth.models import PermissionsMixin
+from colorfield.fields import ColorField
+from utils.utils import get_random_bg_color
 
 
 class Establishment(models.Model):
@@ -137,6 +138,7 @@ class User(AbstractUser):
         :attribute: email_is_validated: BooleanField represent if the users email is validated or not
         :attribute: gender: CharField represent the gender of users
         :attribute: image_url: CharField represent the image of user
+        :attribute: initials_bg_color: CharField represent the background color of user's initials
         :attribute: is_deleted: BooleanField represent if the item is deleted by user or not
         :attribute: language: CharField represent the language of users
         :attribute: last_update_at: DatetimeField represent the last time the object updated
@@ -163,6 +165,7 @@ class User(AbstractUser):
     email_is_validated = models.BooleanField(_('Email is validated'), db_index=True, default=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
     image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
+    initials_bg_color = ColorField(_('Initials background color'), default=get_random_bg_color)
     is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
     last_update_at = models.DateTimeField(auto_now_add=True)
@@ -199,6 +202,7 @@ class User(AbstractUser):
             "gender": self.gender,
             "id": self.id,
             "image_url": self.image_url,
+            "initials_bg_color": self.initials_bg_color,
             "is_active": self.is_active,
             "is_deleted": self.is_deleted,
             "language": self.language,
@@ -229,6 +233,7 @@ class EstablishmentUser(models.Model):
         :attribute: first_name: CharField represent the first name of user
         :attribute: gender: CharField represent the gender of user
         :attribute: image_url: CharField represent the image of user
+        :attribute: initials_bg_color: CharField represent the background color of user's initials
         :attribute: is_accepted: BooleanField represent if the relationship is accepted by the user or not
         :attribute: is_active: BooleanField represent if the relationship is active or not
         :attribute: is_deleted: BooleanField represent if the item is deleted by user or not
@@ -283,6 +288,7 @@ class EstablishmentUser(models.Model):
     first_name = models.CharField(_('First name'), blank=False, default="", max_length=255, null=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
     image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
+    initials_bg_color = ColorField(_('Initials background color'), default=get_random_bg_color)
     is_accepted = models.BooleanField(_('Is accepted'), db_index=True, default=True)
     is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
     is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
@@ -316,6 +322,7 @@ class EstablishmentUser(models.Model):
             "gender": self.gender,
             "id": self.id,
             "image_url": self.image_url,
+            "initials_bg_color": self.initials_bg_color,
             "is_accepted": self.is_accepted,
             "is_active": self.is_active,
             "is_deleted": self.is_deleted,

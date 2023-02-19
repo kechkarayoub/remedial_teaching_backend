@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'home',
     'utils',
     'after_response',
+    'colorfield',
 ]
 
 MIDDLEWARE = [

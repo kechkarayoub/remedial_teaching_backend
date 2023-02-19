@@ -4,6 +4,7 @@ from django.core import mail
 from django.conf import settings
 from .models import *
 from .utils import contact_new_user, get_user_by_email_or_username
+from utils.utils import BG_COLORS_CHOICES
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 import json
@@ -105,8 +106,10 @@ class UserModelTests(TestCase):
         self.assertEqual(dict["mobile_phone_is_valid"], False)
         self.assertEqual(dict["mobile_phone_is_validated"], False)
         self.assertEqual(dict["username"], "test_username")
-        self.assertEqual(len(dict.keys()), 21)
+        self.assertEqual(len(dict.keys()), 22)
         self.assertFalse(dict["is_deleted"])
+        self.assertIn(dict["initials_bg_color"], BG_COLORS_CHOICES)
+        self.assertNotEqual(dict["initials_bg_color"], "")
         self.assertTrue(last_update_at_test)
         self.assertTrue(created_at_test)
         self.assertTrue(dict["is_active"])
@@ -157,8 +160,10 @@ class EstablishmentUserModelTests(TestCase):
         self.assertEqual(dict["mobile_phone_is_valid"], False)
         self.assertEqual(dict["mobile_phone_is_accepted"], False)
         self.assertEqual(dict["user_id"], 1)
-        self.assertEqual(len(dict.keys()), 21)
+        self.assertEqual(len(dict.keys()), 22)
         self.assertFalse(dict["is_deleted"])
+        self.assertIn(dict["initials_bg_color"], BG_COLORS_CHOICES)
+        self.assertNotEqual(dict["initials_bg_color"], "")
         self.assertTrue(last_update_at_test)
         self.assertTrue(created_at_test)
         self.assertTrue(dict["is_active"])
@@ -220,7 +225,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 21)
+        self.assertEqual(len(json_response.get("user").keys()), 22)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'email_or_username': 'testusers', 'password': 'secret'}, follow=True)

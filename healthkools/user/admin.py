@@ -48,7 +48,7 @@ class EstablishmentUserAdmin(admin.ModelAdmin):
         ("User info", {
             'fields': (
                 'last_name', 'first_name', 'birthday', 'address', 'country_code', 'country_name', 'gender',
-                'mobile_phone',
+                'mobile_phone', 'image_url', 'initials_bg_color',
             )
         }),
         (_('Added fields'), {
@@ -76,7 +76,10 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password')
         }),
         (_('User info'), {
-            'fields': ('address', 'birthday', 'country_code', 'country_name', 'gender', 'language', 'mobile_phone'),
+            'fields': (
+                'address', 'birthday', 'country_code', 'country_name', 'gender', 'language', 'mobile_phone',
+                'image_url', 'initials_bg_color'
+            ),
         }),
         (_('Added fields'), {
             'fields': ('email_is_validated', 'is_deleted', 'mobile_phone_is_valid', 'mobile_phone_is_validated'),
