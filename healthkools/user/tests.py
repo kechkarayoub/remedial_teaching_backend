@@ -10,6 +10,67 @@ import json
 import os
 
 
+class EstablishmentModelTests(TestCase):
+
+    def test___str__(self):
+        establishment = Establishment(name="Hospital1")
+        establishment.save()
+        str_ = establishment.__str__()
+        self.assertEqual(str_, establishment.type_name + "_" + establishment.name)
+
+    def test_type_name(self):
+        establishment = Establishment(name="Hospital1")
+        establishment.save()
+        establishment2 = Establishment(name="Hospital2", type="hospital")
+        establishment2.save()
+        establishment3 = Establishment(name="Laboratory1", type="laboratory")
+        establishment3.save()
+        self.assertEqual(establishment.type_name, _("Hospital"))
+        self.assertEqual(establishment2.type_name, _("Hospital"))
+        self.assertEqual(establishment3.type_name, _("Laboratory"))
+
+    def test_to_dict(self):
+        establishment = Establishment(
+            address="address", address_ar="address_ar", city="city", email="email@yopmail.com", fax="+212522xxxxxx",
+            fax_is_valid=True, logo_url="logo_url", name="name", name_ar="name_ar", type="laboratory",
+            website_url="localhost"
+        )
+        establishment.save()
+        dict = establishment.to_dict()
+        created_at = dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(dict["address"], "address")
+        self.assertEqual(dict["address_ar"], "address_ar")
+        self.assertEqual(dict["city"], "city")
+        self.assertEqual(dict["email"], "email@yopmail.com")
+        self.assertEqual(dict["fax"], "+212522xxxxxx")
+        self.assertEqual(dict["fax_is_valid"], True)
+        self.assertEqual(dict["fax_is_validated"], False)
+        self.assertEqual(dict["id"], 1)
+        self.assertEqual(dict["logo_url"], "logo_url")
+        self.assertEqual(dict["mobile_phone"], None)
+        self.assertEqual(dict["mobile_phone_is_valid"], False)
+        self.assertEqual(dict["mobile_phone_is_validated"], False)
+        self.assertEqual(dict["name"], "name")
+        self.assertEqual(dict["name_ar"], "name_ar")
+        self.assertEqual(dict["phone"], None)
+        self.assertEqual(dict["phone_is_valid"], False)
+        self.assertEqual(dict["phone_is_validated"], False)
+        self.assertEqual(dict["phone2"], None)
+        self.assertEqual(dict["phone2_is_valid"], False)
+        self.assertEqual(dict["phone2_is_validated"], False)
+        self.assertEqual(dict["type"], "laboratory")
+        self.assertEqual(dict["type_name"], _("Laboratory"))
+        self.assertEqual(dict["website_url"], "localhost")
+        self.assertEqual(len(dict.keys()), 27)
+        self.assertFalse(dict["is_deleted"])
+        self.assertTrue(last_update_at_test)
+        self.assertTrue(created_at_test)
+        self.assertTrue(dict["is_active"])
+
+
 class UserModelTests(TestCase):
 
     def test_language_name(self):
@@ -24,13 +85,19 @@ class UserModelTests(TestCase):
         user = User(username="test_username", last_name="last_name", gender="m")
         user.save()
         dict = user.to_dict()
-        dict_2 = user.to_dict()
+        created_at = dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(dict["address"], "")
+        self.assertIsNone(dict["birthday"])
         self.assertEqual(dict["country_code"], "")
+        self.assertEqual(dict["country_name"], "")
         self.assertEqual(dict["email_is_validated"], False)
         self.assertEqual(dict["first_name"], "")
         self.assertEqual(dict["gender"], "m")
+        self.assertEqual(dict["image_url"], "")
         self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["is_active"], True)
         self.assertEqual(dict["language"], "fr")
         self.assertEqual(dict["language_name"], _("French"))
         self.assertEqual(dict["last_name"], "last_name")
@@ -38,8 +105,11 @@ class UserModelTests(TestCase):
         self.assertEqual(dict["mobile_phone_is_valid"], False)
         self.assertEqual(dict["mobile_phone_is_validated"], False)
         self.assertEqual(dict["username"], "test_username")
-        self.assertEqual(len(dict.keys()), 19)
-        self.assertEqual(len(dict_2.keys()), 20)
+        self.assertEqual(len(dict.keys()), 21)
+        self.assertFalse(dict["is_deleted"])
+        self.assertTrue(last_update_at_test)
+        self.assertTrue(created_at_test)
+        self.assertTrue(dict["is_active"])
 
     def test___str__(self):
         user = User(username="test_username", last_name="last_name", gender="m")
@@ -104,7 +174,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 19)
+        self.assertEqual(len(json_response.get("user").keys()), 21)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'email_or_username': 'testusers', 'password': 'secret'}, follow=True)

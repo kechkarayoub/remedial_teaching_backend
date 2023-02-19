@@ -77,7 +77,7 @@ class Establishment(models.Model):
     phone2 = models.CharField(_('Phone2 number'), blank=True, max_length=255, null=True)
     phone2_is_valid = models.BooleanField(_('Phone2 is valid'), default=False)
     phone2_is_validated = models.BooleanField(_('Phone2 is validated'), db_index=True, default=False)
-    type = models.CharField(_('Type'), choices=TYPES, db_index=True, default="other", max_length=255)
+    type = models.CharField(_('Type'), choices=TYPES, db_index=True, default="hospital", max_length=255)
     website_url = models.CharField(_('Website url'), blank=True, default="", max_length=255, null=True)
 
     def __str__(self):
