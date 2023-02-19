@@ -118,6 +118,52 @@ class UserModelTests(TestCase):
         self.assertEqual(str_, "test_username")
 
 
+class EstablishmentUserModelTests(TestCase):
+
+    def test___str__(self):
+        hospital = Establishment.objects.create(name="Hospital", type="hospital")
+        user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
+        establishment_user = EstablishmentUser(establishment=hospital, user=user)
+        establishment_user.save()
+        str_ = establishment_user.__str__()
+        self.assertEqual(str_, "1")
+
+    def test_to_dict(self):
+        hospital = Establishment.objects.create(name="Hospital", type="hospital")
+        user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
+        establishment_user = EstablishmentUser(
+            establishment=hospital, user=user, account_type="_assistant_", is_accepted=True, first_name="first_name",
+            last_name="last_name",
+        )
+        establishment_user.save()
+        dict = establishment_user.to_dict()
+        created_at = dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(dict["address"], "")
+        self.assertIsNone(dict["birthday"])
+        self.assertEqual(dict["country_code"], "")
+        self.assertEqual(dict["country_name"], "")
+        self.assertEqual(dict["email_is_accepted"], False)
+        self.assertEqual(dict["establishment_id"], 1)
+        self.assertEqual(dict["first_name"], "first_name")
+        self.assertEqual(dict["gender"], "")
+        self.assertEqual(dict["id"], 1)
+        self.assertEqual(dict["image_url"], "")
+        self.assertEqual(dict["is_accepted"], True)
+        self.assertEqual(dict["last_name"], "last_name")
+        self.assertEqual(dict["mobile_phone"], None)
+        self.assertEqual(dict["mobile_phone_is_valid"], False)
+        self.assertEqual(dict["mobile_phone_is_accepted"], False)
+        self.assertEqual(dict["user_id"], 1)
+        self.assertEqual(len(dict.keys()), 21)
+        self.assertFalse(dict["is_deleted"])
+        self.assertTrue(last_update_at_test)
+        self.assertTrue(created_at_test)
+        self.assertTrue(dict["is_active"])
+
+
 class UserEmailConfirmationKeyModelTests(TestCase):
 
     def setUp(self):

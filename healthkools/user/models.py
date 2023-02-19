@@ -278,15 +278,15 @@ class EstablishmentUser(models.Model):
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    first_name = models.CharField(_('First name'), default="", max_length=255, null=False)
     email_is_accepted = models.BooleanField(_('Email is accepted'), db_index=True, default=False)
     establishment = models.ForeignKey(Establishment, related_name='my_users', on_delete=models.CASCADE)
+    first_name = models.CharField(_('First name'), blank=False, default="", max_length=255, null=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, default="", max_length=10)
     image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
     is_accepted = models.BooleanField(_('Is accepted'), db_index=True, default=True)
     is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
     is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
-    last_name = models.CharField(_('Last name'), default="", max_length=255, null=False)
+    last_name = models.CharField(_('Last name'), blank=False, default="", max_length=255, null=False)
     last_update_at = models.DateTimeField(auto_now_add=True)
     mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True)
     mobile_phone_is_accepted = models.BooleanField(_('Mobile phone is accepted'), db_index=True, default=False)
@@ -310,7 +310,6 @@ class EstablishmentUser(models.Model):
             "country_code": self.country_code,
             "country_name": self.country_name,
             "created_at": self.created_at,
-            "email": self.email,
             "email_is_accepted": self.email_is_accepted,
             "establishment_id": self.establishment_id,
             "first_name": self.first_name,
