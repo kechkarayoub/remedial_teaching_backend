@@ -254,10 +254,11 @@ class RegisterTest(TestCase):
             'address': 'address',
             'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
             'country_code': "MA",
+            'current_language': "ar",
             'email': "email@email.com",
             'first_name': "first_name",
             'gender': "m",
-            'current_language': "ar",
+            'image_url': "image_url",
             'last_name': "last_name",
             'password': "password",
             'mobile_phone_is_valid': False,
@@ -277,6 +278,7 @@ class RegisterTest(TestCase):
         self.assertEqual(user.email, "email@email.com")
         self.assertEqual(user.first_name, "first_name")
         self.assertEqual(user.gender, "m")
+        self.assertEqual(user.image_url, "image_url")
         self.assertEqual(user.language, "ar")
         self.assertEqual(user.last_name, "last_name")
         self.assertEqual(user.mobile_phone_is_valid, False)
@@ -285,7 +287,7 @@ class RegisterTest(TestCase):
         self.assertEqual(mail.outbox[0].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
 
-    def test_register_with_required_attribites_success(self):
+    def test_register_with_required_attributes_success(self):
         response = self.client.post('/user/register/', {
             'email': "email@email.com",
             'first_name': "first_name",

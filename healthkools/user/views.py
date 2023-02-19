@@ -68,6 +68,7 @@ class RegisterView(APIView):
         email = request.data.get('email', '')
         first_name = request.data.get('first_name', '')
         gender = request.data.get('gender', '')
+        image_url = request.data.get('image_url', '')
         language = request.data.get('current_language', 'fr')
         last_name = request.data.get('last_name', '')
         password = request.data.get('password', '')
@@ -108,6 +109,7 @@ class RegisterView(APIView):
             "birthday": birthday,
             "country_code": country_code,
             "gender": gender,
+            "image_url": image_url,
             "language": language,
             "mobile_phone_is_valid": mobile_phone_is_valid,
             "mobile_phone": mobile_phone,
@@ -236,6 +238,6 @@ def users_test_api(request):
     else:
         data = json.loads(request.body or "{}")
     response = JsonResponse({
-        "users": [user.to_dict() for user in User.objects.filter(is_active=True)]
+        "users": [user.to_dict() for user in User.objects.filter(is_active=True, is_deleted=False)]
     })
     return response
