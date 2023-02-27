@@ -43,18 +43,19 @@ class UtilsTest(TestCase):
         base64_to_compare = base64.b64encode(requests.get(get_static_logo_url()).content).decode('ascii')
         self.assertEqual(base64_to_compare, get_img_as_base64(get_static_logo_url()))
 
-    def test_files_storage(self):
-        file_url = os.path.join(settings.BASE_DIR, 'utils/test_files/test.png')
-        with open(file_url, "rb") as infile:
-            file = SimpleUploadedFile("file_name", infile.read())
-            data = {
-                "file_0": file,
-            }
-            response = self.client.post('/utils/files_storage_api', data, format='multipart')
-            json_response = json.loads(response.content)
-            self.assertTrue(json_response.get("success"))
-            self.assertEqual(len(json_response.get("files")), 1)
-            self.assertEqual(len(json_response.get("files")[0]), 3)
-            self.assertEqual(json_response.get("files")[0]["name"], "file_name")
-            self.assertNotEqual(json_response.get("files")[0]["url"], "")
+    # commented to not lose free spage storaage
+    # def test_files_storage(self):
+    #     file_url = os.path.join(settings.BASE_DIR, 'utils/test_files/test.png')
+    #     with open(file_url, "rb") as infile:
+    #         file = SimpleUploadedFile("file_name", infile.read())
+    #         data = {
+    #             "file_0": file,
+    #         }
+    #         response = self.client.post('/utils/files_storage_api', data, format='multipart')
+    #         json_response = json.loads(response.content)
+    #         self.assertTrue(json_response.get("success"))
+    #         self.assertEqual(len(json_response.get("files")), 1)
+    #         self.assertEqual(len(json_response.get("files")[0]), 3)
+    #         self.assertEqual(json_response.get("files")[0]["name"], "file_name")
+    #         self.assertNotEqual(json_response.get("files")[0]["url"], "")
 
