@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "healthkoolsdev",
+  "private_key_id": "082a8caa7e6072f36cfcac145f03b1f500880ff0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCdK3G0AOWodVPJ\nvgGaMRrHLs4Fp74V3DbJNV9nM5p9vdZ5aKX+Pv3OsX2lHJyBPIE0f5VsY3XnHuRd\nuPyLnbJYItW4sccdOjw57TNbebfwQtUbeTp9FREYTOvknQagHleA1gHZpW44Fm2Q\n/sFW5EJkCEH/7yQmYaTRFARtdCV2lQFehwOVugL4znaRbAQGAOTSxXEjAu64p9/q\ng5HopM2dCLhRwKKVhpEJUGSBssa55gDT21TYq7Sn1Y7L5lohG6opzwiYtp3smV07\nmUB1IixZrWJiSRb09pGy2tTmt/Ui8nEGSisIJXPcIDDDyYz+WFLCfSzFh2dbeQfy\nRCbv2KWhAgMBAAECggEAGQICd7WUKpTvQztIQ6cK5OTlziY4dipRzfvVQCAItczg\n1UpD7eugSeTu943RDzU338kUgahlEw8qH17hpuYYLF2almaJ0Uo6BAOMjO0V9JTw\na2HY3xyHhE9/p010R5ecV7kgQT0eh6515Ot24E214fcjEpyUABwVnq4/MsVCIsG8\niDlSaNYODTKdgyDB4nAN8rb1SlBXkqrhYI0rkudY97XRcvEm8i0JgyqPdP/qUSqf\nskK91l/l5/ouF7D0J+bqmQyK68NYKBUzHthNs33M+UnWLSBB9BKvNktdF6Owlx17\nPR4KpzQ/6/YqCtrtNdrxdRrTD9dKZClvwunNIs1mOwKBgQDTVpXXrS2v1wzXlEHu\naX5x042u1viAlHy4dCDunMMMbAp8uyHzhmAfhTy3dSvuwAYA6M4wJPgUBSVTJSBW\nKuFePA196CvGBFiEhKJiaHmI7dDXcO5G0qLqptsIlUS5FC7/OEedydaakC51L8PY\nY10L377276iCi//zvZnahtDijwKBgQC+YlZsZHaqnugRolHiHAnaCJX338cJNHyw\n0+kGG2kSUpQG5O5NGyfG2YdHA8+F/YrjqQSwDBU66bExXTzloETycziUbrOntbaP\ntgZuRYctkYJNlfuBTyjHFrzi+0YZNLxoDlsh837Ha1dZDTqatwWON71HBCJTeTBs\nA/P5luFMzwKBgQCldCgjjiUygP5A2IU1jcm8e490zkAHCjkKf4A4zum1E/Cx7h+K\ndC1VAA6k4krew97vX1PtRUQjCFRMX8iNLUz7ZbB6XgXHJSfXt68ZtAlSNj1GLdee\nAtIhOzhH4/TFoROaJAmNcrNclnyIqjh9dG0oGqd60+3tJoXf4RROjTWD6QKBgQCH\nWiB5RV98ZCc3SkCO0UJLyajdJjI6IB+6E55qohgsV5s335BwLyszWzmqylHCwAP7\nYRGdG6oITVaVcuU1l6ENAc+q7504UZ8uQsoFoda+FeIeyM+bGi0yhb7aXKx0hSKh\nk/tEgvmSS4U5IYeVsSL4/jXKBG1nDRTY5mKRAqzAzwKBgAU9fpVGPBWQOrZfkunA\nFjfWipG9dSFpPNBMI+0W0QPXWlvKDsbLlNRe5pTpO4juNbSSjBqx71rTkBPkQtXi\nlI9Cmw1jEjcsBV3akr1TlSeaZ0bPUQleADuYHJqMVWI15soqev1yBDNTSG3p0N34\nlz9K71z5GITWMIgM+zYtvbkI\n-----END PRIVATE KEY-----\n",
+  "client_email": "dealthkoolsdev@healthkoolsdev.iam.gserviceaccount.com",
+  "client_id": "116155209672746140595",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dealthkoolsdev%40healthkoolsdev.iam.gserviceaccount.com"
+}

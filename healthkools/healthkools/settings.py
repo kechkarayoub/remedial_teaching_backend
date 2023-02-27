@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^r4$od(nr7ihnl9e%0rw*2fxei2@_f*e+l33c#m^1k=%%mt63d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "user.User"
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'utils',
     'after_response',
     'colorfield',
+    'gdstorage',
 ]
 
 MIDDLEWARE = [
@@ -210,11 +211,16 @@ EMAIL_SMTP_PROVIDER = "sendgrid"
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = []
+DEVELOPMENT_MODE = "prod"
+
+# google storage config
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = '/etc/...'  # path to private json key file obtained by Google.
+GOOGLE_DRIVE_STORAGE_SERVICE_EMAIL = "'googleaccount'@gmail.com"
 
 
 if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
     from .private import *  # pylint: disable=import-error,wildcard-import
-if os.path.isfile(join(dirname(abspath(__file__)), 'devstack.py')):
+if DEVELOPMENT_MODE == "dev" and os.path.isfile(join(dirname(abspath(__file__)), 'devstack.py')):
     from .devstack import *  # pylint: disable=import-error,wildcard-import
 
 TEST_SETTINGS = False

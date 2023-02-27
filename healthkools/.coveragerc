@@ -6,5 +6,6 @@ omit =
     healthkools/settings.py
     healthkools/asgi.py
     healthkools/wsgi.py
+    healthkools/*/migrations/*
 [report]
 show_missing = True

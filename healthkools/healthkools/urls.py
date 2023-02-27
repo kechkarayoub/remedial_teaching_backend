@@ -24,6 +24,7 @@ urlpatterns = [
     path('general_information_api', views.general_information_api, name='general_information_api'),
     path('services_accounts_types_api', views.services_accounts_types_api, name='services_accounts_types_api'),
     path('user/', include('user.urls')),
+    path('utils/', include('utils.urls')),
 ]
 urlpatterns += i18n_patterns(
     re_path(r'^admin/', admin.site.urls),
