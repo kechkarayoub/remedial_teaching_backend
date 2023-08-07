@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 23:30+0100\n"
+"POT-Creation-Date: 2023-08-07 21:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: .\private.py:6 .\settings.py:136
+
+#: .\private.py:5 .\settings.py:138
 msgid "Arabic"
 msgstr "Arabe"
 
-#: .\private.py:7 .\settings.py:137
+#: .\private.py:6 .\settings.py:139
 msgid "English"
 msgstr "Anglais"
 
-#: .\private.py:8 .\settings.py:138
+#: .\private.py:7 .\settings.py:140
 msgid "French"
 msgstr "Français"
