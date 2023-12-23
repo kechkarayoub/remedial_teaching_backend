@@ -40,7 +40,7 @@ class Establishment(models.Model):
         :attribute: website_url: CharField represent the website url of the establishment
     """
     class Meta(object):
-        db_table = "healthkools_establishment"
+        db_table = "remedial_teaching_establishment"
         ordering = ["name"]
         verbose_name = _("Establishment")
         verbose_name_plural = _("Establishments")
@@ -147,7 +147,7 @@ class User(AbstractUser):
         :attribute: mobile_phone_is_validated: BooleanField represent user mobile_phone is validated or not
     """
     class Meta(object):
-        db_table = "healthkools_user"
+        db_table = "remedial_teaching_user"
         ordering = ["username"]
         verbose_name = _("User")
         verbose_name_plural = _("Users")
@@ -245,7 +245,7 @@ class EstablishmentUser(models.Model):
         :attribute: user: ForeignKey key represent the user in the relationship
     """
     class Meta(object):
-        db_table = "healthkools_establishment_user"
+        db_table = "remedial_teaching_establishment_user"
         ordering = ["last_name", "first_name"]
         verbose_name = _("Establishment user relationship")
         verbose_name_plural = _("Establishment user relationships")
@@ -344,7 +344,7 @@ class UserEmailConfirmationKey(models.Model):
         :attribute: user: ForeignKey represent the the relationship between the user and the keys.
     """
     class Meta(object):
-        db_table = "healthkools_user_email_confirmation_key"
+        db_table = "remedial_teaching_user_email_confirmation_key"
         ordering = ["creation_time"]
         verbose_name = _("User email confirmation key")
         verbose_name_plural = _("Users emails confirmation keys")

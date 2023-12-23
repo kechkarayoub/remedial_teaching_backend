@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = .
+omit =
+    manage.py
+    remedial_teaching/settings.py
+    remedial_teaching/asgi.py
+    remedial_teaching/wsgi.py
+    remedial_teaching/*/migrations/*
+[report]
+show_missing = True

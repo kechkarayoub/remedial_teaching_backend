@@ -1,6 +1,6 @@
 Set correct values for:
-    SITE_NAME in healthkools/settings.py
-    CONTACT_EMAIL in healthkools/settings.py
+    SITE_NAME in remedial_teaching/settings.py
+    CONTACT_EMAIL in remedial_teaching/settings.py
     All values in private.py
 
 

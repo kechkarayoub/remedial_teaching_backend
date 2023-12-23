@@ -14,7 +14,7 @@ class FeedsLanguage(models.Model):
         :attribute last_update_at: DateTimeField represent last time the feeds are stored.
     """
     class Meta(object):
-        db_table = "healthkools_feeds_language"
+        db_table = "remedial_teaching_feeds_language"
         verbose_name = _("Feeds language")
         verbose_name_plural = _("Feeds languages")
 
