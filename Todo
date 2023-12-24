@@ -1,3 +1,4 @@
+Change text: "Remedial teaching" in whole code with company name
 Set correct values for:
     SITE_NAME in remedial_teaching/settings.py
     CONTACT_EMAIL in remedial_teaching/settings.py
