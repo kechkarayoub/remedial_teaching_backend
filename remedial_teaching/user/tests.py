@@ -11,167 +11,69 @@ import json
 import os
 
 
-class EstablishmentModelTests(TestCase):
+class UserModelTests(TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(UserModelTests, self).__init__(*args, **kwargs)
+        self.admin = None
+
+    def setUp(self):
+        self.admin = User(username="administrator")
+        self.admin.save()
 
     def test___str__(self):
-        establishment = Establishment(name="Hospital1")
-        establishment.save()
-        str_ = establishment.__str__()
-        self.assertEqual(str_, establishment.type_name + "_" + establishment.name)
-
-    def test_type_name(self):
-        establishment = Establishment(name="Hospital1")
-        establishment.save()
-        establishment2 = Establishment(name="Hospital2", type="hospital")
-        establishment2.save()
-        establishment3 = Establishment(name="Laboratory1", type="laboratory")
-        establishment3.save()
-        self.assertEqual(establishment.type_name, _("Hospital"))
-        self.assertEqual(establishment2.type_name, _("Hospital"))
-        self.assertEqual(establishment3.type_name, _("Laboratory"))
-
-    def test_to_dict(self):
-        establishment = Establishment(
-            address="address", address_ar="address_ar", city="city", email="email@yopmail.com", fax="+212522xxxxxx",
-            fax_is_valid=True, logo_url="logo_url", name="name", name_ar="name_ar", type="laboratory",
-            website_url="localhost"
-        )
-        establishment.save()
-        dict = establishment.to_dict()
-        created_at = dict["created_at"]
-        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
-        last_update_at = dict["last_update_at"]
-        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
-        self.assertEqual(dict["address"], "address")
-        self.assertEqual(dict["address_ar"], "address_ar")
-        self.assertEqual(dict["city"], "city")
-        self.assertEqual(dict["email"], "email@yopmail.com")
-        self.assertEqual(dict["fax"], "+212522xxxxxx")
-        self.assertEqual(dict["fax_is_valid"], True)
-        self.assertEqual(dict["fax_is_validated"], False)
-        self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["logo_url"], "logo_url")
-        self.assertEqual(dict["mobile_phone"], None)
-        self.assertEqual(dict["mobile_phone_is_valid"], False)
-        self.assertEqual(dict["mobile_phone_is_validated"], False)
-        self.assertEqual(dict["name"], "name")
-        self.assertEqual(dict["name_ar"], "name_ar")
-        self.assertEqual(dict["phone"], None)
-        self.assertEqual(dict["phone_is_valid"], False)
-        self.assertEqual(dict["phone_is_validated"], False)
-        self.assertEqual(dict["phone2"], None)
-        self.assertEqual(dict["phone2_is_valid"], False)
-        self.assertEqual(dict["phone2_is_validated"], False)
-        self.assertEqual(dict["type"], "laboratory")
-        self.assertEqual(dict["type_name"], _("Laboratory"))
-        self.assertEqual(dict["website_url"], "localhost")
-        self.assertEqual(len(dict.keys()), 27)
-        self.assertFalse(dict["is_deleted"])
-        self.assertTrue(last_update_at_test)
-        self.assertTrue(created_at_test)
-        self.assertTrue(dict["is_active"])
-
-
-class UserModelTests(TestCase):
+        user = User( gender="m", last_name="last_name", username="test_username")
+        user.save()
+        str_ = user.__str__()
+        self.assertEqual(str_, "test_username")
 
     def test_language_name(self):
         user = User(username="test_username")
         user.save()
-        user2 = User(username="test_username2", language="ar")
+        user2 = User(language="ar", username="test_username2", )
         user2.save()
         self.assertEqual(user.language_name, _("French"))
         self.assertEqual(user2.language_name, _("Arabic"))
 
     def test_to_dict(self):
-        user = User(username="test_username", last_name="last_name", gender="m")
+        user = User(created_by=self.admin, gender="m", last_name="last_name", last_update_by=self.admin, username="test_username")
         user.save()
-        dict = user.to_dict()
-        created_at = dict["created_at"]
+        object_dict = user.to_dict()
+        created_at = object_dict["created_at"]
         created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
-        last_update_at = dict["last_update_at"]
+        last_update_at = object_dict["last_update_at"]
         last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
-        self.assertEqual(dict["address"], "")
-        self.assertIsNone(dict["birthday"])
-        self.assertEqual(dict["country_code"], "")
-        self.assertEqual(dict["country_name"], "")
-        self.assertEqual(dict["email_is_validated"], False)
-        self.assertEqual(dict["first_name"], "")
-        self.assertEqual(dict["gender"], "m")
-        self.assertEqual(dict["image_url"], "")
-        self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["language"], "fr")
-        self.assertEqual(dict["language_name"], _("French"))
-        self.assertEqual(dict["last_name"], "last_name")
-        self.assertEqual(dict["mobile_phone"], None)
-        self.assertEqual(dict["mobile_phone_is_valid"], False)
-        self.assertEqual(dict["mobile_phone_is_validated"], False)
-        self.assertEqual(dict["username"], "test_username")
-        self.assertEqual(len(dict.keys()), 22)
-        self.assertFalse(dict["is_deleted"])
-        self.assertIn(dict["initials_bg_color"], BG_COLORS_CHOICES)
-        self.assertNotEqual(dict["initials_bg_color"], "")
+        self.assertEqual(object_dict["address"], "")
+        self.assertIsNone(object_dict["birthday"])
+        self.assertEqual(object_dict["country_code"], "")
+        self.assertEqual(object_dict["country_name"], "")
+        self.assertEqual(object_dict["created_by_id"], self.admin.id)
+        self.assertEqual(object_dict["email_is_validated"], False)
+        self.assertEqual(object_dict["first_name"], "")
+        self.assertEqual(object_dict["gender"], "m")
+        self.assertEqual(object_dict["image_url"], "")
+        self.assertEqual(object_dict["id"], 1)
+        self.assertEqual(object_dict["language"], "fr")
+        self.assertEqual(object_dict["language_name"], _("French"))
+        self.assertEqual(object_dict["last_name"], "last_name")
+        self.assertEqual(object_dict["last_update_by"], self.admin.id)
+        self.assertEqual(object_dict["mobile_phone"], None)
+        self.assertEqual(object_dict["mobile_phone_is_valid"], False)
+        self.assertEqual(object_dict["mobile_phone_is_validated"], False)
+        self.assertEqual(object_dict["username"], "test_username")
+        self.assertEqual(len(object_dict.keys()), 22)
+        self.assertFalse(object_dict["is_deleted"])
+        self.assertIn(object_dict["initials_bg_color"], BG_COLORS_CHOICES)
+        self.assertNotEqual(object_dict["initials_bg_color"], "")
         self.assertTrue(last_update_at_test)
         self.assertTrue(created_at_test)
-        self.assertTrue(dict["is_active"])
-
-    def test___str__(self):
-        user = User(username="test_username", last_name="last_name", gender="m")
-        user.save()
-        str_ = user.__str__()
-        self.assertEqual(str_, "test_username")
-
-
-class EstablishmentUserModelTests(TestCase):
-
-    def test___str__(self):
-        hospital = Establishment.objects.create(name="Hospital", type="hospital")
-        user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
-        establishment_user = EstablishmentUser(establishment=hospital, user=user)
-        establishment_user.save()
-        str_ = establishment_user.__str__()
-        self.assertEqual(str_, "1")
-
-    def test_to_dict(self):
-        hospital = Establishment.objects.create(name="Hospital", type="hospital")
-        user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
-        establishment_user = EstablishmentUser(
-            establishment=hospital, user=user, account_type="_assistant_", is_accepted=True, first_name="first_name",
-            last_name="last_name",
-        )
-        establishment_user.save()
-        dict = establishment_user.to_dict()
-        created_at = dict["created_at"]
-        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
-        last_update_at = dict["last_update_at"]
-        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
-        self.assertEqual(dict["address"], "")
-        self.assertIsNone(dict["birthday"])
-        self.assertEqual(dict["country_code"], "")
-        self.assertEqual(dict["country_name"], "")
-        self.assertEqual(dict["email_is_accepted"], False)
-        self.assertEqual(dict["establishment_id"], 1)
-        self.assertEqual(dict["first_name"], "first_name")
-        self.assertEqual(dict["gender"], "")
-        self.assertEqual(dict["id"], 1)
-        self.assertEqual(dict["image_url"], "")
-        self.assertEqual(dict["is_accepted"], True)
-        self.assertEqual(dict["last_name"], "last_name")
-        self.assertEqual(dict["mobile_phone"], None)
-        self.assertEqual(dict["mobile_phone_is_valid"], False)
-        self.assertEqual(dict["mobile_phone_is_accepted"], False)
-        self.assertEqual(dict["user_id"], 1)
-        self.assertEqual(len(dict.keys()), 22)
-        self.assertFalse(dict["is_deleted"])
-        self.assertIn(dict["initials_bg_color"], BG_COLORS_CHOICES)
-        self.assertNotEqual(dict["initials_bg_color"], "")
-        self.assertTrue(last_update_at_test)
-        self.assertTrue(created_at_test)
-        self.assertTrue(dict["is_active"])
+        self.assertTrue(object_dict["is_active"])
 
 
 class UserEmailConfirmationKeyModelTests(TestCase):
 
-    def setUp(self):
+    def __init__(self, *args, **kwargs):
+        super(UserEmailConfirmationKeyModelTests, self).__init__(*args, **kwargs)
         self.credentials = {
             'username': 'testuser',
             'email': 'testemail@example.com',
@@ -179,7 +81,15 @@ class UserEmailConfirmationKeyModelTests(TestCase):
             'last_name': 'last_name',
             'password': 'secret',
         }
+
+    def setUp(self):
         User.objects.create_user(**self.credentials)
+
+    def test___str__(self):
+        user = User.objects.get(email="testemail@example.com")
+        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
+        str_ = user_email_confirmation_key.__str__()
+        self.assertEqual(str_, user.__str__() + "_" + user_email_confirmation_key.key)
 
     def test_create(self):
         user = User.objects.get(email="testemail@example.com")
@@ -198,12 +108,6 @@ class UserEmailConfirmationKeyModelTests(TestCase):
         user_email_confirmation_key.creation_time = creation_time.astimezone()
         user_email_confirmation_key.save()
         self.assertTrue(user_email_confirmation_key.is_expired)
-
-    def test___str__(self):
-        user = User.objects.get(email="testemail@example.com")
-        user_email_confirmation_key = UserEmailConfirmationKey.create(user)
-        str_ = user_email_confirmation_key.__str__()
-        self.assertEqual(str_, user.__str__() + "_" + user_email_confirmation_key.key)
 
 
 class LogInTest(TestCase):
@@ -470,7 +374,6 @@ class ResendActivationEmailViewTest(TestCase):
         json_response3 = json.loads(response3.content)
         self.assertFalse(json_response3.get("success"))
         self.assertEqual(json_response3.get("message"), "An error occurred when checking username!")
-
 
 
 class ViewTest(TestCase):

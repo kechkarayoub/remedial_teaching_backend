@@ -29,22 +29,6 @@ msgstr "الحقول المضافة"
 msgid "User info"
 msgstr "لم يتم العثور على المستخدم!"
 
-#: .\models.py:45
-msgid "Establishment"
-msgstr ""
-
-#: .\models.py:46
-msgid "Establishments"
-msgstr ""
-
-#: .\models.py:50 .\models.py:54 .\tests.py:29 .\tests.py:30
-msgid "Hospital"
-msgstr "مستشفى"
-
-#: .\models.py:51 .\models.py:55 .\tests.py:31 .\tests.py:66
-msgid "Laboratory"
-msgstr "مختبر"
-
 #: .\models.py:58 .\models.py:160 .\models.py:281
 msgid "Address"
 msgstr "العنوان"
@@ -217,37 +201,13 @@ msgstr "اللغة"
 msgid "Mobile phone number"
 msgstr "رقم الهاتف"
 
-#: .\models.py:250
-msgid "Establishment user relationship"
-msgstr ""
-
-#: .\models.py:251
-msgid "Establishment user relationships"
-msgstr ""
-
 #: .\models.py:255 .\models.py:264
 msgid "Assistant"
 msgstr "مساعد"
 
-#: .\models.py:256 .\models.py:265
-msgid "Doctor"
-msgstr "طبيب"
-
 #: .\models.py:257 .\models.py:266
 msgid "Director"
 msgstr "مدير"
-
-#: .\models.py:258 .\models.py:267
-msgid "Nurse"
-msgstr "ممرض"
-
-#: .\models.py:259 .\models.py:268
-msgid "Patient"
-msgstr "مريض"
-
-#: .\models.py:260 .\models.py:269
-msgid "Technician"
-msgstr "فني"
 
 #: .\models.py:261 .\models.py:270
 msgid "Other"
