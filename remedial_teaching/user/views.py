@@ -187,7 +187,7 @@ class ResendActivationEmailView(APIView):
                 'message': _('An error occurred when checking username!'),
             })
         user_email_confirmation_key = None
-        for ueck in user.my_email_confirmation_keys.filter():
+        for ueck in user.email_confirmation_keys.filter():
             if ueck.is_expired:
                 pass
             else:

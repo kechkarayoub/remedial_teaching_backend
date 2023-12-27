@@ -43,6 +43,7 @@ class UserModelTests(TestCase):
         created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
         last_update_at = object_dict["last_update_at"]
         last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(len(object_dict.keys()), 24)
         self.assertEqual(object_dict["address"], "")
         self.assertIsNone(object_dict["birthday"])
         self.assertEqual(object_dict["country_code"], "")
@@ -52,16 +53,15 @@ class UserModelTests(TestCase):
         self.assertEqual(object_dict["first_name"], "")
         self.assertEqual(object_dict["gender"], "m")
         self.assertEqual(object_dict["image_url"], "")
-        self.assertEqual(object_dict["id"], 1)
+        self.assertEqual(object_dict["id"], 2)
         self.assertEqual(object_dict["language"], "fr")
         self.assertEqual(object_dict["language_name"], _("French"))
         self.assertEqual(object_dict["last_name"], "last_name")
-        self.assertEqual(object_dict["last_update_by"], self.admin.id)
+        self.assertEqual(object_dict["last_update_by_id"], self.admin.id)
         self.assertEqual(object_dict["mobile_phone"], None)
         self.assertEqual(object_dict["mobile_phone_is_valid"], False)
         self.assertEqual(object_dict["mobile_phone_is_validated"], False)
         self.assertEqual(object_dict["username"], "test_username")
-        self.assertEqual(len(object_dict.keys()), 22)
         self.assertFalse(object_dict["is_deleted"])
         self.assertIn(object_dict["initials_bg_color"], BG_COLORS_CHOICES)
         self.assertNotEqual(object_dict["initials_bg_color"], "")
@@ -129,7 +129,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 22)
+        self.assertEqual(len(json_response.get("user").keys()), 24)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'email_or_username': 'testusers', 'password': 'secret'}, follow=True)
@@ -311,7 +311,7 @@ class ResendActivationEmailViewTest(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(mail.outbox[1].subject, "حسابك {site_name}".format(site_name=settings.SITE_NAME))
         self.assertIn("last_name first_name", mail.outbox[1].body)
-        user.my_email_confirmation_keys.filter().delete()
+        user.email_confirmation_keys.filter().delete()
         user.email_is_validated = False
         user.save()
         response2 = self.client.post('/user/resend_activation_email/', {
