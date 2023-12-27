@@ -6,7 +6,16 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'remedial_teaching.settings')
+    project_name = "remedial_teaching"
+    settings_module_name = "settings"
+    if "--settings" in sys.argv:
+        settings_index = sys.argv.index("--settings")
+        if settings_index + 1 < len(sys.argv):
+            settings_module_name = sys.argv[settings_index + 1]
+            sys.argv.pop(settings_index)
+        sys.argv.pop(settings_index)
+    settings_module = '{project_name}.{settings_module_name}'.format(project_name=project_name, settings_module_name=settings_module_name)
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
