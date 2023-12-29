@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-29 21:05+0100\n"
+"POT-Creation-Date: 2023-12-29 21:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,16 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-#: .\common.py:78 .\common.py:84
-msgid "Arabic"
-msgstr ""
-
-#: .\common.py:79 .\common.py:85
-msgid "English"
-msgstr ""
-
-#: .\common.py:80 .\common.py:86
-msgid "French"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\views.py:32
+msgid "Storage is not yet configured for production."
 msgstr ""

@@ -99,7 +99,7 @@ LOGGING = {
     'handlers': {
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'log/main_log.log',
+            'filename': os.path.join(BASE_DIR, 'log/main_log.log'),
             'formatter': 'main_formatter',
             'level': 'WARNING',
             'backupCount': 10,  # keep at most 10 log files

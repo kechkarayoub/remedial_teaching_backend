@@ -1,4 +1,4 @@
-Django==3.2.12
+Django==5.0
 httpie==2.6.0
 httplib2==0.20.2
 mysqlclient==2.2.1

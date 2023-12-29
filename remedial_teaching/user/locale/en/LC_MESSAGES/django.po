@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-07 21:38+0100\n"
+"POT-Creation-Date: 2023-12-29 21:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,420 +17,220 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: .\admin.py:22 .\admin.py:54 .\admin.py:84
-msgid "Added fields"
-msgstr "Added fields"
-
-#: .\admin.py:78
-#, fuzzy
-#| msgid "User not found!"
+#: .\admin.py:18
 msgid "User info"
-msgstr "User not found!"
-
-#: .\models.py:58 .\models.py:160 .\models.py:281
-msgid "Address"
-msgstr "Address"
-
-#: .\models.py:59
-#, fuzzy
-#| msgid "Address"
-msgid "Address (ar)"
-msgstr "Address"
-
-#: .\models.py:60
-msgid "City"
 msgstr ""
 
-#: .\models.py:61
-#, fuzzy
-#| msgid "Creation time"
-msgid "Created at"
-msgstr "Creation time"
-
-#: .\models.py:62
-msgid "Email"
+#: .\admin.py:24
+msgid "Added fields"
 msgstr ""
 
-#: .\models.py:63
-msgid "Fax"
-msgstr ""
-
-#: .\models.py:64
-#, fuzzy
-#| msgid "Phone is valid"
-msgid "Fax is valid"
-msgstr "Phone is valid"
-
-#: .\models.py:65
-#, fuzzy
-#| msgid "Email is validated"
-msgid "Fax is validated"
-msgstr "Email is validated"
-
-#: .\models.py:66 .\models.py:293
-msgid "Is active"
-msgstr ""
-
-#: .\models.py:67 .\models.py:169 .\models.py:294
-msgid "Is deleted"
-msgstr ""
-
-#: .\models.py:69
-msgid "Logo url"
-msgstr ""
-
-#: .\models.py:70
-msgid "Mobile phone"
-msgstr ""
-
-#: .\models.py:71 .\models.py:173 .\models.py:299
-#, fuzzy
-#| msgid "Phone is valid"
-msgid "Mobile phone is valid"
-msgstr "Phone is valid"
-
-#: .\models.py:72 .\models.py:174
-#, fuzzy
-#| msgid "Phone is validated"
-msgid "Mobile phone is validated"
-msgstr "Phone is validated"
-
-#: .\models.py:73
-msgid "Name"
-msgstr ""
-
-#: .\models.py:74
-msgid "Name (ar)"
-msgstr ""
-
-#: .\models.py:75
-msgid "Phone number"
-msgstr "Phone number"
-
-#: .\models.py:76
-msgid "Phone is valid"
-msgstr "Phone is valid"
-
-#: .\models.py:77
-msgid "Phone is validated"
-msgstr "Phone is validated"
-
-#: .\models.py:78
-#, fuzzy
-#| msgid "Phone number"
-msgid "Phone2 number"
-msgstr "Phone number"
-
-#: .\models.py:79
-#, fuzzy
-#| msgid "Phone is valid"
-msgid "Phone2 is valid"
-msgstr "Phone is valid"
-
-#: .\models.py:80
-#, fuzzy
-#| msgid "Phone is validated"
-msgid "Phone2 is validated"
-msgstr "Phone is validated"
-
-#: .\models.py:81
-msgid "Type"
-msgstr "Type"
-
-#: .\models.py:82
-msgid "Website url"
-msgstr ""
-
-#: .\models.py:152
+#: .\models.py:37
 msgid "User"
-msgstr "User"
+msgstr ""
 
-#: .\models.py:153
+#: .\models.py:38
 msgid "Users"
-msgstr "Users"
+msgstr ""
 
-#: .\models.py:156 .\models.py:273
+#: .\models.py:41
 msgid "Select"
-msgstr "Select"
+msgstr ""
 
-#: .\models.py:157 .\models.py:274
+#: .\models.py:42
 msgid "Female"
-msgstr "Female"
+msgstr ""
 
-#: .\models.py:158 .\models.py:275
+#: .\models.py:43
 msgid "Male"
-msgstr "Male"
+msgstr ""
 
-#: .\models.py:161 .\models.py:282
+#: .\models.py:45
+msgid "Address"
+msgstr ""
+
+#: .\models.py:46
 msgid "Birthday"
-msgstr "Birthday"
+msgstr ""
 
-#: .\models.py:162 .\models.py:283
+#: .\models.py:47
 msgid "Country code"
-msgstr "Country code"
+msgstr ""
 
-#: .\models.py:163 .\models.py:284
+#: .\models.py:48
 msgid "Country name"
-msgstr "Country name"
+msgstr ""
 
-#: .\models.py:165
+#: .\models.py:51
 msgid "Email is validated"
-msgstr "Email is validated"
+msgstr ""
 
-#: .\models.py:166 .\models.py:289
+#: .\models.py:52
 msgid "Gender"
-msgstr "Gender"
+msgstr ""
 
-#: .\models.py:167 .\models.py:290
+#: .\models.py:53
 msgid "Image url"
 msgstr ""
 
-#: .\models.py:168 .\models.py:291
+#: .\models.py:54
 msgid "Initials background color"
 msgstr ""
 
-#: .\models.py:170
+#: .\models.py:55
+msgid "Is deleted"
+msgstr ""
+
+#: .\models.py:56
 msgid "Language"
-msgstr "Language"
+msgstr ""
 
-#: .\models.py:172 .\models.py:297
-#, fuzzy
-#| msgid "Phone number"
+#: .\models.py:59
 msgid "Mobile phone number"
-msgstr "Phone number"
-
-#: .\models.py:255 .\models.py:264
-msgid "Assistant"
-msgstr "Assistant"
-
-#: .\models.py:257 .\models.py:266
-msgid "Director"
-msgstr "Director"
-
-
-#: .\models.py:261 .\models.py:270
-msgid "Other"
-msgstr "Other"
-
-#: .\models.py:278
-#, fuzzy
-#| msgid "Account type service"
-msgid "Account type"
-msgstr "Account type service"
-
-#: .\models.py:286
-#, fuzzy
-#| msgid "Email is validated"
-msgid "Email is accepted"
-msgstr "Email is validated"
-
-#: .\models.py:288
-#, fuzzy
-#| msgid "First name is required!"
-msgid "First name"
-msgstr "First name is required!"
-
-#: .\models.py:292
-msgid "Is accepted"
 msgstr ""
 
-#: .\models.py:295
-msgid "Last name"
+#: .\models.py:60
+msgid "Mobile phone is valid"
 msgstr ""
 
-#: .\models.py:298
-msgid "Mobile phone is accepted"
+#: .\models.py:61
+msgid "Mobile phone is validated"
 msgstr ""
 
-#: .\models.py:349
+#: .\models.py:118
 msgid "User email confirmation key"
-msgstr "User email confirmation key"
+msgstr ""
 
-#: .\models.py:350
+#: .\models.py:119
 msgid "Users emails confirmation keys"
-msgstr "Users emails confirmation keys"
+msgstr ""
 
-#: .\models.py:352
+#: .\models.py:121
 msgid "Creation time"
-msgstr "Creation time"
+msgstr ""
 
-#: .\models.py:353
+#: .\models.py:122
 msgid "Key"
-msgstr "Key"
+msgstr ""
 
 #: .\templates\emails\confirmation_email.html:9
 #: .\templates\emails\confirmation_email.txt:3
 #, python-format
 msgid "Dear %(full_name)s,"
-msgstr "Dear %(full_name)s,"
+msgstr ""
 
 #: .\templates\emails\confirmation_email.html:14
 #: .\templates\emails\confirmation_email.txt:6
 msgid "Your account is created on "
-msgstr "Your account is created on "
+msgstr ""
 
 #: .\templates\emails\confirmation_email.html:14
 msgid ""
 "You still have to validate your email address. To do so, click on this "
 "button or copy the link below to your browser:"
 msgstr ""
-"You still have to validate your email address. To do so, click on this "
-"button or copy the link below to your browser:"
 
 #: .\templates\emails\confirmation_email.html:16
 msgid "Confirm my email"
-msgstr "Confirm my email"
+msgstr ""
 
 #: .\templates\emails\confirmation_email.txt:6
 msgid ""
 "You still have to validate your email address. To do so, click on this link "
 "or copy it to your browser:"
 msgstr ""
-"You still have to validate your email address. To do so, click on this link "
-"or copy it to your browser:"
 
-#: .\tests.py:82 .\tests.py:103
+#: .\tests.py:35 .\tests.py:58
 msgid "French"
-msgstr "French"
+msgstr ""
 
-#: .\tests.py:83
+#: .\tests.py:36
 msgid "Arabic"
-msgstr "Arabic"
+msgstr ""
 
-#: .\tests.py:238 .\tests.py:241 .\views.py:33 .\views.py:45
+#: .\tests.py:142 .\tests.py:145 .\views.py:33 .\views.py:45
 msgid "Invalid credentials!"
-msgstr "Invalid credentials!"
+msgstr ""
 
-#: .\tests.py:243 .\views.py:38
+#: .\tests.py:147 .\views.py:38
 msgid "An error occurred when log in!"
-msgstr "An error occurred when log in!"
+msgstr ""
 
-#: .\tests.py:513 .\views.py:222
+#: .\tests.py:416 .\views.py:222
 msgid "The email: {} already exists!"
-msgstr "The email: {} already exists!"
+msgstr ""
 
-#: .\tests.py:521 .\views.py:225
+#: .\tests.py:424 .\views.py:225
 msgid "The username: {} already exists!"
-msgstr "The username: {} already exists!"
+msgstr ""
 
 #: .\utils.py:24
 #, python-brace-format
 msgid "Your account {site_name}"
-msgstr "Your account {site_name}"
+msgstr ""
 
 #: .\views.py:84
 msgid "This username: {} is already exists!"
-msgstr "This username: {} is already exists!"
+msgstr ""
 
 #: .\views.py:92
 msgid "This email: {} is already exists!"
-msgstr "This email: {} is already exists!"
+msgstr ""
 
 #: .\views.py:99
 msgid "An error occurred when checking email!"
-msgstr "An error occurred when checking email!"
+msgstr ""
 
 #: .\views.py:104 .\views.py:187
 msgid "An error occurred when checking username!"
-msgstr "An error occurred when checking username!"
+msgstr ""
 
 #: .\views.py:120
 msgid "Email is required!"
-msgstr "Email is required!"
+msgstr ""
 
 #: .\views.py:124
 msgid "First name is required!"
-msgstr "First name is required!"
+msgstr ""
 
 #: .\views.py:128
 msgid "Last name is required!"
-msgstr "Last name is required!"
+msgstr ""
 
 #: .\views.py:130
 msgid "Password is required!"
-msgstr "Password is required!"
+msgstr ""
 
 #: .\views.py:134
 msgid "Username is required!"
-msgstr "Username is required!"
+msgstr ""
 
 #: .\views.py:150
 msgid "Your account is created."
-msgstr "Your account is created."
+msgstr ""
 
 #: .\views.py:151
 msgid ""
 "An activation email is sent to the address {} for you to activate your email "
 "so that you can log in."
 msgstr ""
-"An activation email is sent to the address {} for you to activate your email "
-"so that you can log in."
 
 #: .\views.py:152
 msgid "If you haven't received the email, click here to resend it."
-msgstr "If you haven't received the email, click here to resend it."
+msgstr ""
 
 #: .\views.py:176
 msgid "Your email address is already validated!"
-msgstr "Your email address is already validated!"
+msgstr ""
 
 #: .\views.py:177
 msgid "You can now log in with your username/email and password."
-msgstr "You can now log in with your username/email and password."
+msgstr ""
 
 #: .\views.py:182
 msgid "We couldn't find an account with that username: {}!"
-msgstr "We couldn't find an account with that username: {}!"
+msgstr ""
 
 #: .\views.py:203
 msgid "A new activation email is sent to the address {}."
-msgstr "A new activation email is sent to the address {}."
-
-#~ msgid "Accounts types services"
-#~ msgstr "Accounts types services"
-
-#~ msgid "Service"
-#~ msgstr "Service"
-
-#~ msgid "User account type service"
-#~ msgstr "User account type service"
-
-#~ msgid "Users accounts types services"
-#~ msgstr "Users accounts types services"
-
-#~ msgid "User security question"
-#~ msgstr "User security question"
-
-#~ msgid "Users security questions"
-#~ msgstr "Users security questions"
-
-#~ msgid "What did you want to be bigger when you were a kid?"
-#~ msgstr "What did you want to be bigger when you were a kid?"
-
-#~ msgid "What is the last name of your favorite childhood teacher?"
-#~ msgstr "What is the last name of your favorite childhood teacher?"
-
-#~ msgid "What is your birthday?"
-#~ msgstr "What is your birthday?"
-
-#~ msgid "What is your favorite car?"
-#~ msgstr "What is your favorite car?"
-
-#~ msgid "What is your favorite color?"
-#~ msgstr "What is your favorite color?"
-
-#~ msgid "What is your favorite movie?"
-#~ msgstr "What is your favorite movie?"
-
-#~ msgid "What is your place of birth?"
-#~ msgstr "What is your place of birth?"
-
-#~ msgid "Response"
-#~ msgstr "Response"
-
-#~ msgid "Security question"
-#~ msgstr "Security question"
-
-#~ msgid "English"
-#~ msgstr "English"
+msgstr ""

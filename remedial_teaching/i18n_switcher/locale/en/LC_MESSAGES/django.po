@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 23:33+0100\n"
+"POT-Creation-Date: 2023-12-29 21:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: .\views.py:13
 msgid "URL path for language switch is empty"
-msgstr "URL path for language switch is empty"
+msgstr ""
 
 #: .\views.py:15
 msgid "URL path for language switch does not start with \"/\""
-msgstr "URL path for language switch does not start with \"/\""
+msgstr ""
 
 #: .\views.py:17
 #, python-format
 msgid "%s is not a supported language code"
-msgstr "%s is not a supported language code"
+msgstr ""
