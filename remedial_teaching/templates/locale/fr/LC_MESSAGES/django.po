@@ -19,12 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: .\admin\base_site.html:27
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
 #: .\admin\base_site.html:31
 msgid "Change password"
-msgstr ""
+msgstr "Changer le mot de passe"
 
 #: .\admin\base_site.html:33
 msgid "Log out"
-msgstr ""
+msgstr "Se déconnecter"
+

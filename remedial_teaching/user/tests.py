@@ -258,13 +258,13 @@ class RegisterTest(TestCase):
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
-        self.assertEqual(json_response.get("message"), "Ce nom d'utilisateur : testuser existe déjà!")
+        self.assertEqual(json_response.get("message"), "Ce nom d'utilisateur : testuser existe déjà !")
         response = self.client.post('/user/register/', {
             'email': "testuser@email.com",
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
-        self.assertEqual(json_response.get("message"), "Cet email : testuser@email.com existe déjà!")
+        self.assertEqual(json_response.get("message"), "Cet e-mail : testuser@email.com existe déjà !")
         response = self.client.post('/user/register/', {
             'username': 'raise_exception',
         }, follow=True)
@@ -276,7 +276,7 @@ class RegisterTest(TestCase):
         }, follow=True)
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
-        self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification de l'e-mails !")
+        self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification de l'e-mail !")
 
 
 class ResendActivationEmailViewTest(TestCase):

@@ -19,4 +19,5 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: .\views.py:32
 msgid "Storage is not yet configured for production."
-msgstr ""
+msgstr "Le stockage n'est pas encore configuré pour la production."
+

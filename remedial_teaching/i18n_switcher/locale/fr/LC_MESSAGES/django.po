@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: .\views.py:13
 msgid "URL path for language switch is empty"
-msgstr ""
+msgstr "Le chemin d'URL pour le changement de langue est vide"
 
 #: .\views.py:15
 msgid "URL path for language switch does not start with \"/\""
-msgstr ""
+msgstr "Le chemin d'URL pour le changement de langue ne commence pas par \"/\""
 
 #: .\views.py:17
 #, python-format
 msgid "%s is not a supported language code"
-msgstr ""
+msgstr "%s n'est pas un code de langue pris en charge"

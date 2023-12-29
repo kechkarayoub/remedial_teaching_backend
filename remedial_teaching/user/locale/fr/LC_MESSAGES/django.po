@@ -19,218 +19,224 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: .\admin.py:18
 msgid "User info"
-msgstr ""
+msgstr "Informations utilisateur"
 
 #: .\admin.py:24
 msgid "Added fields"
-msgstr ""
+msgstr "Champs ajoutés"
 
 #: .\models.py:37
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: .\models.py:38
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: .\models.py:41
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: .\models.py:42
 msgid "Female"
-msgstr ""
+msgstr "Femme"
 
 #: .\models.py:43
 msgid "Male"
-msgstr ""
+msgstr "Homme"
 
 #: .\models.py:45
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: .\models.py:46
 msgid "Birthday"
-msgstr ""
+msgstr "Date de naissance"
 
 #: .\models.py:47
 msgid "Country code"
-msgstr ""
+msgstr "Code pays"
 
 #: .\models.py:48
 msgid "Country name"
-msgstr ""
+msgstr "Nom du pays"
 
 #: .\models.py:51
 msgid "Email is validated"
-msgstr ""
+msgstr "L'e-mail est validé"
 
 #: .\models.py:52
 msgid "Gender"
-msgstr ""
+msgstr "Genre"
 
 #: .\models.py:53
 msgid "Image url"
-msgstr ""
+msgstr "URL de l'image"
 
 #: .\models.py:54
 msgid "Initials background color"
-msgstr ""
+msgstr "Couleur de fond des initiales"
 
 #: .\models.py:55
 msgid "Is deleted"
-msgstr ""
+msgstr "Est supprimé"
 
 #: .\models.py:56
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: .\models.py:59
 msgid "Mobile phone number"
-msgstr ""
+msgstr "Numéro de téléphone portable"
 
 #: .\models.py:60
 msgid "Mobile phone is valid"
-msgstr ""
+msgstr "Le téléphone portable est valide"
 
 #: .\models.py:61
 msgid "Mobile phone is validated"
-msgstr ""
+msgstr "Le téléphone portable est validé"
 
 #: .\models.py:118
 msgid "User email confirmation key"
-msgstr ""
+msgstr "Clé de confirmation de l'e-mail de l'utilisateur"
 
 #: .\models.py:119
 msgid "Users emails confirmation keys"
-msgstr ""
+msgstr "Clés de confirmation des e-mails des utilisateurs"
 
 #: .\models.py:121
 msgid "Creation time"
-msgstr ""
+msgstr "Heure de création"
 
 #: .\models.py:122
 msgid "Key"
-msgstr ""
+msgstr "Clé"
 
 #: .\templates\emails\confirmation_email.html:9
 #: .\templates\emails\confirmation_email.txt:3
 #, python-format
 msgid "Dear %(full_name)s,"
-msgstr ""
+msgstr "Cher %(full_name)s,"
 
 #: .\templates\emails\confirmation_email.html:14
 #: .\templates\emails\confirmation_email.txt:6
 msgid "Your account is created on "
-msgstr ""
+msgstr "Votre compte est créé sur "
 
 #: .\templates\emails\confirmation_email.html:14
 msgid ""
 "You still have to validate your email address. To do so, click on this "
 "button or copy the link below to your browser:"
 msgstr ""
+"Vous devez encore valider votre adresse e-mail. Pour ce faire, cliquez sur "
+"ce bouton ou copiez le lien ci-dessous dans votre navigateur :"
 
 #: .\templates\emails\confirmation_email.html:16
 msgid "Confirm my email"
-msgstr ""
+msgstr "Confirmer mon e-mail"
 
 #: .\templates\emails\confirmation_email.txt:6
 msgid ""
 "You still have to validate your email address. To do so, click on this link "
 "or copy it to your browser:"
 msgstr ""
+"Vous devez encore valider votre adresse e-mail. Pour ce faire, cliquez sur "
+"ce lien ou copiez-le dans votre navigateur :"
 
 #: .\tests.py:35 .\tests.py:58
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: .\tests.py:36
 msgid "Arabic"
-msgstr ""
+msgstr "Arabe"
 
 #: .\tests.py:142 .\tests.py:145 .\views.py:33 .\views.py:45
 msgid "Invalid credentials!"
-msgstr ""
+msgstr "Informations d'identification invalides !"
 
 #: .\tests.py:147 .\views.py:38
 msgid "An error occurred when log in!"
-msgstr ""
+msgstr "Une erreur s'est produite lors de la connexion !"
 
 #: .\tests.py:416 .\views.py:222
 msgid "The email: {} already exists!"
-msgstr ""
+msgstr "L'e-mail : {} existe déjà !"
 
 #: .\tests.py:424 .\views.py:225
 msgid "The username: {} already exists!"
-msgstr ""
+msgstr "Le nom d'utilisateur : {} existe déjà !"
 
 #: .\utils.py:24
 #, python-brace-format
 msgid "Your account {site_name}"
-msgstr ""
+msgstr "Votre compte {site_name}"
 
 #: .\views.py:84
 msgid "This username: {} is already exists!"
-msgstr ""
+msgstr "Ce nom d'utilisateur : {} existe déjà !"
 
 #: .\views.py:92
 msgid "This email: {} is already exists!"
-msgstr ""
+msgstr "Cet e-mail : {} existe déjà !"
 
 #: .\views.py:99
 msgid "An error occurred when checking email!"
-msgstr ""
+msgstr "Une erreur s'est produite lors de la vérification de l'e-mail !"
 
 #: .\views.py:104 .\views.py:187
 msgid "An error occurred when checking username!"
-msgstr ""
+msgstr "Une erreur s'est produite lors de la vérification du nom d'utilisateur !"
 
 #: .\views.py:120
 msgid "Email is required!"
-msgstr ""
+msgstr "L'e-mail est requis !"
 
 #: .\views.py:124
 msgid "First name is required!"
-msgstr ""
+msgstr "Le prénom est requis !"
 
 #: .\views.py:128
 msgid "Last name is required!"
-msgstr ""
+msgstr "Le nom de famille est requis !"
 
 #: .\views.py:130
 msgid "Password is required!"
-msgstr ""
+msgstr "Le mot de passe est requis !"
 
 #: .\views.py:134
 msgid "Username is required!"
-msgstr ""
+msgstr "Le nom d'utilisateur est requis !"
 
 #: .\views.py:150
 msgid "Your account is created."
-msgstr ""
+msgstr "Votre compte est créé."
 
 #: .\views.py:151
 msgid ""
 "An activation email is sent to the address {} for you to activate your email "
 "so that you can log in."
 msgstr ""
+"Un e-mail d'activation a été envoyé à l'adresse {} pour que vous puissiez "
+"activer votre e-mail et vous connecter."
 
 #: .\views.py:152
 msgid "If you haven't received the email, click here to resend it."
-msgstr ""
+msgstr "Si vous n'avez pas reçu l'e-mail, cliquez ici pour le renvoyer."
 
 #: .\views.py:176
 msgid "Your email address is already validated!"
-msgstr ""
+msgstr "Votre adresse e-mail est déjà validée !"
 
 #: .\views.py:177
 msgid "You can now log in with your username/email and password."
-msgstr ""
+msgstr "Vous pouvez maintenant vous connecter avec votre nom d'utilisateur/e-mail et votre mot de passe."
 
 #: .\views.py:182
 msgid "We couldn't find an account with that username: {}!"
-msgstr ""
+msgstr "Nous n'avons pas pu trouver de compte avec ce nom d'utilisateur : {} !"
 
 #: .\views.py:203
 msgid "A new activation email is sent to the address {}."
-msgstr ""
+msgstr "Un nouvel e-mail d'activation a été envoyé à l'adresse {}."
