@@ -20,12 +20,13 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 #: .\admin\base_site.html:27
 msgid "Documentation"
-msgstr ""
+msgstr "التوثيق"
 
 #: .\admin\base_site.html:31
 msgid "Change password"
-msgstr ""
+msgstr "تغيير كلمة المرور"
 
 #: .\admin\base_site.html:33
 msgid "Log out"
-msgstr ""
+msgstr "تسجيل الخروج"
+

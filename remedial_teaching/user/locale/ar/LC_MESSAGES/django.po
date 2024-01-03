@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-29 21:06+0100\n"
+"POT-Creation-Date: 2024-01-03 07:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,220 +18,231 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
 #: .\admin.py:18
 msgid "User info"
-msgstr ""
+msgstr "معلومات المستخدم"
 
 #: .\admin.py:24
 msgid "Added fields"
-msgstr ""
+msgstr "الحقول المضافة"
 
 #: .\models.py:37
 msgid "User"
-msgstr ""
+msgstr "المستخدم"
 
 #: .\models.py:38
 msgid "Users"
-msgstr ""
+msgstr "المستخدمون"
 
 #: .\models.py:41
 msgid "Select"
-msgstr ""
+msgstr "اختر"
 
 #: .\models.py:42
 msgid "Female"
-msgstr ""
+msgstr "أنثى"
 
 #: .\models.py:43
 msgid "Male"
-msgstr ""
+msgstr "ذكر"
 
 #: .\models.py:45
 msgid "Address"
-msgstr ""
+msgstr "العنوان"
 
 #: .\models.py:46
 msgid "Birthday"
-msgstr ""
+msgstr "تاريخ الميلاد"
 
 #: .\models.py:47
 msgid "Country code"
-msgstr ""
+msgstr "كود الدولة"
 
 #: .\models.py:48
 msgid "Country name"
-msgstr ""
+msgstr "اسم الدولة"
 
 #: .\models.py:51
 msgid "Email is validated"
-msgstr ""
+msgstr "تم التحقق من البريد الإلكتروني"
 
 #: .\models.py:52
 msgid "Gender"
-msgstr ""
+msgstr "الجنس"
 
 #: .\models.py:53
 msgid "Image url"
-msgstr ""
+msgstr "رابط الصورة"
 
 #: .\models.py:54
 msgid "Initials background color"
-msgstr ""
+msgstr "لون خلفية الاحرف الاولى"
 
 #: .\models.py:55
 msgid "Is deleted"
-msgstr ""
+msgstr "تم الحذف"
 
 #: .\models.py:56
 msgid "Language"
-msgstr ""
+msgstr "اللغة"
 
 #: .\models.py:59
 msgid "Mobile phone number"
-msgstr ""
+msgstr "رقم الهاتف المحمول"
 
 #: .\models.py:60
 msgid "Mobile phone is valid"
-msgstr ""
+msgstr "الهاتف المحمول صحيح"
 
 #: .\models.py:61
 msgid "Mobile phone is validated"
-msgstr ""
+msgstr "تم التحقق من الهاتف المحمول"
 
 #: .\models.py:118
 msgid "User email confirmation key"
-msgstr ""
+msgstr "مفتاح تأكيد بريد المستخدم"
 
 #: .\models.py:119
 msgid "Users emails confirmation keys"
-msgstr ""
+msgstr "مفاتيح تأكيد بريد المستخدمين"
 
 #: .\models.py:121
 msgid "Creation time"
-msgstr ""
+msgstr "وقت الإنشاء"
 
 #: .\models.py:122
 msgid "Key"
-msgstr ""
+msgstr "المفتاح"
 
 #: .\templates\emails\confirmation_email.html:9
 #: .\templates\emails\confirmation_email.txt:3
 #, python-format
 msgid "Dear %(full_name)s,"
-msgstr ""
+msgstr "عزيزي %(full_name)s،"
 
 #: .\templates\emails\confirmation_email.html:14
 #: .\templates\emails\confirmation_email.txt:6
 msgid "Your account is created on "
-msgstr ""
+msgstr "تم إنشاء حسابك في "
 
 #: .\templates\emails\confirmation_email.html:14
 msgid ""
 "You still have to validate your email address. To do so, click on this "
 "button or copy the link below to your browser:"
 msgstr ""
+"لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك، انقر "
+"فوق هذا الزر أو انسخ الرابط أدناه إلى متصفحك:"
 
 #: .\templates\emails\confirmation_email.html:16
 msgid "Confirm my email"
 msgstr ""
 
 #: .\templates\emails\confirmation_email.txt:6
+#, fuzzy
+#| msgid ""
+#| "You still have to validate your email address. To do so, click on this "
+#| "button or copy the link below to your browser:"
 msgid ""
 "You still have to validate your email address. To do so, click on this link "
 "or copy it to your browser:"
 msgstr ""
+"لا يزال يتعين عليك التحقق من صحة عنوان بريدك الإلكتروني. للقيام بذلك، انقر "
+"فوق هذا الزر أو انسخ الرابط أدناه إلى متصفحك:"
 
 #: .\tests.py:35 .\tests.py:58
 msgid "French"
-msgstr ""
+msgstr "الفرنسية"
 
 #: .\tests.py:36
 msgid "Arabic"
-msgstr ""
+msgstr "العربية"
 
 #: .\tests.py:142 .\tests.py:145 .\views.py:33 .\views.py:45
 msgid "Invalid credentials!"
-msgstr ""
+msgstr "بيانات اعتماد غير صالحة!"
 
 #: .\tests.py:147 .\views.py:38
 msgid "An error occurred when log in!"
-msgstr ""
+msgstr "حدث خطأ أثناء تسجيل الدخول!"
 
 #: .\tests.py:416 .\views.py:222
 msgid "The email: {} already exists!"
-msgstr ""
+msgstr "البريد الإلكتروني: {} موجود بالفعل!"
 
 #: .\tests.py:424 .\views.py:225
 msgid "The username: {} already exists!"
-msgstr ""
+msgstr "اسم المستخدم: {} موجود بالفعل!"
 
 #: .\utils.py:24
 #, python-brace-format
 msgid "Your account {site_name}"
-msgstr ""
+msgstr "حسابك {site_name}"
 
 #: .\views.py:84
 msgid "This username: {} is already exists!"
-msgstr ""
+msgstr "اسم المستخدم هذا: {} موجود بالفعل!"
 
 #: .\views.py:92
 msgid "This email: {} is already exists!"
-msgstr ""
+msgstr "هذا البريد الإلكتروني: {} موجود بالفعل!"
 
 #: .\views.py:99
 msgid "An error occurred when checking email!"
-msgstr ""
+msgstr "حدث خطأ أثناء فحص البريد الإلكتروني!"
 
 #: .\views.py:104 .\views.py:187
 msgid "An error occurred when checking username!"
-msgstr ""
+msgstr "حدث خطأ أثناء فحص اسم المستخدم!"
 
 #: .\views.py:120
 msgid "Email is required!"
-msgstr ""
+msgstr "البريد الإلكتروني مطلوب!"
 
 #: .\views.py:124
 msgid "First name is required!"
-msgstr ""
+msgstr "الاسم الأول مطلوب!"
 
 #: .\views.py:128
 msgid "Last name is required!"
-msgstr ""
+msgstr "اسم العائلة مطلوب!"
 
 #: .\views.py:130
 msgid "Password is required!"
-msgstr ""
+msgstr "كلمة المرور مطلوبة!"
 
 #: .\views.py:134
 msgid "Username is required!"
-msgstr ""
+msgstr "اسم المستخدم مطلوب!"
 
 #: .\views.py:150
 msgid "Your account is created."
-msgstr ""
+msgstr "تم إنشاء حسابك."
 
 #: .\views.py:151
 msgid ""
 "An activation email is sent to the address {} for you to activate your email "
 "so that you can log in."
 msgstr ""
+"تم إرسال بريد إلكتروني للتنشيط إلى العنوان {} لتفعيل بريدك الإلكتروني "
+"حتى تتمكن من تسجيل الدخول."
 
 #: .\views.py:152
 msgid "If you haven't received the email, click here to resend it."
-msgstr ""
+msgstr "إذا لم تتلق البريد الإلكتروني، انقر هنا لإعادة إرساله."
 
 #: .\views.py:176
 msgid "Your email address is already validated!"
-msgstr ""
+msgstr "تم بالفعل التحقق من عنوان بريدك الإلكتروني!"
 
 #: .\views.py:177
 msgid "You can now log in with your username/email and password."
-msgstr ""
+msgstr "يمكنك الآن تسجيل الدخول باستخدام اسم المستخدم/البريد الإلكتروني وكلمة المرور."
 
 #: .\views.py:182
 msgid "We couldn't find an account with that username: {}!"
-msgstr ""
+msgstr "لم نتمكن من العثور على حساب بهذا الاسم: {}!"
 
 #: .\views.py:203
 msgid "A new activation email is sent to the address {}."
-msgstr ""
+msgstr "تم إرسال بريد إلكتروني جديد لتفعيل بريدك الإلكتروني إلى العنوان {}."

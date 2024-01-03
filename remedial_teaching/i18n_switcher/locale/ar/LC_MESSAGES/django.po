@@ -20,13 +20,13 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 #: .\views.py:13
 msgid "URL path for language switch is empty"
-msgstr ""
+msgstr "رابط تبديل اللغة فارغ"
 
 #: .\views.py:15
 msgid "URL path for language switch does not start with \"/\""
-msgstr ""
+msgstr "رابط تبديل اللغة لا يبدأ بـ \"/\""
 
 #: .\views.py:17
 #, python-format
 msgid "%s is not a supported language code"
-msgstr ""
+msgstr "%s ليس رمز لغة معتمدًا"

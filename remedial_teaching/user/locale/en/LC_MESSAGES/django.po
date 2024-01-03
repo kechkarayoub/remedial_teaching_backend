@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\admin.py:18
 msgid "User info"
 msgstr ""
@@ -125,9 +126,7 @@ msgid "Your account is created on "
 msgstr ""
 
 #: .\templates\emails\confirmation_email.html:14
-msgid ""
-"You still have to validate your email address. To do so, click on this "
-"button or copy the link below to your browser:"
+msgid "You still have to validate your email address. To do so, click on this button or copy the link below to your browser:"
 msgstr ""
 
 #: .\templates\emails\confirmation_email.html:16
@@ -135,9 +134,7 @@ msgid "Confirm my email"
 msgstr ""
 
 #: .\templates\emails\confirmation_email.txt:6
-msgid ""
-"You still have to validate your email address. To do so, click on this link "
-"or copy it to your browser:"
+msgid "You still have to validate your email address. To do so, click on this link or copy it to your browser:"
 msgstr ""
 
 #: .\tests.py:35 .\tests.py:58
