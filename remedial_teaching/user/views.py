@@ -64,6 +64,7 @@ class RegisterView(APIView):
         """
         address = request.data.get('address', '')
         birthday = date_from_string(request.data.get('birthday'))
+        cin = request.data.get('cin', '')
         country_code = request.data.get('country_code', '')
         email = request.data.get('email', '')
         first_name = request.data.get('first_name', '')
@@ -95,7 +96,21 @@ class RegisterView(APIView):
                     'message': _('This email: {} is already exists!').format(email),
                 })
             except User.DoesNotExist:
-                pass
+                try:
+                    if cin == "raise_exception":
+                        none = [][0]
+                    User.objects.get(cin=cin)
+                    return JsonResponse({
+                        'success': False,
+                        'message': _('This CIN: {} is already exists!').format(cin),
+                    })
+                except User.DoesNotExist:
+                    pass
+                except:
+                    return JsonResponse({
+                        'success': False,
+                        'message': _('An error occurred when checking CIN!'),
+                    })
             except:
                 return JsonResponse({
                     'success': False,
@@ -117,6 +132,10 @@ class RegisterView(APIView):
             "mobile_phone_is_valid": mobile_phone_is_valid,
             "mobile_phone": mobile_phone,
         }
+        if cin:
+            kwargs["cin"] = cin
+        else:
+            errors["cin"] = _('CIN is required!')
         if email:
             kwargs["email"] = email
         else:
@@ -216,6 +235,7 @@ def check_if_email_or_username_exists(request):
     """
     data = request.GET
     email_or_username = data.get("email_or_username")
+    cin = data.get("cin")
     current_language = data.get("current_language") or 'fr'
     activate(current_language)
     message = ""
@@ -226,6 +246,9 @@ def check_if_email_or_username_exists(request):
     elif User.objects.filter(username=email_or_username).exists():
         user_exists = True
         message = _("The username: {} already exists!").format(email_or_username)
+    elif User.objects.filter(cin=cin).exists():
+        user_exists = True
+        message = _("The CIN: {} already exists!").format(cin)
     response = JsonResponse({
         "message": message,
         "user_exists": user_exists,

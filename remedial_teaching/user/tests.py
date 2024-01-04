@@ -3,6 +3,7 @@ from .models import *
 from .utils import contact_new_user, get_user_by_email_or_username
 from django.core import mail
 from django.conf import settings
+from django.db import IntegrityError
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 from utils.utils import BG_COLORS_CHOICES
@@ -19,34 +20,35 @@ class UserModelTests(TestCase):
         self.admin = None
 
     def setUp(self):
-        self.admin = User(username="administrator")
+        self.admin = User(username="administrator", cin='adm')
         self.admin.save()
 
     def test___str__(self):
-        user = User( gender="m", last_name="last_name", username="test_username")
+        user = User( gender="m", last_name="last_name", username="test_username", cin='test_cin')
         user.save()
         str_ = user.__str__()
         self.assertEqual(str_, "test_username")
 
     def test_language_name(self):
-        user = User(username="test_username")
+        user = User(username="test_username", cin='test_cin')
         user.save()
-        user2 = User(language="ar", username="test_username2", )
+        user2 = User(language="ar", username="test_username2", cin='test_cin2', )
         user2.save()
         self.assertEqual(user.language_name, _("French"))
         self.assertEqual(user2.language_name, _("Arabic"))
 
     def test_to_dict(self):
-        user = User(created_by=self.admin, gender="m", last_name="last_name", last_update_by=self.admin, username="test_username")
+        user = User(cin='test_cin', created_by=self.admin, gender="m", last_name="last_name", last_update_by=self.admin, username="test_username")
         user.save()
         object_dict = user.to_dict()
         created_at = object_dict["created_at"]
         created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
         last_update_at = object_dict["last_update_at"]
         last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
-        self.assertEqual(len(object_dict.keys()), 24)
+        self.assertEqual(len(object_dict.keys()), 25)
         self.assertEqual(object_dict["address"], "")
         self.assertIsNone(object_dict["birthday"])
+        self.assertEqual(object_dict["cin"], "test_cin")
         self.assertEqual(object_dict["country_code"], "")
         self.assertEqual(object_dict["country_name"], "")
         self.assertEqual(object_dict["created_by_id"], self.admin.id)
@@ -70,13 +72,23 @@ class UserModelTests(TestCase):
         self.assertTrue(created_at_test)
         self.assertTrue(object_dict["is_active"])
 
+    def test_unique_username(self):
+        user = User(username="test_username", cin='test_cin')
+        user.save()
+        with self.assertRaises(IntegrityError) as context:
+            user2 = User(username="test_username", cin='test_cin2')
+            user2.save()
+
+        self.assertIn('UNIQUE constraint failed', str(context.exception))
+
 
 class UserEmailConfirmationKeyModelTests(TestCase):
 
     def __init__(self, *args, **kwargs):
         super(UserEmailConfirmationKeyModelTests, self).__init__(*args, **kwargs)
-        self.credentials = {
+        self.user_credentials = {
             'username': 'testuser',
+            'cin': 'testcin',
             'email': 'testemail@example.com',
             'first_name': 'first_name2',
             'last_name': 'last_name',
@@ -84,7 +96,7 @@ class UserEmailConfirmationKeyModelTests(TestCase):
         }
 
     def setUp(self):
-        User.objects.create_user(**self.credentials)
+        User.objects.create_user(**self.user_credentials)
 
     def test___str__(self):
         user = User.objects.get(email="testemail@example.com")
@@ -114,11 +126,12 @@ class UserEmailConfirmationKeyModelTests(TestCase):
 class LogInTest(TestCase):
 
     def setUp(self):
-        self.credentials = {
+        self.user_credentials = {
+            'cin': 'testcin',
             'username': 'testuser',
             'password': 'secret',
         }
-        User.objects.create_user(**self.credentials)
+        User.objects.create_user(**self.user_credentials)
 
     def test_login_success(self):
         response = self.client.post('/user/login_with_token/', {
@@ -130,7 +143,7 @@ class LogInTest(TestCase):
         self.assertEqual(json_response.get("user").get("username"), 'testuser')
         self.assertIs(json_response.get("access_token") is None, False)
         self.assertEqual(len(json_response.keys()), 3)
-        self.assertEqual(len(json_response.get("user").keys()), 24)
+        self.assertEqual(len(json_response.get("user").keys()), 25)
 
     def test_login_failed(self):
         response1 = self.client.post('/user/login_with_token/', {'email_or_username': 'testusers', 'password': 'secret'}, follow=True)
@@ -152,17 +165,19 @@ class LogInTest(TestCase):
 class RegisterTest(TestCase):
 
     def setUp(self):
-        self.credentials = {
+        self.user_credentials = {
+            'cin': 'testcin',
             'username': 'testuser',
             'password': 'secret',
             'email': 'testuser@email.com',
         }
-        User.objects.create_user(**self.credentials)
+        User.objects.create_user(**self.user_credentials)
 
     def test_register_with_all_attributes_success(self):
         response = self.client.post('/user/register/', {
             'address': 'address',
             'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'cin': "cin",
             'country_code': "MA",
             'current_language': "ar",
             'email': "email@email.com",
@@ -199,6 +214,7 @@ class RegisterTest(TestCase):
 
     def test_register_with_required_attributes_success(self):
         response = self.client.post('/user/register/', {
+            'cin': "cin",
             'email': "email@email.com",
             'first_name': "first_name",
             'last_name': "last_name",
@@ -216,6 +232,7 @@ class RegisterTest(TestCase):
         response = self.client.post('/user/register/', {
             'address': 'address',
             'birthday': datetime.datetime.today(),
+            'cin': "",
             'country_code': "MA",
             'email': "",
             'first_name': "",
@@ -230,11 +247,12 @@ class RegisterTest(TestCase):
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
         self.assertEqual(len(json_response.keys()), 2)
-        self.assertEqual(len(json_response.get("errors").keys()), 5)
+        self.assertEqual(len(json_response.get("errors").keys()), 6)
         self.assertTrue(all(elem in json_response.get("errors").keys() for elem in ["email", "first_name", "last_name", "password", "username"]))
         response = self.client.post('/user/register/', {
             'address': 'address',
             'birthday': datetime.datetime.today(),
+            'cin': "",
             'country_code': "MA",
             'email': "",
             'first_name': "",
@@ -249,10 +267,11 @@ class RegisterTest(TestCase):
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
         self.assertEqual(len(json_response.keys()), 2)
-        self.assertEqual(len(json_response.get("errors").keys()), 4)
+        self.assertEqual(len(json_response.get("errors").keys()), 5)
         self.assertTrue(all(elem in json_response.get("errors").keys() for elem in ["email", "first_name", "last_name", "password"]))
         response = self.client.post('/user/register/', {
             'address': 'address',
+            'cin': "",
             'email': "",
             'mobile_phone': "+212645454545",
             'username': "testuser",
@@ -267,6 +286,12 @@ class RegisterTest(TestCase):
         self.assertFalse(json_response.get("success"))
         self.assertEqual(json_response.get("message"), "Cet e-mail : testuser@email.com existe déjà !")
         response = self.client.post('/user/register/', {
+            'cin': "testcin",
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "Ce CIN : testcin existe déjà !")
+        response = self.client.post('/user/register/', {
             'username': 'raise_exception',
         }, follow=True)
         json_response = json.loads(response.content)
@@ -278,6 +303,12 @@ class RegisterTest(TestCase):
         json_response = json.loads(response.content)
         self.assertFalse(json_response.get("success"))
         self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification de l'e-mail !")
+        response = self.client.post('/user/register/', {
+            'cin': 'raise_exception',
+        }, follow=True)
+        json_response = json.loads(response.content)
+        self.assertFalse(json_response.get("success"))
+        self.assertEqual(json_response.get("message"), "Une erreur s'est produite lors de la vérification de CIN !")
 
 
 class ResendActivationEmailViewTest(TestCase):
@@ -286,6 +317,7 @@ class ResendActivationEmailViewTest(TestCase):
         self.client.post('/user/register/', {
             'address': 'address',
             'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'cin': "cin",
             'country_code': "MA",
             'email': "email@email.com",
             'first_name': "first_name",
@@ -335,6 +367,7 @@ class ResendActivationEmailViewTest(TestCase):
         self.client.post('/user/register/', {
             'address': 'address',
             'birthday': datetime.datetime.today().strftime("%d/%m/%Y"),
+            'cin': "cin",
             'country_code': "MA",
             'email': "email@email.com",
             'first_name': "first_name",
@@ -380,7 +413,8 @@ class ResendActivationEmailViewTest(TestCase):
 class ViewTest(TestCase):
 
     def setUp(self):
-        self.credentials = {
+        self.user_credentials = {
+            'cin': 'testcin2',
             'username': 'testuser2',
             'email': 'testemail@example.com',
             'first_name': 'first_name2',
@@ -388,7 +422,7 @@ class ViewTest(TestCase):
             'password': 'secret',
             'email_is_validated': True,
         }
-        User.objects.create_user(**self.credentials)
+        User.objects.create_user(**self.user_credentials)
         logging.config.dictConfig(settings.LOGGING)
 
     def test_check_if_email_or_username_exists(self):

@@ -44,6 +44,7 @@ class User(AbstractUser):
     )
     address = models.TextField(_('Address'), default="")
     birthday = models.DateField(_('Birthday'), null=True)
+    cin = models.CharField(_('CIN'), blank=False, max_length=15, null=False, unique=True)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -56,7 +57,7 @@ class User(AbstractUser):
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, default="fr", max_length=255)
     last_update_at = models.DateTimeField(auto_now_add=True)
     last_update_by = models.ForeignKey('User', related_name='last_modified_users', on_delete=models.SET_NULL, null=True)
-    mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True)
+    mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True, unique=True)
     mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
     mobile_phone_is_validated = models.BooleanField(_('Mobile phone is validated'), db_index=True, default=False)
 
@@ -79,6 +80,7 @@ class User(AbstractUser):
         user = {
             "address": self.address,
             "birthday": self.birthday,
+            "cin": self.cin,
             "country_code": self.country_code,
             "country_name": self.country_name,
             "created_at": self.created_at,

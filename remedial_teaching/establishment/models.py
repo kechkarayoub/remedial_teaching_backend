@@ -250,6 +250,8 @@ class EstablishmentUser(models.Model):
     )
     address = models.TextField(_('Address'), blank=True, default="")
     birthday = models.DateField(_('Birthday'), blank=True, null=True)
+    cin = models.CharField(_('CIN'), blank=True, default="", max_length=15, null=False)
+    cne = models.CharField(_('CNE'), blank=True, default="", max_length=20, null=False)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -285,6 +287,8 @@ class EstablishmentUser(models.Model):
             "account_type": self.account_type,
             "address": self.address,
             "birthday": self.birthday,
+            "cin": self.cin,
+            "cne": self.cne,
             "country_code": self.country_code,
             "country_name": self.country_name,
             "created_at": self.created_at,

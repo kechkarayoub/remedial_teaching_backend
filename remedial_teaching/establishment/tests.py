@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
 from .models import *
+from django.db import IntegrityError
 from utils.utils import BG_COLORS_CHOICES
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 from user.models import User
+
 import json
 import os
 
@@ -17,7 +19,7 @@ class EstablishmentModelTests(TestCase):
         self.establishment_group = None
 
     def setUp(self):
-        self.admin = User(username="administrator")
+        self.admin = User(username="administrator", cin='adm')
         self.admin.save()
         self.establishment_group = EstablishmentGroup(name="Group")
         self.establishment_group.save()
@@ -90,7 +92,7 @@ class EstablishmentGroupModelTests(TestCase):
         self.admin = None
 
     def setUp(self):
-        self.admin = User(username="administrator")
+        self.admin = User(username="administrator", cin='adm')
         self.admin.save()
 
     def test___str__(self):
@@ -131,7 +133,7 @@ class EstablishmentUserModelTests(TestCase):
         self.establishment_group = None
 
     def setUp(self):
-        self.admin = User(username="administrator")
+        self.admin = User(username="administrator", cin='adm')
         self.admin.save()
         self.establishment_group = EstablishmentGroup(name="Group")
         self.establishment_group.save()
@@ -149,7 +151,7 @@ class EstablishmentUserModelTests(TestCase):
         establishment = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
         user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
         establishment_user = EstablishmentUser(
-            account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment, first_name="first_name",
+            account_type="assistant", cin='cin', cne='cne', created_by=self.admin, email='email@domain.com', establishment=establishment, first_name="first_name",
             is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
         )
         establishment_user.save()
@@ -158,11 +160,13 @@ class EstablishmentUserModelTests(TestCase):
         created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
         last_update_at = object_dict["last_update_at"]
         last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
-        self.assertEqual(len(object_dict.keys()), 25)
+        self.assertEqual(len(object_dict.keys()), 27)
         self.assertEqual(object_dict["address"], "")
         self.assertIsNone(object_dict["birthday"])
         self.assertEqual(object_dict["country_code"], "")
         self.assertEqual(object_dict["country_name"], "")
+        self.assertEqual(object_dict["cin"], 'cin')
+        self.assertEqual(object_dict["cne"], 'cne')
         self.assertEqual(object_dict["created_by_id"], self.admin.id)
         self.assertEqual(object_dict["email"], 'email@domain.com')
         self.assertEqual(object_dict["email_is_accepted"], False)
@@ -184,4 +188,23 @@ class EstablishmentUserModelTests(TestCase):
         self.assertTrue(last_update_at_test)
         self.assertTrue(created_at_test)
         self.assertTrue(object_dict["is_active"])
+
+    def test_unique_establishment_user(self):
+        establishment = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
+        user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
+        establishment_user = EstablishmentUser(
+            account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment, first_name="first_name",
+            is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
+        )
+        establishment_user.save()
+        with self.assertRaises(IntegrityError) as context:
+            establishment_user2 = EstablishmentUser(
+                account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment,
+                first_name="first_name",
+                is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
+            )
+            establishment_user2.save()
+
+        self.assertIn('UNIQUE constraint failed', str(context.exception))
+
 
