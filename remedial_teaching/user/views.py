@@ -75,9 +75,11 @@ class RegisterView(APIView):
         mobile_phone_is_valid = request.data.get('is_valid_mobile_phone_number', False)
         mobile_phone = request.data.get('mobile_phone_number', '')
         username = request.data.get('username', '')
-        if language: activate(language)
+        if language:
+            activate(language)
         try:
-            if username == "raise_exception": [][0]
+            if username == "raise_exception":
+                none = [][0]
             User.objects.get(username=username)
             return JsonResponse({
                 'success': False,
@@ -85,7 +87,8 @@ class RegisterView(APIView):
             })
         except User.DoesNotExist:
             try:
-                if email == "raise_exception": [][0]
+                if email == "raise_exception":
+                    none = [][0]
                 User.objects.get(email=email)
                 return JsonResponse({
                     'success': False,

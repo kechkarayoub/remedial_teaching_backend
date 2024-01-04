@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-import datetime
-from django.core import mail
-from django.conf import settings
 from .models import *
 from .utils import contact_new_user, get_user_by_email_or_username
-from utils.utils import BG_COLORS_CHOICES
+from django.core import mail
+from django.conf import settings
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
+from utils.utils import BG_COLORS_CHOICES
+import datetime
 import json
+import logging.config
 import os
 
 
@@ -388,6 +389,7 @@ class ViewTest(TestCase):
             'email_is_validated': True,
         }
         User.objects.create_user(**self.credentials)
+        logging.config.dictConfig(settings.LOGGING)
 
     def test_check_if_email_or_username_exists(self):
         email = 'testemail@example.com'
@@ -434,7 +436,7 @@ class ViewTest(TestCase):
         self.assertIn(user.last_name + " " + user.first_name, mail.outbox[0].body)
         with self.settings(EMAIL_SMTP_PROVIDER=''):
             contact_new_user(user, user_email_confirmation_key.key)
-            lines = open(os.path.join(settings.BASE_DIR, 'log/main_log_test.log'))
+            lines = open(os.path.join(settings.BASE_DIR, 'log/main_log_test.log'), 'r')
             lines_target = [(line + "") for line in lines if line and ']: You should configure a smtp email provider' in line]
             line_target = lines_target[0] if lines_target else ""
             self.assertNotEqual(line_target, "")

@@ -26,7 +26,7 @@ TEST_SETTINGS = True
 
 # Remove console from  LOGGING loggers handlers
 LOGGING['loggers']['django']['handlers'] = ['file']
-LOGGING['handlers']['file']['filename'] = 'log/main_log_test.log'
+LOGGING['handlers']['file']['filename'] = os.path.join(BASE_DIR, 'log/main_log_test.log')
 
 try:
     url_file_to_remove = os.path.join(BASE_DIR, 'log/main_log_test.log')
