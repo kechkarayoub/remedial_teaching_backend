@@ -27,13 +27,13 @@ class EstablishmentModelTests(TestCase):
         self.assertEqual(str_, establishment.type_name + "_" + establishment.name)
 
     def test_to_dict(self):
-        establishment = Establishment(
+        establishment1 = Establishment(
             address="address", address_ar="address_ar", city="city", created_by=self.admin, email="email@yopmail.com", fax="+212522xxxxxx",
             establishment_group=self.establishment_group, fax_is_valid=True, last_update_by=self.admin,  logo_url="logo_url", name="name", name_ar="name_ar", type="school",
             website_url="localhost"
         )
-        establishment.save()
-        object_dict = establishment.to_dict()
+        establishment1.save()
+        object_dict = establishment1.to_dict()
         created_at = object_dict["created_at"]
         created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
         last_update_at = object_dict["last_update_at"]
@@ -70,13 +70,13 @@ class EstablishmentModelTests(TestCase):
         self.assertTrue(object_dict["is_active"])
 
     def test_type_name(self):
-        establishment = Establishment(establishment_group=self.establishment_group, name="School1")
-        establishment.save()
+        establishment2 = Establishment(establishment_group=self.establishment_group, name="School1")
+        establishment2.save()
         establishment2 = Establishment(establishment_group=self.establishment_group, name="School2", type="school")
         establishment2.save()
         establishment3 = Establishment(establishment_group=self.establishment_group, name="School1", type="other")
         establishment3.save()
-        self.assertEqual(establishment.type_name, _("School"))
+        self.assertEqual(establishment2.type_name, _("School"))
         self.assertEqual(establishment2.type_name, _("School"))
         self.assertEqual(establishment3.type_name, _("Other"))
 
