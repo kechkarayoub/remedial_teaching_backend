@@ -34,7 +34,8 @@ class UserAdmin(BaseUserAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user:
-            obj.created_by = request.user
+            if not obj.id:
+                obj.created_by = request.user
             obj.last_update_by = request.user
         obj.last_update_at = datetime.datetime.now()
         super().save_model(request, obj, form, change)

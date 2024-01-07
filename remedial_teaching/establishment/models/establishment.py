@@ -36,7 +36,7 @@ class EstablishmentGroup(models.Model):
     last_update_at = models.DateTimeField(auto_now_add=True)
     last_update_by = models.ForeignKey(User, related_name='last_modified_establishments_groups', on_delete=models.SET_NULL, null=True)
     logo_url = models.CharField(_('Logo url'), blank=True, max_length=512, null=True)
-    name = models.CharField(_('Name'), blank=False, default="", max_length=255, null=False)
+    name = models.CharField(_('Name'), blank=False, default="", db_index=True, max_length=255, null=False)
     name_ar = models.CharField(_('Name (ar)'), blank=True, default="", max_length=255, null=True)
 
     def __str__(self):
@@ -125,15 +125,15 @@ class Establishment(models.Model):
     last_update_by = models.ForeignKey(User, related_name='last_modified_establishments', on_delete=models.SET_NULL, null=True)
     logo_url = models.CharField(_('Logo url'), blank=True, max_length=512, null=True)
     mobile_phone = models.CharField(_('Mobile phone'), blank=True, max_length=255, null=True)
-    mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
+    mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), db_index=True, default=False)
     mobile_phone_is_validated = models.BooleanField(_('Mobile phone is validated'), db_index=True, default=False)
     name = models.CharField(_('Name'), blank=False, db_index=True, default="", max_length=255, null=False)
     name_ar = models.CharField(_('Name (ar)'), blank=True, default="", max_length=255, null=True)
-    phone = models.CharField(_('Phone number'), blank=True, max_length=255, null=True)
-    phone_is_valid = models.BooleanField(_('Phone is valid'), default=False)
+    phone = models.CharField(_('Phone number'), blank=True, db_index=True, max_length=255, null=True)
+    phone_is_valid = models.BooleanField(_('Phone is valid'), db_index=True, default=False)
     phone_is_validated = models.BooleanField(_('Phone is validated'), db_index=True, default=False)
-    phone2 = models.CharField(_('Phone2 number'), blank=True, max_length=255, null=True)
-    phone2_is_valid = models.BooleanField(_('Phone2 is valid'), default=False)
+    phone2 = models.CharField(_('Phone2 number'), blank=True, db_index=True, max_length=255, null=True)
+    phone2_is_valid = models.BooleanField(_('Phone2 is valid'), db_index=True, default=False)
     phone2_is_validated = models.BooleanField(_('Phone2 is validated'), db_index=True, default=False)
     type = models.CharField(_('Type'), choices=TYPES, db_index=True, default="school", max_length=255)
     website_url = models.CharField(_('Website url'), blank=True, default="", max_length=255, null=True)
@@ -250,8 +250,8 @@ class EstablishmentUser(models.Model):
     )
     address = models.TextField(_('Address'), blank=True, default="")
     birthday = models.DateField(_('Birthday'), blank=True, null=True)
-    cin = models.CharField(_('CIN'), blank=True, default="", max_length=15, null=False)
-    cne = models.CharField(_('CNE'), blank=True, default="", max_length=20, null=False)
+    cin = models.CharField(_('CIN'), blank=True, default="", db_index=True, max_length=15, null=False)
+    cne = models.CharField(_('CNE'), blank=True, default="", db_index=True, max_length=20, null=False)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -313,4 +313,66 @@ class EstablishmentUser(models.Model):
             "user_id": self.user_id,
         }
         return establishment_user
+
+
+class ScholarYear(models.Model):
+    """
+        ScholarYear represent the scholar years.
+        :attribute: created_at: DateTimeField represent the time when the object is created.
+        :attribute: created_by: ForeignKey represent the creator of the object.
+        :attribute: date_start: DateField represent the start date of the scholar year.
+        :attribute: date_end: DateField represent the end date of the scholar year.
+        :attribute: is_active: BooleanField represent if the object is valid or not
+        :attribute: is_current: BooleanField represent if the object is current scholar year or not
+        :attribute: is_deleted: BooleanField represent if the object is deleted or not
+        :attribute: last_update_at: DateTimeField represent the time of last modification of the object.
+        :attribute: last_update_by: ForeignKey represent the last updater of the object.
+        :attribute: name: CharField represent the name of the scholar year
+        :attribute: order: IntegerField represent the order of the scholar year
+        :attribute: short_name: CharField represent the short name of the scholar year
+        :attribute: start_year: IntegerField represent the start year of the scholar year
+    """
+    class Meta(object):
+        db_table = "remedial_teaching_scholar_year"
+        ordering = ["order"]
+        verbose_name = _("Scholar year")
+        verbose_name_plural = _("Scholar years")
+
+    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name='created_scholar_years', on_delete=models.SET_NULL, null=True)
+    date_end = models.DateField(_('Date end'), db_index=True, null=False)
+    date_start = models.DateField(_('Date start'), db_index=True, null=False)
+    is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
+    is_current = models.BooleanField(_('Is current'), db_index=True, default=False)
+    is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
+    last_update_at = models.DateTimeField(auto_now_add=True)
+    last_update_by = models.ForeignKey(User, related_name='last_modified_scholar_years', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(_('Name'), blank=False, db_index=True, default="", max_length=255, unique=True)
+    order = models.IntegerField(_('Order'), blank=False, db_index=True, null=False, unique=True)
+    short_name = models.CharField(_('Short name'), blank=False, db_index=True, default="", max_length=255, unique=True)
+    start_year = models.IntegerField(_('Start year'), blank=False, db_index=True, null=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def to_dict(self):
+        """
+            :return: return a representation of current instance as an object
+        """
+        scholar_year = {
+            "created_at": self.created_at,
+            "created_by_id": self.created_by_id,
+            "date_end": self.date_end,
+            "date_start": self.date_start,
+            "id": self.id,
+            "is_active": self.is_active,
+            "is_current": self.is_current,
+            "is_deleted": self.is_deleted,
+            "last_update_at": self.last_update_at,
+            "last_update_by_id": self.last_update_by_id,
+            "name": self.name,
+            "order": self.order,
+            "short_name": self.short_name,
+        }
+        return scholar_year
 

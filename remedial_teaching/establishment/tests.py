@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-import datetime
 from .models import *
-from django.db import IntegrityError
-from utils.utils import BG_COLORS_CHOICES
+from django.db import IntegrityError, transaction
 from django.test import TestCase
 from django.utils.translation import gettext_lazy as _
 from user.models import User
-
-import json
-import os
+from utils.utils import BG_COLORS_CHOICES
 
 
 class EstablishmentModelTests(TestCase):
@@ -139,19 +135,19 @@ class EstablishmentUserModelTests(TestCase):
         self.establishment_group.save()
 
     def test___str__(self):
-        establishment = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
+        establishment1 = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
         user = User.objects.create(first_name="first_name", last_name="last_name", username="test_username", )
         # establishment_user = EstablishmentUser(email='email@domain.com', establishment=establishment, user=user)
-        establishment_user = EstablishmentUser(establishment=establishment, user=user)
+        establishment_user = EstablishmentUser(establishment=establishment1, user=user)
         establishment_user.save()
         str_ = establishment_user.__str__()
-        self.assertEqual(str_, establishment.__str__() + '_' + user.__str__())
+        self.assertEqual(str_, establishment1.__str__() + '_' + user.__str__())
 
     def test_to_dict(self):
-        establishment = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
+        establishment2 = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
         user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
         establishment_user = EstablishmentUser(
-            account_type="assistant", cin='cin', cne='cne', created_by=self.admin, email='email@domain.com', establishment=establishment, first_name="first_name",
+            account_type="assistant", cin='cin', cne='cne', created_by=self.admin, email='email@domain.com', establishment=establishment2, first_name="first_name",
             is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
         )
         establishment_user.save()
@@ -190,16 +186,16 @@ class EstablishmentUserModelTests(TestCase):
         self.assertTrue(object_dict["is_active"])
 
     def test_unique_establishment_user(self):
-        establishment = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
+        establishment3 = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
         user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
         establishment_user = EstablishmentUser(
-            account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment, first_name="first_name",
+            account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment3, first_name="first_name",
             is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
         )
         establishment_user.save()
         with self.assertRaises(IntegrityError) as context:
             establishment_user2 = EstablishmentUser(
-                account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment,
+                account_type="assistant", created_by=self.admin, email='email@domain.com', establishment=establishment3,
                 first_name="first_name",
                 is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
             )
@@ -208,3 +204,81 @@ class EstablishmentUserModelTests(TestCase):
         self.assertIn('UNIQUE constraint failed', str(context.exception))
 
 
+class ScholarYearModelTests(TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(ScholarYearModelTests, self).__init__(*args, **kwargs)
+        self.admin = None
+
+    def setUp(self):
+        self.admin = User(username="administrator", cin='adm')
+        self.admin.save()
+
+    def test___str__(self):
+        date_start = datetime.datetime.now()
+        date_end = datetime.datetime.now()
+        scholar_year = ScholarYear.objects.create(
+            date_end=date_end, date_start=date_start, name="2023/2024", order=1, short_name="23/24", start_year=2023
+        )
+        str_ = scholar_year.__str__()
+        self.assertEqual(str_, scholar_year.name)
+
+    def test_to_dict(self):
+        date_start = datetime.datetime.now()
+        date_end = datetime.datetime.now()
+        scholar_year = ScholarYear.objects.create(
+            created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024", order=1, short_name="23/24", start_year=2023
+        )
+        object_dict = scholar_year.to_dict()
+        created_at = object_dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = object_dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(len(object_dict.keys()), 13)
+        self.assertEqual(object_dict["created_by_id"], self.admin.id)
+        self.assertEqual(object_dict["date_end"], date_end)
+        self.assertEqual(object_dict["date_start"], date_start)
+        self.assertEqual(object_dict["id"], scholar_year.id)
+        self.assertEqual(object_dict["name"], scholar_year.name)
+        self.assertEqual(object_dict["order"], scholar_year.order)
+        self.assertFalse(object_dict["is_current"])
+        self.assertFalse(object_dict["is_deleted"])
+        self.assertTrue(created_at_test)
+        self.assertTrue(object_dict["is_active"])
+        self.assertTrue(last_update_at_test)
+
+    def test_unique_scholar_year(self):
+        date_start = datetime.datetime.now()
+        date_end = datetime.datetime.now()
+        ScholarYear.objects.create(
+            created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024", order=1,
+            short_name="23/24", start_year=2023
+        )
+        with self.assertRaises(IntegrityError) as name_context:
+            ScholarYear.objects.create(
+                created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024", order=2,
+                short_name="23/24_", start_year=2024
+            )
+        self.assertIn('UNIQUE constraint failed', str(name_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as order_context:
+            ScholarYear.objects.create(
+                created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024_", order=1,
+                short_name="23/24_", start_year=2024
+            )
+        self.assertIn('UNIQUE constraint failed', str(order_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as short_name_context:
+            ScholarYear.objects.create(
+                created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024_", order=2,
+                short_name="23/24", start_year=2024
+            )
+        self.assertIn('UNIQUE constraint failed', str(short_name_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as start_year_context:
+            ScholarYear.objects.create(
+                created_by=self.admin, date_end=date_end, date_start=date_start, name="2023/2024_", order=2,
+                short_name="23/24_", start_year=2023
+            )
+        self.assertIn('UNIQUE constraint failed', str(start_year_context.exception))
+        transaction.set_rollback(True)

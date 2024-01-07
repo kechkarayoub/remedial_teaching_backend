@@ -29,7 +29,8 @@ class EstablishmentAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user:
-            obj.created_by = request.user
+            if not obj.id:
+                obj.created_by = request.user
             obj.last_update_by = request.user
         obj.last_update_at = datetime.datetime.now()
         super().save_model(request, obj, form, change)
@@ -51,7 +52,8 @@ class EstablishmentGroupAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user:
-            obj.created_by = request.user
+            if not obj.id:
+                obj.created_by = request.user
             obj.last_update_by = request.user
         obj.last_update_at = datetime.datetime.now()
         super().save_model(request, obj, form, change)
@@ -87,7 +89,35 @@ class EstablishmentUserAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user:
-            obj.created_by = request.user
+            if not obj.id:
+                obj.created_by = request.user
+            obj.last_update_by = request.user
+        obj.last_update_at = datetime.datetime.now()
+        super().save_model(request, obj, form, change)
+
+
+class ScholarYearAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                'name', 'short_name', 'order', 'start_year', 'is_active', 'is_current', 'is_deleted',
+                'date_start', 'date_end',
+            )
+        }),
+    )
+    list_display = (
+        '__str__', 'short_name', 'order', 'start_year', 'is_active', 'is_current', 'is_deleted',
+        'last_update_at', 'last_update_by',
+    )
+    list_filter = (
+        'is_active', 'is_deleted', 'is_current',
+    )
+    search_fields = ('name', 'short_name',)
+
+    def save_model(self, request, obj, form, change):
+        if request.user:
+            if not obj.id:
+                obj.created_by = request.user
             obj.last_update_by = request.user
         obj.last_update_at = datetime.datetime.now()
         super().save_model(request, obj, form, change)
@@ -96,6 +126,7 @@ class EstablishmentUserAdmin(admin.ModelAdmin):
 admin.site.register(Establishment, EstablishmentAdmin)
 admin.site.register(EstablishmentGroup, EstablishmentGroupAdmin)
 admin.site.register(EstablishmentUser, EstablishmentUserAdmin)
+admin.site.register(ScholarYear, ScholarYearAdmin)
 
 
 
