@@ -7,6 +7,57 @@ from user.models import User
 from utils.utils import BG_COLORS_CHOICES
 
 
+class CycleModelTests(TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(CycleModelTests, self).__init__(*args, **kwargs)
+        self.admin = None
+
+    def setUp(self):
+        self.admin = User(username="administrator", cin='adm')
+        self.admin.save()
+
+    def test___str__(self):
+        cycle = Cycle(created_by=self.admin, last_update_by=self.admin, name="Primaire", order=1)
+        cycle.save()
+        str_ = cycle.__str__()
+        self.assertEqual(str_, 'Cycle_' + cycle.name + '_' + str(cycle.id))
+
+    def test_to_dict(self):
+        cycle1 = Cycle(created_by=self.admin, last_update_by=self.admin, name="Primaire", order=1)
+        cycle1.save()
+        object_dict = cycle1.to_dict()
+        created_at = object_dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = object_dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(len(object_dict.keys()), 9)
+        self.assertEqual(object_dict["created_by_id"], self.admin.id)
+        self.assertEqual(object_dict["id"], 1)
+        self.assertEqual(object_dict["last_update_by_id"], self.admin.id)
+        self.assertEqual(object_dict["name"], "Primaire")
+        self.assertEqual(object_dict["name_ar"], "")
+        self.assertEqual(object_dict["order"], 1)
+        self.assertTrue(last_update_at_test)
+        self.assertTrue(created_at_test)
+        self.assertTrue(object_dict["is_active"])
+
+    def test_unique_cycle(self):
+        Cycle.objects.create(created_by=self.admin, last_update_by=self.admin, name="Primaire", order=1)
+        with self.assertRaises(IntegrityError) as name_context:
+            Cycle.objects.create(created_by=self.admin, last_update_by=self.admin, name="Primaire", order=2)
+        self.assertIn('UNIQUE constraint failed', str(name_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as order_context:
+            Cycle.objects.create(created_by=self.admin, last_update_by=self.admin, name="Primaire_", order=1)
+        self.assertIn('UNIQUE constraint failed', str(order_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as order_not_null_context:
+            Cycle.objects.create(created_by=self.admin, last_update_by=self.admin)
+        self.assertIn('NOT NULL constraint failed: remedial_teaching_cycle.order', str(order_not_null_context.exception))
+        transaction.set_rollback(True)
+
+
 class EstablishmentModelTests(TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -147,7 +198,7 @@ class EstablishmentUserModelTests(TestCase):
         establishment2 = Establishment.objects.create(establishment_group=self.establishment_group, name="School", type="school")
         user = User.objects.create(username="test_username", last_name="last_name", first_name="first_name")
         establishment_user = EstablishmentUser(
-            account_type="assistant", cin='cin', cne='cne', created_by=self.admin, email='email@domain.com', establishment=establishment2, first_name="first_name",
+            account_type="assistant", cin='cin', massar_code='massar_code', created_by=self.admin, email='email@domain.com', establishment=establishment2, first_name="first_name",
             is_accepted=True, last_name="last_name", last_update_by=self.admin, user=user,
         )
         establishment_user.save()
@@ -162,7 +213,6 @@ class EstablishmentUserModelTests(TestCase):
         self.assertEqual(object_dict["country_code"], "")
         self.assertEqual(object_dict["country_name"], "")
         self.assertEqual(object_dict["cin"], 'cin')
-        self.assertEqual(object_dict["cne"], 'cne')
         self.assertEqual(object_dict["created_by_id"], self.admin.id)
         self.assertEqual(object_dict["email"], 'email@domain.com')
         self.assertEqual(object_dict["email_is_accepted"], False)
@@ -174,6 +224,7 @@ class EstablishmentUserModelTests(TestCase):
         self.assertEqual(object_dict["is_accepted"], True)
         self.assertEqual(object_dict["last_name"], "last_name")
         self.assertEqual(object_dict["last_update_by_id"], self.admin.id)
+        self.assertEqual(object_dict["massar_code"], 'massar_code')
         self.assertEqual(object_dict["mobile_phone"], None)
         self.assertEqual(object_dict["mobile_phone_is_valid"], False)
         self.assertEqual(object_dict["mobile_phone_is_accepted"], False)

@@ -5,6 +5,27 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 
+class CycleAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                'name', 'name_ar', 'order', 'is_active'
+            )
+        }),
+    )
+    list_display = ('__str__', 'name', 'order', 'is_active', 'last_update_at', 'last_update_by')
+    list_filter = ('is_active', )
+    search_fields = ('name', 'name_ar', )
+
+    def save_model(self, request, obj, form, change):
+        if request.user:
+            if not obj.id:
+                obj.created_by = request.user
+            obj.last_update_by = request.user
+        obj.last_update_at = datetime.datetime.now()
+        super().save_model(request, obj, form, change)
+
+
 class EstablishmentAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -123,6 +144,7 @@ class ScholarYearAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+admin.site.register(Cycle, CycleAdmin)
 admin.site.register(Establishment, EstablishmentAdmin)
 admin.site.register(EstablishmentGroup, EstablishmentGroupAdmin)
 admin.site.register(EstablishmentUser, EstablishmentUserAdmin)

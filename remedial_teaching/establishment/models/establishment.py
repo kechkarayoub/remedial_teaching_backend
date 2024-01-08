@@ -211,6 +211,7 @@ class EstablishmentUser(models.Model):
         :attribute: last_name: CharField represent the last name of user
         :attribute: last_update_at: DatetimeField represent the last time the object updated
         :attribute: last_update_by: ForeignKey represent the last updater of the object.
+        :attribute: massar_code: CharField represent the massar code of user
         :attribute: mobile_phone: CharField represent the mobile_phone of user
         :attribute: mobile_phone_is_accepted: BooleanField represent user mobile_phone is accepted by user or not
         :attribute: mobile_phone_is_valid: BooleanField represent user mobile_phone is valid or not
@@ -251,7 +252,6 @@ class EstablishmentUser(models.Model):
     address = models.TextField(_('Address'), blank=True, default="")
     birthday = models.DateField(_('Birthday'), blank=True, null=True)
     cin = models.CharField(_('CIN'), blank=True, default="", db_index=True, max_length=15, null=False)
-    cne = models.CharField(_('CNE'), blank=True, default="", db_index=True, max_length=20, null=False)
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -269,6 +269,7 @@ class EstablishmentUser(models.Model):
     last_name = models.CharField(_('Last name'), blank=False, db_index=True, default="", max_length=255, null=False)
     last_update_at = models.DateTimeField(auto_now_add=True)
     last_update_by = models.ForeignKey(User, related_name='last_modified_users_establishments_relationships', on_delete=models.SET_NULL, null=True)
+    massar_code = models.CharField(_('Massar code'), blank=True, default="", db_index=True, max_length=20, null=False)
     mobile_phone = models.CharField(_('Mobile phone number'), blank=True, max_length=255, null=True)
     mobile_phone_is_accepted = models.BooleanField(_('Mobile phone is accepted'), db_index=True, default=False)
     mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), default=False)
@@ -288,7 +289,6 @@ class EstablishmentUser(models.Model):
             "address": self.address,
             "birthday": self.birthday,
             "cin": self.cin,
-            "cne": self.cne,
             "country_code": self.country_code,
             "country_name": self.country_name,
             "created_at": self.created_at,
@@ -307,6 +307,7 @@ class EstablishmentUser(models.Model):
             "last_name": self.last_name,
             "last_update_at": self.last_update_at,
             "last_update_by_id": self.last_update_by_id,
+            "massar_code": self.massar_code,
             "mobile_phone": self.mobile_phone,
             "mobile_phone_is_valid": self.mobile_phone_is_valid,
             "mobile_phone_is_accepted": self.mobile_phone_is_accepted,
