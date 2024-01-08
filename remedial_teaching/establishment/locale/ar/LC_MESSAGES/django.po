@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-07 23:59+0100\n"
+"POT-Creation-Date: 2024-01-08 07:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,18 +32,18 @@ msgid "Establishments groups"
 msgstr "مجموعات المؤسسات"
 
 #: .\models\establishment.py:32 .\models\establishment.py:115
-#: .\models\establishment.py:341 .\models\levels_subjects.py:31
+#: .\models\establishment.py:342 .\models\levels_subjects.py:31
 msgid "Created at"
 msgstr "تم الإنشاء في"
 
 #: .\models\establishment.py:34 .\models\establishment.py:122
-#: .\models\establishment.py:267 .\models\establishment.py:345
+#: .\models\establishment.py:267 .\models\establishment.py:346
 #: .\models\levels_subjects.py:33
 msgid "Is active"
 msgstr "نشط"
 
 #: .\models\establishment.py:35 .\models\establishment.py:123
-#: .\models\establishment.py:268 .\models\establishment.py:347
+#: .\models\establishment.py:268 .\models\establishment.py:348
 msgid "Is deleted"
 msgstr "تم الحذف"
 
@@ -52,7 +52,7 @@ msgid "Logo url"
 msgstr "رابط الشعار"
 
 #: .\models\establishment.py:39 .\models\establishment.py:130
-#: .\models\establishment.py:350 .\models\levels_subjects.py:36
+#: .\models\establishment.py:351 .\models\levels_subjects.py:36
 msgid "Name"
 msgstr "الاسم"
 
@@ -75,11 +75,11 @@ msgid "School"
 msgstr "مدرسة"
 
 #: .\models\establishment.py:105 .\models\establishment.py:109
-#: .\models\establishment.py:232 .\models\establishment.py:240 .\tests.py:132
+#: .\models\establishment.py:233 .\models\establishment.py:241 .\tests.py:132
 msgid "Other"
 msgstr "آخر"
 
-#: .\models\establishment.py:112 .\models\establishment.py:251
+#: .\models\establishment.py:112 .\models\establishment.py:252
 msgid "Address"
 msgstr "العنوان"
 
@@ -111,7 +111,7 @@ msgstr "تم التحقق من الفاكس"
 msgid "Mobile phone"
 msgstr "الهاتف المحمول"
 
-#: .\models\establishment.py:128 .\models\establishment.py:274
+#: .\models\establishment.py:128 .\models\establishment.py:275
 msgid "Mobile phone is valid"
 msgstr "الهاتف المحمول صحيح"
 
@@ -151,61 +151,57 @@ msgstr "النوع"
 msgid "Website url"
 msgstr "رابط الموقع"
 
-#: .\models\establishment.py:222
+#: .\models\establishment.py:223
 msgid "Establishment user relationship"
 msgstr "علاقة المستخدم بالمؤسسة"
 
-#: .\models\establishment.py:223
+#: .\models\establishment.py:224
 msgid "Establishment user relationships"
 msgstr "علاقات المستخدم بالمؤسسة"
 
-#: .\models\establishment.py:227 .\models\establishment.py:235
+#: .\models\establishment.py:228 .\models\establishment.py:236
 msgid "Administrator"
 msgstr "مسؤول"
 
-#: .\models\establishment.py:228 .\models\establishment.py:236
+#: .\models\establishment.py:229 .\models\establishment.py:237
 msgid "Assistant"
 msgstr "مساعد"
 
-#: .\models\establishment.py:229 .\models\establishment.py:237
+#: .\models\establishment.py:230 .\models\establishment.py:238
 msgid "Director"
 msgstr "مدير"
 
-#: .\models\establishment.py:230 .\models\establishment.py:238
+#: .\models\establishment.py:231 .\models\establishment.py:239
 msgid "Parent"
 msgstr "والد"
 
-#: .\models\establishment.py:231 .\models\establishment.py:239
+#: .\models\establishment.py:232 .\models\establishment.py:240
 msgid "Student"
 msgstr "طالب"
 
-#: .\models\establishment.py:243
+#: .\models\establishment.py:244
 msgid "Select"
 msgstr "اختر"
 
-#: .\models\establishment.py:244
+#: .\models\establishment.py:245
 msgid "Female"
 msgstr "أنثى"
 
-#: .\models\establishment.py:245
+#: .\models\establishment.py:246
 msgid "Male"
 msgstr "ذكر"
 
-#: .\models\establishment.py:248
+#: .\models\establishment.py:249
 msgid "Account type"
 msgstr "نوع الحساب"
 
-#: .\models\establishment.py:252
+#: .\models\establishment.py:253
 msgid "Birthday"
 msgstr "تاريخ الميلاد"
 
-#: .\models\establishment.py:253
+#: .\models\establishment.py:254
 msgid "CIN"
 msgstr "رقم البطاقة الوطنية"
-
-#: .\models\establishment.py:254
-msgid "Massar code"
-msgstr "رقم مسار"
 
 #: .\models\establishment.py:255
 msgid "Country code"
@@ -244,46 +240,50 @@ msgid "Last name"
 msgstr "اسم العائلة"
 
 #: .\models\establishment.py:272
+msgid "Massar code"
+msgstr "رقم مسار"
+
+#: .\models\establishment.py:273
 #, fuzzy
 #| msgid "Mobile phone"
 msgid "Mobile phone number"
 msgstr "الهاتف المحمول"
 
-#: .\models\establishment.py:273
+#: .\models\establishment.py:274
 #, fuzzy
 #| msgid "Mobile phone is validated"
 msgid "Mobile phone is accepted"
 msgstr "تم التحقق من الهاتف المحمول"
 
-#: .\models\establishment.py:338
+#: .\models\establishment.py:339
 msgid "Scholar year"
 msgstr "سنة دراسية"
 
-#: .\models\establishment.py:339
+#: .\models\establishment.py:340
 msgid "Scholar years"
 msgstr "سنوات دراسية"
 
-#: .\models\establishment.py:343
+#: .\models\establishment.py:344
 msgid "Date end"
 msgstr "تاريخ الانتهاء"
 
-#: .\models\establishment.py:344
+#: .\models\establishment.py:345
 msgid "Date start"
 msgstr "تاريخ البداية"
 
-#: .\models\establishment.py:346
+#: .\models\establishment.py:347
 msgid "Is current"
 msgstr "حالي"
 
-#: .\models\establishment.py:351 .\models\levels_subjects.py:38
+#: .\models\establishment.py:352 .\models\levels_subjects.py:38
 msgid "Order"
 msgstr "الترتيب"
 
-#: .\models\establishment.py:352
+#: .\models\establishment.py:353
 msgid "Short name"
 msgstr "الاسم المختصر"
 
-#: .\models\establishment.py:353
+#: .\models\establishment.py:354
 msgid "Start year"
 msgstr "سنة البداية"
 
