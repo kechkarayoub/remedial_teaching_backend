@@ -28,4 +28,3 @@ msgstr "Changer le mot de passe"
 #: .\admin\base_site.html:33
 msgid "Log out"
 msgstr "Se déconnecter"
-

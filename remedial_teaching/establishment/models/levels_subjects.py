@@ -29,10 +29,10 @@ class Cycle(models.Model):
         verbose_name_plural = _("Cycles")
 
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name='created_cycles', on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(User, related_name='created_cycles', on_delete=models.SET_NULL, null=True, verbose_name=_("Created by"))
     is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
-    last_update_at = models.DateTimeField(auto_now_add=True)
-    last_update_by = models.ForeignKey(User, related_name='last_modified_cycles', on_delete=models.SET_NULL, null=True)
+    last_update_at = models.DateTimeField(_("Last update at"), auto_now_add=True)
+    last_update_by = models.ForeignKey(User, related_name='last_modified_cycles', on_delete=models.SET_NULL, null=True, verbose_name=_("Last update by"))
     name = models.CharField(_('Name'), blank=False, default="", db_index=True, max_length=255, null=False, unique=True)
     name_ar = models.CharField(_('Name (ar)'), blank=True, default="", max_length=255, null=True)
     order = models.IntegerField(_('Order'), blank=False, db_index=True, null=False, unique=True)

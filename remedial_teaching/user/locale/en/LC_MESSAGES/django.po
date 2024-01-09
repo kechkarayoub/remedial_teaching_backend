@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 23:44+0100\n"
+"POT-Creation-Date: 2024-01-09 08:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,39 +20,39 @@ msgstr ""
 
 #: .\admin.py:18
 msgid "User info"
-msgstr ""
+msgstr "User info"
 
 #: .\admin.py:24
 msgid "Added fields"
-msgstr ""
+msgstr "Added fields"
 
-#: .\models.py:37
+#: .\models.py:37 .\models.py:125
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: .\models.py:38
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: .\models.py:41
 msgid "Select"
-msgstr ""
+msgstr "Select"
 
 #: .\models.py:42
 msgid "Female"
-msgstr ""
+msgstr "Female"
 
 #: .\models.py:43
 msgid "Male"
-msgstr ""
+msgstr "Male"
 
 #: .\models.py:45
 msgid "Address"
-msgstr ""
+msgstr "Address"
 
 #: .\models.py:46
 msgid "Birthday"
-msgstr ""
+msgstr "Birthday"
 
 #: .\models.py:47
 msgid "CIN"
@@ -60,127 +60,143 @@ msgstr "CIN"
 
 #: .\models.py:48
 msgid "Country code"
-msgstr ""
+msgstr "Country code"
 
 #: .\models.py:49
 msgid "Country name"
-msgstr ""
+msgstr "Country name"
+
+#: .\models.py:51
+msgid "Created by"
+msgstr "Created by"
 
 #: .\models.py:52
 msgid "Email is validated"
-msgstr ""
+msgstr "Email is validated"
 
 #: .\models.py:53
 msgid "Gender"
-msgstr ""
+msgstr "Gender"
 
 #: .\models.py:54
 msgid "Image url"
-msgstr ""
+msgstr "Image url"
 
 #: .\models.py:55
 msgid "Initials background color"
-msgstr ""
+msgstr "Initials background color"
 
 #: .\models.py:56
 msgid "Is deleted"
-msgstr ""
+msgstr "Is deleted"
 
 #: .\models.py:57
 msgid "Language"
-msgstr ""
+msgstr "Language"
+
+#: .\models.py:58
+msgid "Last update at"
+msgstr "Last update at"
+
+#: .\models.py:59
+msgid "Last update by"
+msgstr "Last update by"
 
 #: .\models.py:60
 msgid "Mobile phone number"
-msgstr ""
+msgstr "Mobile phone number"
 
 #: .\models.py:61
 msgid "Mobile phone is valid"
-msgstr ""
+msgstr "Mobile phone is valid"
 
 #: .\models.py:62
 msgid "Mobile phone is validated"
-msgstr ""
+msgstr "Mobile phone is validated"
 
 #: .\models.py:120
 msgid "User email confirmation key"
-msgstr ""
+msgstr "User email confirmation key"
 
 #: .\models.py:121
 msgid "Users emails confirmation keys"
-msgstr ""
+msgstr "Users emails confirmation keys"
 
 #: .\models.py:123
 msgid "Creation time"
-msgstr ""
+msgstr "Creation time"
 
 #: .\models.py:124
 msgid "Key"
-msgstr ""
+msgstr "Key"
 
 #: .\templates\emails\confirmation_email.html:9
 #: .\templates\emails\confirmation_email.txt:3
 #, python-format
 msgid "Dear %(full_name)s,"
-msgstr ""
+msgstr "Dear %(full_name)s,"
 
 #: .\templates\emails\confirmation_email.html:14
 #: .\templates\emails\confirmation_email.txt:6
 msgid "Your account is created on "
-msgstr ""
+msgstr "Your account is created on "
 
 #: .\templates\emails\confirmation_email.html:14
 msgid ""
 "You still have to validate your email address. To do so, click on this "
 "button or copy the link below to your browser:"
 msgstr ""
+"You still have to validate your email address. To do so, click on this "
+"button or copy the link below to your browser:"
 
 #: .\templates\emails\confirmation_email.html:16
 msgid "Confirm my email"
-msgstr ""
+msgstr "Confirm my email"
 
 #: .\templates\emails\confirmation_email.txt:6
 msgid ""
 "You still have to validate your email address. To do so, click on this link "
 "or copy it to your browser:"
 msgstr ""
+"You still have to validate your email address. To do so, click on this link "
+"or copy it to your browser:"
 
 #: .\tests.py:37 .\tests.py:61
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #: .\tests.py:38
 msgid "Arabic"
-msgstr ""
+msgstr "Arabic"
 
 #: .\tests.py:156 .\tests.py:159 .\views.py:33 .\views.py:45
 msgid "Invalid credentials!"
-msgstr ""
+msgstr "Invalid credentials!"
 
 #: .\tests.py:161 .\views.py:38
 msgid "An error occurred when log in!"
-msgstr ""
+msgstr "An error occurred when log in!"
 
-#: .\tests.py:453 .\views.py:245
+#: .\tests.py:452 .\views.py:245
 msgid "The email: {} already exists!"
-msgstr ""
+msgstr "The email: {} already exists!"
 
-#: .\tests.py:461 .\views.py:248
+#: .\tests.py:460 .\views.py:248
 msgid "The username: {} already exists!"
-msgstr ""
+msgstr "The username: {} already exists!"
 
 #: .\utils.py:24
 #, python-brace-format
 msgid "Your account {site_name}"
-msgstr ""
+msgstr "Your account {site_name}"
 
 #: .\views.py:87
 msgid "This username: {} is already exists!"
-msgstr ""
+msgstr "This username: {} is already exists!"
 
 #: .\views.py:96
 msgid "This email: {} is already exists!"
-msgstr ""
+msgstr "This email: {} is already exists!"
 
 #: .\views.py:105
 msgid "This CIN: {} is already exists!"
@@ -192,11 +208,11 @@ msgstr "An error occurred when checking CIN!"
 
 #: .\views.py:117
 msgid "An error occurred when checking email!"
-msgstr ""
+msgstr "An error occurred when checking email!"
 
 #: .\views.py:122 .\views.py:209
 msgid "An error occurred when checking username!"
-msgstr ""
+msgstr "An error occurred when checking username!"
 
 #: .\views.py:138
 msgid "CIN is required!"
@@ -204,53 +220,55 @@ msgstr "CIN is required!"
 
 #: .\views.py:142
 msgid "Email is required!"
-msgstr ""
+msgstr "Email is required!"
 
 #: .\views.py:146
 msgid "First name is required!"
-msgstr ""
+msgstr "First name is required!"
 
 #: .\views.py:150
 msgid "Last name is required!"
-msgstr ""
+msgstr "Last name is required!"
 
 #: .\views.py:152
 msgid "Password is required!"
-msgstr ""
+msgstr "Password is required!"
 
 #: .\views.py:156
 msgid "Username is required!"
-msgstr ""
+msgstr "Username is required!"
 
 #: .\views.py:172
 msgid "Your account is created."
-msgstr ""
+msgstr "Your account is created."
 
 #: .\views.py:173
 msgid ""
 "An activation email is sent to the address {} for you to activate your email "
 "so that you can log in."
 msgstr ""
+"An activation email is sent to the address {} for you to activate your email "
+"so that you can log in."
 
 #: .\views.py:174
 msgid "If you haven't received the email, click here to resend it."
-msgstr ""
+msgstr "If you haven't received the email, click here to resend it."
 
 #: .\views.py:198
 msgid "Your email address is already validated!"
-msgstr ""
+msgstr "Your email address is already validated!"
 
 #: .\views.py:199
 msgid "You can now log in with your username/email and password."
-msgstr ""
+msgstr "You can now log in with your username/email and password."
 
 #: .\views.py:204
 msgid "We couldn't find an account with that username: {}!"
-msgstr ""
+msgstr "We couldn't find an account with that username: {}!"
 
 #: .\views.py:225
 msgid "A new activation email is sent to the address {}."
-msgstr ""
+msgstr "A new activation email is sent to the address {}."
 
 #: .\views.py:251
 msgid "The CIN: {} already exists!"

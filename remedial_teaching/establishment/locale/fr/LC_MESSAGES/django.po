@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-09 07:43+0100\n"
+"POT-Creation-Date: 2024-01-09 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\admin.py:37 .\admin.py:117
+#: .\admin.py:45 .\admin.py:129
 msgid "Added fields"
 msgstr "Champs ajoutés"
 
-#: .\models\establishment.py:30
+#: .\models\establishment.py:30 .\models\establishment.py:119
 msgid "Establishment group"
 msgstr "Groupe d'établissements"
 
@@ -36,6 +36,12 @@ msgstr "Groupes d'établissements"
 msgid "Created at"
 msgstr "Créé à"
 
+#: .\models\establishment.py:34 .\models\establishment.py:117
+#: .\models\establishment.py:212 .\models\establishment.py:311
+#: .\models\establishment.py:396 .\models\levels_subjects.py:32
+msgid "Created by"
+msgstr "Créé par"
+
 #: .\models\establishment.py:35 .\models\establishment.py:123
 #: .\models\establishment.py:215 .\models\establishment.py:320
 #: .\models\establishment.py:399 .\models\levels_subjects.py:33
@@ -46,6 +52,18 @@ msgstr "Est actif"
 #: .\models\establishment.py:321 .\models\establishment.py:401
 msgid "Is deleted"
 msgstr "Est supprimé"
+
+#: .\models\establishment.py:37 .\models\establishment.py:125
+#: .\models\establishment.py:216 .\models\establishment.py:323
+#: .\models\establishment.py:402 .\models\levels_subjects.py:34
+msgid "Last update at"
+msgstr "Dernière mise à jour à"
+
+#: .\models\establishment.py:38 .\models\establishment.py:126
+#: .\models\establishment.py:217 .\models\establishment.py:324
+#: .\models\establishment.py:403 .\models\levels_subjects.py:35
+msgid "Last update by"
+msgstr "Dernière mise à jour par"
 
 #: .\models\establishment.py:39 .\models\establishment.py:127
 msgid "Logo url"
@@ -62,7 +80,8 @@ msgstr "Nom"
 msgid "Name (ar)"
 msgstr "Nom (ar)"
 
-#: .\models\establishment.py:100
+#: .\models\establishment.py:100 .\models\establishment.py:214
+#: .\models\establishment.py:314
 msgid "Establishment"
 msgstr "Établissement"
 
@@ -159,6 +178,10 @@ msgstr "Établissement-Cycle"
 #: .\models\establishment.py:209
 msgid "Establishments-Cycles"
 msgstr "Établissements-Cycles"
+
+#: .\models\establishment.py:213 .\models\levels_subjects.py:28
+msgid "Cycle"
+msgstr "Cycle"
 
 #: .\models\establishment.py:276
 msgid "Establishment user relationship"
@@ -260,6 +283,10 @@ msgstr "Numéro de téléphone portable"
 msgid "Mobile phone is accepted"
 msgstr "Le téléphone portable est accepté"
 
+#: .\models\establishment.py:329
+msgid "User"
+msgstr "Utilisateur"
+
 #: .\models\establishment.py:392
 msgid "Scholar year"
 msgstr "Année scolaire"
@@ -291,10 +318,6 @@ msgstr "Nom court"
 #: .\models\establishment.py:407
 msgid "Start year"
 msgstr "Année de début"
-
-#: .\models\levels_subjects.py:28
-msgid "Cycle"
-msgstr "Cycle"
 
 #: .\models\levels_subjects.py:29
 msgid "Cycles"

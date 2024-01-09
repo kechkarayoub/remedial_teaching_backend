@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: .\common.py:78 .\common.py:84
 msgid "Arabic"
-msgstr ""
+msgstr "Arabic"
 
 #: .\common.py:79 .\common.py:85
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\common.py:80 .\common.py:86
 msgid "French"
-msgstr ""
+msgstr "French"

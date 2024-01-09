@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 23:41+0100\n"
+"POT-Creation-Date: 2024-01-09 08:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "Informations utilisateur"
 msgid "Added fields"
 msgstr "Champs ajoutés"
 
-#: .\models.py:37
+#: .\models.py:37 .\models.py:125
 msgid "User"
 msgstr "Utilisateur"
 
@@ -66,6 +66,10 @@ msgstr "Code pays"
 msgid "Country name"
 msgstr "Nom du pays"
 
+#: .\models.py:51
+msgid "Created by"
+msgstr "Créé par"
+
 #: .\models.py:52
 msgid "Email is validated"
 msgstr "L'e-mail est validé"
@@ -89,6 +93,14 @@ msgstr "Est supprimé"
 #: .\models.py:57
 msgid "Language"
 msgstr "Langue"
+
+#: .\models.py:58
+msgid "Last update at"
+msgstr "Dernière mise à jour à"
+
+#: .\models.py:59
+msgid "Last update by"
+msgstr "Dernière mise à jour par"
 
 #: .\models.py:60
 msgid "Mobile phone number"
@@ -165,11 +177,11 @@ msgstr "Informations d'identification invalides !"
 msgid "An error occurred when log in!"
 msgstr "Une erreur s'est produite lors de la connexion !"
 
-#: .\tests.py:453 .\views.py:245
+#: .\tests.py:452 .\views.py:245
 msgid "The email: {} already exists!"
 msgstr "L'e-mail : {} existe déjà !"
 
-#: .\tests.py:461 .\views.py:248
+#: .\tests.py:460 .\views.py:248
 msgid "The username: {} already exists!"
 msgstr "Le nom d'utilisateur : {} existe déjà !"
 

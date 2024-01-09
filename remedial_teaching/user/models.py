@@ -48,15 +48,15 @@ class User(AbstractUser):
     country_code = models.CharField(_('Country code'), blank=True, default="", max_length=10)
     country_name = models.CharField(_('Country name'), blank=True, default="", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    created_by = models.ForeignKey('User', related_name='created_users', on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey('User', related_name='created_users', on_delete=models.SET_NULL, null=True, verbose_name=_("Created by"))
     email_is_validated = models.BooleanField(_('Email is validated'), db_index=True, default=False)
     gender = models.CharField(_('Gender'), blank=True, choices=GENDERS, db_index=True, default="", max_length=10)
     image_url = models.CharField(_('Image url'), blank=True, default="", max_length=512)
     initials_bg_color = ColorField(_('Initials background color'), default=get_random_bg_color)
     is_deleted = models.BooleanField(_('Is deleted'), db_index=True, default=False)
     language = models.CharField(_('Language'), choices=settings.LANGUAGES, db_index=True, default="fr", max_length=255)
-    last_update_at = models.DateTimeField(auto_now_add=True)
-    last_update_by = models.ForeignKey('User', related_name='last_modified_users', on_delete=models.SET_NULL, null=True)
+    last_update_at = models.DateTimeField(_("Last update at"), auto_now_add=True)
+    last_update_by = models.ForeignKey('User', related_name='last_modified_users', on_delete=models.SET_NULL, null=True, verbose_name=_("Last update by"))
     mobile_phone = models.CharField(_('Mobile phone number'), blank=True, db_index=True, max_length=255, null=True, unique=True)
     mobile_phone_is_valid = models.BooleanField(_('Mobile phone is valid'), db_index=True, default=False)
     mobile_phone_is_validated = models.BooleanField(_('Mobile phone is validated'), db_index=True, default=False)
@@ -122,7 +122,7 @@ class UserEmailConfirmationKey(models.Model):
 
     creation_time = models.DateTimeField(_('Creation time'), db_index=True, auto_now_add=True)
     key = models.CharField(_('Key'), db_index=True, default="", max_length=255)
-    user = models.ForeignKey(User, related_name='email_confirmation_keys', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='email_confirmation_keys', on_delete=models.CASCADE, verbose_name=_("User"))
 
     def __str__(self):
         return self.user.__str__() + "_" + self.key

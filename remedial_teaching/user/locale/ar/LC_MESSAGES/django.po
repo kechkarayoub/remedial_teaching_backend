@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 23:41+0100\n"
+"POT-Creation-Date: 2024-01-09 08:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "معلومات المستخدم"
 msgid "Added fields"
 msgstr "الحقول المضافة"
 
-#: .\models.py:37
+#: .\models.py:37 .\models.py:125
 msgid "User"
 msgstr "المستخدم"
 
@@ -67,6 +67,10 @@ msgstr "كود الدولة"
 msgid "Country name"
 msgstr "اسم الدولة"
 
+#: .\models.py:51
+msgid "Created by"
+msgstr "تم الإنشاء من قبل"
+
 #: .\models.py:52
 msgid "Email is validated"
 msgstr "تم التحقق من البريد الإلكتروني"
@@ -90,6 +94,14 @@ msgstr "تم الحذف"
 #: .\models.py:57
 msgid "Language"
 msgstr "اللغة"
+
+#: .\models.py:58
+msgid "Last update at"
+msgstr "آخر تحديث في"
+
+#: .\models.py:59
+msgid "Last update by"
+msgstr "آخر تحديث من قبل"
 
 #: .\models.py:60
 msgid "Mobile phone number"
@@ -140,7 +152,7 @@ msgstr ""
 
 #: .\templates\emails\confirmation_email.html:16
 msgid "Confirm my email"
-msgstr ""
+msgstr "تأكيد بريدي الإلكتروني"
 
 #: .\templates\emails\confirmation_email.txt:6
 #, fuzzy
@@ -170,11 +182,11 @@ msgstr "بيانات اعتماد غير صالحة!"
 msgid "An error occurred when log in!"
 msgstr "حدث خطأ أثناء تسجيل الدخول!"
 
-#: .\tests.py:453 .\views.py:245
+#: .\tests.py:452 .\views.py:245
 msgid "The email: {} already exists!"
 msgstr "البريد الإلكتروني: {} موجود بالفعل!"
 
-#: .\tests.py:461 .\views.py:248
+#: .\tests.py:460 .\views.py:248
 msgid "The username: {} already exists!"
 msgstr "اسم المستخدم: {} موجود بالفعل!"
 

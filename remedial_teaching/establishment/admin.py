@@ -26,6 +26,14 @@ class CycleAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+class EstablishmentCycleInline(admin.TabularInline):
+    model = EstablishmentCycle
+    extra = 0  # Number of empty forms to display
+
+    # Define the fields to show and set in the inline form
+    fields = ('cycle', 'name', 'name_ar', 'is_active')
+
+
 class EstablishmentAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -47,6 +55,10 @@ class EstablishmentAdmin(admin.ModelAdmin):
         'phone_is_valid', 'phone_is_validated', 'phone2_is_valid', 'phone2_is_validated',
     )
     search_fields = ('name', 'name_ar', 'address', 'address_ar', 'city')
+
+    inlines = [
+        EstablishmentCycleInline,
+    ]
 
     def save_model(self, request, obj, form, change):
         if request.user:

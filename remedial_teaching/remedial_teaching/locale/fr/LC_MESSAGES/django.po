@@ -28,4 +28,3 @@ msgstr "Anglais"
 #: .\common.py:80 .\common.py:86
 msgid "French"
 msgstr "Français"
-
