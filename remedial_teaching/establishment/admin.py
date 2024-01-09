@@ -30,8 +30,8 @@ class EstablishmentAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'name', 'name_ar', 'type', 'address', 'address_ar', 'fax', 'is_active', 'is_deleted', 'logo_url',
-                'phone', 'phone2', 'email', 'city'
+                'establishment_group', 'name', 'name_ar', 'type', 'address', 'address_ar', 'fax', 'is_active',
+                'is_deleted', 'logo_url', 'phone', 'phone2', 'email', 'city'
             )
         }),
         (_('Added fields'), {
@@ -47,6 +47,27 @@ class EstablishmentAdmin(admin.ModelAdmin):
         'phone_is_valid', 'phone_is_validated', 'phone2_is_valid', 'phone2_is_validated',
     )
     search_fields = ('name', 'name_ar', 'address', 'address_ar', 'city')
+
+    def save_model(self, request, obj, form, change):
+        if request.user:
+            if not obj.id:
+                obj.created_by = request.user
+            obj.last_update_by = request.user
+        obj.last_update_at = datetime.datetime.now()
+        super().save_model(request, obj, form, change)
+
+
+class EstablishmentCycleAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                'name', 'name_ar', 'establishment', 'cycle', 'is_active'
+            )
+        }),
+    )
+    list_display = ('__str__', 'name', 'establishment', 'cycle', 'is_active', 'last_update_at', 'last_update_by')
+    list_filter = ('is_active', 'establishment', 'cycle')
+    search_fields = ('name', 'name_ar', )
 
     def save_model(self, request, obj, form, change):
         if request.user:
@@ -146,6 +167,7 @@ class ScholarYearAdmin(admin.ModelAdmin):
 
 admin.site.register(Cycle, CycleAdmin)
 admin.site.register(Establishment, EstablishmentAdmin)
+admin.site.register(EstablishmentCycle, EstablishmentCycleAdmin)
 admin.site.register(EstablishmentGroup, EstablishmentGroupAdmin)
 admin.site.register(EstablishmentUser, EstablishmentUserAdmin)
 admin.site.register(ScholarYear, ScholarYearAdmin)

@@ -58,6 +58,72 @@ class CycleModelTests(TestCase):
         transaction.set_rollback(True)
 
 
+class EstablishmentCycleModelTests(TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(EstablishmentCycleModelTests, self).__init__(*args, **kwargs)
+        self.admin = None
+        self.cycle = None
+        self.establishment = None
+        self.establishment_group = None
+
+    def setUp(self):
+        self.admin = User(username="administrator", cin='adm')
+        self.admin.save()
+        self.cycle = Cycle(created_by=self.admin, last_update_by=self.admin, name="Primaire", order=1)
+        self.cycle.save()
+        self.establishment_group = EstablishmentGroup(name="Group")
+        self.establishment_group.save()
+        self.establishment = Establishment(created_by=self.admin, establishment_group=self.establishment_group, last_update_by=self.admin, name="School1")
+        self.establishment.save()
+
+    def test___str__(self):
+        establishment_cycle = EstablishmentCycle(created_by=self.admin, cycle=self.cycle, establishment=self.establishment, last_update_by=self.admin, name="Prim")
+        establishment_cycle.save()
+        str_ = establishment_cycle.__str__()
+        self.assertEqual(str_, 'EstablishmentCycle_' + establishment_cycle.name + '_' + self.establishment.name)
+
+    def test_to_dict(self):
+        establishment_cycle1 = EstablishmentCycle(created_by=self.admin, cycle=self.cycle, establishment=self.establishment, last_update_by=self.admin, name="Prim")
+        establishment_cycle1.save()
+        object_dict = establishment_cycle1.to_dict()
+        created_at = object_dict["created_at"]
+        created_at_test = created_at - datetime.timedelta(seconds=5) <= created_at <= created_at + datetime.timedelta(seconds=5)
+        last_update_at = object_dict["last_update_at"]
+        last_update_at_test = last_update_at - datetime.timedelta(seconds=5) <= last_update_at <= last_update_at + datetime.timedelta(seconds=5)
+        self.assertEqual(len(object_dict.keys()), 10)
+        self.assertEqual(object_dict["created_by_id"], self.admin.id)
+        self.assertEqual(object_dict["cycle_id"], self.cycle.id)
+        self.assertEqual(object_dict["establishment_id"], self.establishment.id)
+        self.assertEqual(object_dict["id"], 1)
+        self.assertEqual(object_dict["last_update_by_id"], self.admin.id)
+        self.assertEqual(object_dict["name"], "Prim")
+        self.assertEqual(object_dict["name_ar"], "")
+        self.assertTrue(last_update_at_test)
+        self.assertTrue(created_at_test)
+        self.assertTrue(object_dict["is_active"])
+
+    def test_deletion_protected(self):
+        EstablishmentCycle.objects.create(created_by=self.admin, cycle=self.cycle, establishment=self.establishment, last_update_by=self.admin, name="Prim")
+        with self.assertRaises(IntegrityError) as establishment_deletion_context:
+            self.establishment.delete()
+        self.assertIn('Cannot delete some instances of model', str(establishment_deletion_context.exception))
+        self.assertIn('because they are referenced through protected foreign keys:', str(establishment_deletion_context.exception))
+        transaction.set_rollback(False)
+        with self.assertRaises(IntegrityError) as cycle_deletion_context:
+            self.cycle.delete()
+        self.assertIn('Cannot delete some instances of model', str(cycle_deletion_context.exception))
+        self.assertIn('because they are referenced through protected foreign keys:', str(cycle_deletion_context.exception))
+        transaction.set_rollback(True)
+
+    def test_unique_establishment_cycle(self):
+        EstablishmentCycle.objects.create(created_by=self.admin, cycle=self.cycle, establishment=self.establishment, last_update_by=self.admin, name="Prim")
+        with self.assertRaises(IntegrityError) as unicity_context:
+            EstablishmentCycle.objects.create(created_by=self.admin, cycle=self.cycle, establishment=self.establishment, last_update_by=self.admin, name="Prim")
+        self.assertIn('UNIQUE constraint failed', str(unicity_context.exception))
+        transaction.set_rollback(True)
+
+
 class EstablishmentModelTests(TestCase):
 
     def __init__(self, *args, **kwargs):

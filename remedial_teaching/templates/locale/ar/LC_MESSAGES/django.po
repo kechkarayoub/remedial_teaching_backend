@@ -30,3 +30,11 @@ msgstr "تغيير كلمة المرور"
 msgid "Log out"
 msgstr "تسجيل الخروج"
 
+#: admin/templates/admin/base_site.html:36
+msgid "Please correct the error below."
+msgstr "الرجاء تصحيح الخطأ أدناه."
+
+#: admin/templates/admin/base_site.html:36
+msgid "Please correct the errors below."
+msgstr "الرجاء تصحيح الاخطاء الواردة أدناه."
+

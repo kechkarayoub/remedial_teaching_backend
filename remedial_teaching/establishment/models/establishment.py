@@ -2,6 +2,7 @@
 import datetime
 import uuid
 
+from .levels_subjects import Cycle
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -185,6 +186,58 @@ class Establishment(models.Model):
             "website_url": self.website_url,
         }
         return establishment
+
+
+class EstablishmentCycle(models.Model):
+    """
+        Cycle represent the scholar cycles.
+        :attribute: created_at: DateTimeField represent the time when the object is created.
+        :attribute: created_by: ForeignKey represent the creator of the object.
+        :attribute: cycle: ForeignKey represent a cycle.
+        :attribute: establishment: ForeignKey represent an establishment.
+        :attribute: is_active: BooleanField represent if the object is active or not
+        :attribute: last_update_at: DateTimeField represent the time of last modification of object.
+        :attribute: last_update_by: ForeignKey represent the last updater of the object.
+        :attribute: name: CharField represent the name of the object
+        :attribute: name_ar: CharField represent the arabic name of the object
+    """
+    class Meta(object):
+        db_table = "remedial_teaching_establishment_cycle"
+        ordering = ["cycle__order"]
+        unique_together = ('establishment', 'cycle', )
+        verbose_name = _("Establishment-Cycle")
+        verbose_name_plural = _("Establishments-Cycles")
+
+    created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name='created_establishments_cycles', on_delete=models.SET_NULL, null=True)
+    cycle = models.ForeignKey(Cycle, related_name='my_establishments', on_delete=models.PROTECT)
+    establishment = models.ForeignKey(Establishment, related_name='my_cycles', on_delete=models.PROTECT)
+    is_active = models.BooleanField(_('Is active'), db_index=True, default=True)
+    last_update_at = models.DateTimeField(auto_now_add=True)
+    last_update_by = models.ForeignKey(User, related_name='last_modified_establishment_cycles', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(_('Name'), blank=False, default="", db_index=True, max_length=255, null=False, unique=True)
+    name_ar = models.CharField(_('Name (ar)'), blank=True, default="", max_length=255, null=True)
+
+    def __str__(self):
+        return 'EstablishmentCycle_' + self.name + '_' + self.establishment.name
+
+    def to_dict(self):
+        """
+            :return: return a representation of current instance as an object
+        """
+        cycle = {
+            "created_at": self.created_at,
+            "created_by_id": self.created_by_id,
+            "cycle_id": self.cycle_id,
+            "establishment_id": self.establishment_id,
+            "id": self.id,
+            "is_active": self.is_active,
+            "last_update_at": self.last_update_at,
+            "last_update_by_id": self.last_update_by_id,
+            "name": self.name,
+            "name_ar": self.name_ar,
+        }
+        return cycle
 
 
 class EstablishmentUser(models.Model):

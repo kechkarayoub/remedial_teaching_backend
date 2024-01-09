@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:57+0100\n"
+"POT-Creation-Date: 2024-01-09 07:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,267 +18,277 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\admin.py:37 .\admin.py:96
+#: .\admin.py:37 .\admin.py:117
 msgid "Added fields"
 msgstr "Added fields"
 
-#: .\models\establishment.py:29
+#: .\models\establishment.py:30
 msgid "Establishment group"
 msgstr "Establishment group"
 
-#: .\models\establishment.py:30
+#: .\models\establishment.py:31
 msgid "Establishments groups"
 msgstr "Establishments groups"
 
-#: .\models\establishment.py:32 .\models\establishment.py:115
-#: .\models\establishment.py:342 .\models\levels_subjects.py:31
+#: .\models\establishment.py:33 .\models\establishment.py:116
+#: .\models\establishment.py:211 .\models\establishment.py:395
+#: .\models\levels_subjects.py:31
 msgid "Created at"
 msgstr "Created at"
 
-#: .\models\establishment.py:34 .\models\establishment.py:122
-#: .\models\establishment.py:267 .\models\establishment.py:346
-#: .\models\levels_subjects.py:33
+#: .\models\establishment.py:35 .\models\establishment.py:123
+#: .\models\establishment.py:215 .\models\establishment.py:320
+#: .\models\establishment.py:399 .\models\levels_subjects.py:33
 msgid "Is active"
 msgstr "Is active"
 
-#: .\models\establishment.py:35 .\models\establishment.py:123
-#: .\models\establishment.py:268 .\models\establishment.py:348
+#: .\models\establishment.py:36 .\models\establishment.py:124
+#: .\models\establishment.py:321 .\models\establishment.py:401
 msgid "Is deleted"
 msgstr "Is deleted"
 
-#: .\models\establishment.py:38 .\models\establishment.py:126
+#: .\models\establishment.py:39 .\models\establishment.py:127
 msgid "Logo url"
 msgstr "Logo url"
 
-#: .\models\establishment.py:39 .\models\establishment.py:130
-#: .\models\establishment.py:351 .\models\levels_subjects.py:36
+#: .\models\establishment.py:40 .\models\establishment.py:131
+#: .\models\establishment.py:218 .\models\establishment.py:404
+#: .\models\levels_subjects.py:36
 msgid "Name"
 msgstr "Name"
 
-#: .\models\establishment.py:40 .\models\establishment.py:131
-#: .\models\levels_subjects.py:37
+#: .\models\establishment.py:41 .\models\establishment.py:132
+#: .\models\establishment.py:219 .\models\levels_subjects.py:37
 msgid "Name (ar)"
 msgstr "Name (ar)"
 
-#: .\models\establishment.py:99
+#: .\models\establishment.py:100
 msgid "Establishment"
 msgstr "Establishment"
 
-#: .\models\establishment.py:100
+#: .\models\establishment.py:101
 msgid "Establishments"
 msgstr "Establishments"
 
-#: .\models\establishment.py:104 .\models\establishment.py:108 .\tests.py:116
-#: .\tests.py:130 .\tests.py:131
+#: .\models\establishment.py:105 .\models\establishment.py:109 .\tests.py:182
+#: .\tests.py:196 .\tests.py:197
 msgid "School"
 msgstr "School"
 
-#: .\models\establishment.py:105 .\models\establishment.py:109
-#: .\models\establishment.py:233 .\models\establishment.py:241 .\tests.py:132
+#: .\models\establishment.py:106 .\models\establishment.py:110
+#: .\models\establishment.py:286 .\models\establishment.py:294 .\tests.py:198
 msgid "Other"
 msgstr "Other"
 
-#: .\models\establishment.py:112 .\models\establishment.py:252
+#: .\models\establishment.py:113 .\models\establishment.py:305
 msgid "Address"
 msgstr "Address"
 
-#: .\models\establishment.py:113
+#: .\models\establishment.py:114
 msgid "Address (ar)"
 msgstr "Address (ar)"
 
-#: .\models\establishment.py:114
+#: .\models\establishment.py:115
 msgid "City"
 msgstr "City"
 
-#: .\models\establishment.py:117 .\models\establishment.py:259
+#: .\models\establishment.py:118 .\models\establishment.py:312
 msgid "Email"
 msgstr "Email"
 
-#: .\models\establishment.py:119
+#: .\models\establishment.py:120
 msgid "Fax"
 msgstr "Fax"
 
-#: .\models\establishment.py:120
+#: .\models\establishment.py:121
 msgid "Fax is valid"
 msgstr "Fax is valid"
 
-#: .\models\establishment.py:121
+#: .\models\establishment.py:122
 msgid "Fax is validated"
 msgstr "Fax is validated"
 
-#: .\models\establishment.py:127
+#: .\models\establishment.py:128
 msgid "Mobile phone"
 msgstr "Mobile phone"
 
-#: .\models\establishment.py:128 .\models\establishment.py:275
+#: .\models\establishment.py:129 .\models\establishment.py:328
 msgid "Mobile phone is valid"
 msgstr "Mobile phone is valid"
 
-#: .\models\establishment.py:129
+#: .\models\establishment.py:130
 msgid "Mobile phone is validated"
 msgstr "Mobile phone is validated"
 
-#: .\models\establishment.py:132
+#: .\models\establishment.py:133
 msgid "Phone number"
 msgstr "Phone number"
 
-#: .\models\establishment.py:133
+#: .\models\establishment.py:134
 msgid "Phone is valid"
 msgstr "Phone is valid"
 
-#: .\models\establishment.py:134
+#: .\models\establishment.py:135
 msgid "Phone is validated"
 msgstr "Phone is validated"
 
-#: .\models\establishment.py:135
+#: .\models\establishment.py:136
 msgid "Phone2 number"
 msgstr "Phone2 number"
 
-#: .\models\establishment.py:136
+#: .\models\establishment.py:137
 msgid "Phone2 is valid"
 msgstr "Phone2 is valid"
 
-#: .\models\establishment.py:137
+#: .\models\establishment.py:138
 msgid "Phone2 is validated"
 msgstr "Phone2 is validated"
 
-#: .\models\establishment.py:138
+#: .\models\establishment.py:139
 msgid "Type"
 msgstr "Type"
 
-#: .\models\establishment.py:139
+#: .\models\establishment.py:140
 msgid "Website url"
 msgstr "Website url"
 
-#: .\models\establishment.py:223
+#: .\models\establishment.py:208
+msgid "Establishment-Cycle"
+msgstr "Establishment-Cycle"
+
+#: .\models\establishment.py:209
+msgid "Establishments-Cycles"
+msgstr "Establishments-Cycles"
+
+#: .\models\establishment.py:276
 msgid "Establishment user relationship"
 msgstr "Establishment user relationship"
 
-#: .\models\establishment.py:224
+#: .\models\establishment.py:277
 msgid "Establishment user relationships"
 msgstr "Establishment user relationships"
 
-#: .\models\establishment.py:228 .\models\establishment.py:236
+#: .\models\establishment.py:281 .\models\establishment.py:289
 msgid "Administrator"
 msgstr "Administrator"
 
-#: .\models\establishment.py:229 .\models\establishment.py:237
+#: .\models\establishment.py:282 .\models\establishment.py:290
 msgid "Assistant"
 msgstr "Assistant"
 
-#: .\models\establishment.py:230 .\models\establishment.py:238
+#: .\models\establishment.py:283 .\models\establishment.py:291
 msgid "Director"
 msgstr "Director"
 
-#: .\models\establishment.py:231 .\models\establishment.py:239
+#: .\models\establishment.py:284 .\models\establishment.py:292
 msgid "Parent"
 msgstr "Parent"
 
-#: .\models\establishment.py:232 .\models\establishment.py:240
+#: .\models\establishment.py:285 .\models\establishment.py:293
 msgid "Student"
 msgstr "Student"
 
-#: .\models\establishment.py:244
+#: .\models\establishment.py:297
 msgid "Select"
 msgstr "Select"
 
-#: .\models\establishment.py:245
+#: .\models\establishment.py:298
 msgid "Female"
 msgstr "Female"
 
-#: .\models\establishment.py:246
+#: .\models\establishment.py:299
 msgid "Male"
 msgstr "Male"
 
-#: .\models\establishment.py:249
+#: .\models\establishment.py:302
 msgid "Account type"
 msgstr "Account type"
 
-#: .\models\establishment.py:253
+#: .\models\establishment.py:306
 msgid "Birthday"
 msgstr "Birthday"
 
-#: .\models\establishment.py:254
+#: .\models\establishment.py:307
 msgid "CIN"
 msgstr "CIN"
 
-#: .\models\establishment.py:255
+#: .\models\establishment.py:308
 msgid "Country code"
 msgstr "Country code"
 
-#: .\models\establishment.py:256
+#: .\models\establishment.py:309
 msgid "Country name"
 msgstr "Country name"
 
-#: .\models\establishment.py:260
+#: .\models\establishment.py:313
 msgid "Email is accepted"
 msgstr "Email is accepted"
 
-#: .\models\establishment.py:262
+#: .\models\establishment.py:315
 msgid "First name"
 msgstr "First name"
 
-#: .\models\establishment.py:263
+#: .\models\establishment.py:316
 msgid "Gender"
 msgstr "Gender"
 
-#: .\models\establishment.py:264
+#: .\models\establishment.py:317
 msgid "Image url"
 msgstr "Image url"
 
-#: .\models\establishment.py:265
+#: .\models\establishment.py:318
 msgid "Initials background color"
 msgstr "Initials background color"
 
-#: .\models\establishment.py:266
+#: .\models\establishment.py:319
 msgid "Is accepted"
 msgstr "Is accepted"
 
-#: .\models\establishment.py:269
+#: .\models\establishment.py:322
 msgid "Last name"
 msgstr "Last name"
 
-#: .\models\establishment.py:272
+#: .\models\establishment.py:325
 msgid "Massar code"
 msgstr "Massar code"
 
-#: .\models\establishment.py:273
+#: .\models\establishment.py:326
 msgid "Mobile phone number"
 msgstr "Mobile phone number"
 
-#: .\models\establishment.py:274
+#: .\models\establishment.py:327
 msgid "Mobile phone is accepted"
 msgstr "Mobile phone is accepted"
 
-#: .\models\establishment.py:339
+#: .\models\establishment.py:392
 msgid "Scholar year"
 msgstr "Scholar year"
 
-#: .\models\establishment.py:340
+#: .\models\establishment.py:393
 msgid "Scholar years"
 msgstr "Scholar years"
 
-#: .\models\establishment.py:344
+#: .\models\establishment.py:397
 msgid "Date end"
 msgstr "Date end"
 
-#: .\models\establishment.py:345
+#: .\models\establishment.py:398
 msgid "Date start"
 msgstr "Date start"
 
-#: .\models\establishment.py:347
+#: .\models\establishment.py:400
 msgid "Is current"
 msgstr "Is current"
 
-#: .\models\establishment.py:352 .\models\levels_subjects.py:38
+#: .\models\establishment.py:405 .\models\levels_subjects.py:38
 msgid "Order"
 msgstr "Order"
 
-#: .\models\establishment.py:353
+#: .\models\establishment.py:406
 msgid "Short name"
 msgstr "Short name"
 
-#: .\models\establishment.py:354
+#: .\models\establishment.py:407
 msgid "Start year"
 msgstr "Start year"
 
